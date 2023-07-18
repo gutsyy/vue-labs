@@ -20,7 +20,7 @@
       >
         <NumberBoxProxy
           :value="formData[itemConf.dataField]"
-          :onValueChanged="onValueChangedEventMap[itemConf.dataField]"
+          :on-value-changed="onValueChangedEventMap[itemConf.dataField]"
           v-bind="(isRef(itemConf.options) ? itemConf.options.value : itemConf.options as OptionsByFormType['date'])"
         ></NumberBoxProxy>
       </div>
@@ -32,7 +32,7 @@
         <SelectBoxProxy
           :value="formData[itemConf.dataField]"
           :data-source="itemsRepo[itemConf.dataField]"
-          :onSelectionChanged="onSelectionChangedEventMap[itemConf.dataField]"
+          :on-selection-changed="onSelectionChangedEventMap[itemConf.dataField]"
           v-bind="(itemConf.options as OptionsByFormType['select'])"
         ></SelectBoxProxy>
       </div>
@@ -43,9 +43,21 @@
       >
         <DateBoxProxy
           :value="formData[itemConf.dataField]"
-          :onValueChanged="onValueChangedEventMap[itemConf.dataField]"
+          :on-value-changed="onValueChangedEventMap[itemConf.dataField]"
           v-bind="(isRef(itemConf.options) ? itemConf.options.value : itemConf.options as OptionsByFormType['date'])"
         ></DateBoxProxy>
+      </div>
+      <div
+        v-else-if="itemConf.type === 'tag'"
+        :class="`col-span-${itemConf.colSpan ?? 2}`"
+        v-bind:key="`tag-box-${index}`"
+      >
+        <TagBoxProxy
+          :value="formData[itemConf.dataField]"
+          :data-source="itemsRepo[itemConf.dataField]"
+          :on-selection-changed="onSelectionChangedEventMap[itemConf.dataField]"
+          v-bind="(itemConf.options as OptionsByFormType['tag'])"
+        ></TagBoxProxy>
       </div>
     </template>
     <div :class="`flex justify-end col-span-${props.colSpan} pt-2`">
@@ -62,10 +74,13 @@ import DateBoxProxy from './proxy/date-box-proxy.vue'
 import NumberBoxProxy from './proxy/number-box-proxy.vue'
 import SelectBoxProxy from './proxy/select-box-proxy.vue'
 import TextBoxProxy from './proxy/text-box-proxy.vue'
+import TagBoxProxy from './proxy/tag-box-proxy.vue'
 import { onMounted, ref, watch, computed, isRef } from 'vue'
 import type { SelectionChangedEvent } from 'devextreme/ui/select_box'
+import type { SelectionChangedEvent as TagSelectionChangedEvent } from 'devextreme/ui/tag_box'
 import { createArrayStore } from '@/utils/data-layer'
 import { DxButton } from 'devextreme-vue'
+import { calCurrItems } from './utils'
 
 const props = withDefaults(
   defineProps<{
@@ -87,40 +102,30 @@ onMounted(() => {
       if (Array.isArray(itemConf.items)) {
         itemsRepo.value[itemConf.dataField] = itemConf.items
       } else {
-        const [fn, dependencies] = itemConf.items()
-        fn(
-          dependencies.reduce<Record<string, any>>((prev, curr) => {
-            return { ...prev, [curr]: props.formData[curr] }
-          }, {})
-        ).then((data) => {
-          if (Array.isArray(data)) {
-            itemsRepo.value[itemConf.dataField] =
-              itemConf.options && (itemConf.options as OptionsByFormType['select']).valueExpr
-                ? createArrayStore(
-                    (itemConf.options as OptionsByFormType['select']).valueExpr,
-                    data
-                  )
-                : data
-          }
-        })
+        const [asyncGetData, dependencies] = itemConf.items()
+        const setDataSource = () =>
+          asyncGetData(
+            dependencies.reduce<Record<string, any>>((prev, curr) => {
+              return { ...prev, [curr]: props.formData[curr] }
+            }, {})
+          ).then((data) => {
+            if (Array.isArray(data)) {
+              itemsRepo.value[itemConf.dataField] =
+                itemConf.options && (itemConf.options as OptionsByFormType['select']).valueExpr
+                  ? createArrayStore(
+                      (itemConf.options as OptionsByFormType['select']).valueExpr,
+                      data
+                    )
+                  : data
+            }
+          })
+        setDataSource()
+
+        // 创建watch监听器
         dependencies.forEach((d) => {
           const dependency = computed(() => props.formData[d])
           watch(dependency, () => {
-            fn(
-              dependencies.reduce<Record<string, any>>((prev, curr) => {
-                return { ...prev, [curr]: props.formData[curr] }
-              }, {})
-            ).then((data) => {
-              if (Array.isArray(data)) {
-                itemsRepo.value[itemConf.dataField] =
-                  itemConf.options && (itemConf.options as OptionsByFormType['select']).valueExpr
-                    ? createArrayStore(
-                        (itemConf.options as OptionsByFormType['select']).valueExpr,
-                        data
-                      )
-                    : data
-              }
-            })
+            setDataSource()
           })
         })
       }
@@ -150,20 +155,48 @@ const onValueChangedEventMap = props.itemsConfs.reduce<
 }, {})
 
 // 双向绑定
-const onSelectionChangedEventMap = props.itemsConfs.reduce<
-  Record<string, (e: SelectionChangedEvent) => void>
->((prev, curr) => {
-  return {
-    ...prev,
-    [curr.dataField]: (e: SelectionChangedEvent) => {
-      emit('update:formData', { ...props.formData, [curr.dataField]: e.selectedItem })
-      // 使用settimeout防止修改formData.value时，被忽略的问题，具体原因暂未知
-      setTimeout(() => {
-        if (curr.onValueChanged && e.selectedItem) {
-          curr.onValueChanged(e.selectedItem)
+const onSelectionChangedEventMap = props.itemsConfs.reduce<Record<string, (e: any) => void>>(
+  (prev, curr) => {
+    if (['select'].includes(curr.type)) {
+      return {
+        ...prev,
+        [curr.dataField]: (e: SelectionChangedEvent) => {
+          emit('update:formData', { ...props.formData, [curr.dataField]: e.selectedItem })
+          // 使用settimeout防止修改formData.value时，被忽略的问题，具体原因暂未知
+          setTimeout(() => {
+            if (curr.onValueChanged && e.selectedItem) {
+              curr.onValueChanged(e.selectedItem)
+            }
+          })
         }
-      })
+      }
     }
-  }
-}, {})
+    if (curr.type === 'tag') {
+      return {
+        ...prev,
+        [curr.dataField]: (e: TagSelectionChangedEvent) => {
+          const selectedItem = calCurrItems(
+            props.formData[curr.dataField],
+            e.addedItems,
+            e.removedItems,
+            `${e.component.option('valueExpr')}` === 'this'
+              ? ''
+              : (e.component.option('valueExpr') as string)
+          )
+          emit('update:formData', {
+            ...props.formData,
+            [curr.dataField]: selectedItem
+          })
+          setTimeout(() => {
+            if (curr.onValueChanged && selectedItem) {
+              curr.onValueChanged(selectedItem)
+            }
+          })
+        }
+      }
+    }
+    return { ...prev }
+  },
+  {}
+)
 </script>

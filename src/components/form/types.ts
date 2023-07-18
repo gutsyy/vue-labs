@@ -2,9 +2,10 @@ import type { Properties as TextOptions } from 'devextreme/ui/text_box'
 import type { Properties as NumberOptions } from 'devextreme/ui/number_box'
 import type { Properties as SelectOptions } from 'devextreme/ui/select_box'
 import type { Properties as DateOptions } from 'devextreme/ui/date_box'
+import type { Properties as TagBoxOptions } from 'devextreme/ui/tag_box'
 import type { ComputedRef, Ref } from 'vue'
 
-type FormTypes = 'date' | 'number' | 'select' | 'text' | 'slot'
+type FormTypes = 'date' | 'number' | 'select' | 'text' | 'slot' | 'tag'
 
 interface SelectOptionsCorrect extends SelectOptions {
   valueExpr: string
@@ -15,6 +16,7 @@ export type OptionsByFormType = {
   select: SelectOptionsCorrect
   text: TextOptions | ComputedRef<TextOptions> | Ref<TextOptions>
   number: NumberOptions | ComputedRef<NumberOptions> | Ref<NumberOptions>
+  tag: TagBoxOptions
 }
 
 type GetAsyncItems = () => readonly [(...args: any[]) => Promise<unknown>, string[]]
@@ -46,7 +48,7 @@ type FormItemConf<T, D = string> = {
   // 当值变化时的回调函数
   onValueChanged?: (value: any) => void
 } & (T extends 'slot' ? { slotName: string } : { slotName?: undefined }) &
-  (T extends 'select' ? { items: Array<any> | GetAsyncItems } : { items?: undefined })
+  (T extends 'select' | 'tag' ? { items: Array<any> | GetAsyncItems } : { items?: undefined })
 
 /** 可以使用元组来进一步约束类型
  * 示例：FormItemsConfs<['text', 'date']> */

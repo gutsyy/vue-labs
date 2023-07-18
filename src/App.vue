@@ -3,7 +3,8 @@ import { DxButton } from 'devextreme-vue'
 import FormContainer from './components/form/form-container.vue'
 import type { FormItemsConfs } from './components/form/types'
 import { getAsyncItems } from './components/form/types'
-import { computed, ref } from 'vue'
+import { computed, ref, isProxy, toRaw } from 'vue'
+import { appendFile } from 'fs'
 
 const returnPromise = (value: any) =>
   new Promise((resolve) => {
@@ -24,6 +25,12 @@ const getInterestData = (data: Partial<typeof formData.value>) => {
 
   return returnPromise([])
 }
+
+const getRolesData = () =>
+  returnPromise([
+    { name: 'admin', id: 0 },
+    { name: 'user', id: 1 }
+  ])
 
 const getDepartmentData = () => {
   return new Promise((resolve) => {
@@ -47,11 +54,12 @@ const formData = ref({
   leftDay: '2023-07-16',
   midDay: '',
   rightDay: '2023-07-20',
-  age: 26
+  age: 26,
+  role: [0]
 })
 
 const formItemsConfs: FormItemsConfs<
-  ['text', 'text', 'select', 'select', 'select', 'text', 'text', 'date', 'number'],
+  ['text', 'text', 'select', 'select', 'select', 'text', 'text', 'date', 'number', 'tag'],
   keyof typeof formData.value
 > = [
   {
@@ -117,29 +125,50 @@ const formItemsConfs: FormItemsConfs<
     type: 'number',
     colSpan: 1,
     dataField: 'age'
+  },
+  {
+    label: '',
+    type: 'tag',
+    dataField: 'role',
+    // items: ['user', 'admin']
+    items: getAsyncItems(getRolesData),
+    options: {
+      displayExpr: 'name',
+      valueExpr: 'id'
+    }
   }
 ]
-
-const printf = function () {
-  console.log(formData.value)
-}
 
 const onSetFormData = () => {
   formData.value.department = 1
   formData.value.age = 27
+  formData.value.role = [1]
 }
 
 const printObj = (value: any) => {
-  return Object.entries(value).reduce<string>((prev, data) => {
-    return prev + `${data[0]}: ${data[1]}, `
-  }, '')
+  if (value) {
+    const printStr = Object.entries(value).reduce<string>((prev, data, index) => {
+      return (
+        prev + `${data[0]}: ${data[1]}${index !== Object.entries(value).length - 1 ? ', ' : ''}`
+      )
+    }, '')
+    return `{ ${printStr} }`
+  }
+  return ''
+}
+
+const printArr = (value: any[]) => {
+  const printStr = value.map((ele) => `${typeof ele === 'object' ? printObj(ele) : ele}`)
+  return `[${printStr}]`
 }
 
 const formDataPrintArr = computed(() => {
   return Object.entries(formData.value).map((data) => {
-    return `${data[0]}: ${
-      typeof data[1] === 'object' && !Array.isArray(data[1]) ? printObj(data[1]) : data[1]
-    }`
+    const raw = isProxy(data[1]) ? toRaw(data[1]) : data[1]
+    if (Array.isArray(raw)) {
+      return `${data[0]}: ${printArr(raw)}`
+    }
+    return `${data[0]}: ${typeof data[1] === 'object' ? printObj(raw) : raw}`
   })
 })
 </script>
