@@ -57,7 +57,10 @@ const formItemsConfs: FormItemsConfs<
   {
     label: '姓名',
     type: 'text',
-    dataField: 'firstName'
+    dataField: 'firstName',
+    options: {
+      disabled: true
+    }
   },
   {
     label: '',
@@ -146,7 +149,7 @@ const formDataPrintArr = computed(() => {
     <div>
       <FormContainer v-model:form-data="formData" :items-confs="formItemsConfs" />
       <div class="mt-4 flex justify-center">
-        <DxButton @click="printf">测试按钮</DxButton>
+        <DxButton @click="onSetFormData">测试按钮</DxButton>
       </div>
       <div class="mt-4 flex flex-col items-center">
         <div class="p-1 font-mono" v-for="(data, index) in formDataPrintArr" v-bind:key="index">
