@@ -175,10 +175,9 @@ const genTagBoxSelectionChanged = function (itemConf: FormItemConf<'tag'>) {
       e.removedItems.map((item) => (isProxy(item) ? toRaw(item) : item)),
       itemConf.options && itemConf.options.valueExpr ? (itemConf.options.valueExpr as string) : ''
     )
-    // 双向绑定
     emit('update:formData', { ...props.formData, [itemConf.dataField]: allSelectedItem })
     if (itemConf.onValueChanged && allSelectedItem) {
-      setTimeout(() => itemConf.onValueChanged!(toRaw(allSelectedItem)))
+      setTimeout(() => itemConf.onValueChanged!(toRaw(allSelectedItem.map((ele) => toRaw(ele)))))
     }
   }
 }
