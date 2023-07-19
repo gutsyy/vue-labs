@@ -32,7 +32,7 @@
         <SelectBoxProxy
           :value="formData[itemConf.dataField]"
           :data-source="itemsRepo[itemConf.dataField]"
-          :on-selection-changed="onSelectionChangedEventMap[itemConf.dataField]"
+          :on-selection-changed="onValueChangedEventMap[itemConf.dataField]"
           v-bind="(itemConf.options as OptionsByFormType['select'])"
         ></SelectBoxProxy>
       </div>
@@ -55,7 +55,7 @@
         <TagBoxProxy
           :value="formData[itemConf.dataField]"
           :data-source="itemsRepo[itemConf.dataField]"
-          :on-selection-changed="onSelectionChangedEventMap[itemConf.dataField]"
+          :on-selection-changed="onValueChangedEventMap[itemConf.dataField]"
           v-bind="(itemConf.options as OptionsByFormType['tag'])"
         ></TagBoxProxy>
       </div>
@@ -69,7 +69,7 @@
 
 <script lang="ts" setup>
 import type { ValueChangedEvent } from 'devextreme/ui/text_box'
-import type { FormItemsConfs, OptionsByFormType, FormItemConf } from './types'
+import type { FormItemsConfs, OptionsByFormType, FormItemConf, FormTypes } from './types'
 import DateBoxProxy from './proxy/date-box-proxy.vue'
 import NumberBoxProxy from './proxy/number-box-proxy.vue'
 import SelectBoxProxy from './proxy/select-box-proxy.vue'
@@ -136,24 +136,6 @@ onMounted(() => {
 // 双向绑定
 const emit = defineEmits(['update:formData'])
 
-// 双向绑定，创建一个事件Map，防止函数动态创建导致异常刷新
-const onValueChangedEventMap = props.itemsConfs.reduce<
-  Record<string, (e: ValueChangedEvent) => void>
->((prev, curr) => {
-  return {
-    ...prev,
-    [curr.dataField]: (e: ValueChangedEvent) => {
-      emit('update:formData', { ...props.formData, [curr.dataField]: e.value })
-      // 使用settimeout防止修改formData.value时，被忽略的问题，具体原因暂未知
-      setTimeout(() => {
-        if (curr.onValueChanged) {
-          curr.onValueChanged(e.value)
-        }
-      })
-    }
-  }
-}, {})
-
 // selectBox 选择时的事件函数，此处是生成事件函数
 const genSelectBoxSelectionChanged = function (itemConf: FormItemConf<'select'>) {
   return (e: SelectionChangedEvent) => {
@@ -182,22 +164,39 @@ const genTagBoxSelectionChanged = function (itemConf: FormItemConf<'tag'>) {
   }
 }
 
+// 普通input的值改变事件
+const genInputValueChanged = function (itemConf: (typeof props.itemsConfs)[0]) {
+  return (e: ValueChangedEvent) => {
+    emit('update:formData', { ...props.formData, [itemConf.dataField]: e.value })
+    // 使用settimeout防止修改formData.value时，被忽略的问题，具体原因暂未知
+    setTimeout(() => {
+      if (itemConf.onValueChanged) {
+        itemConf.onValueChanged(e.value)
+      }
+    })
+  }
+}
+
+// 生成事件 Map
+const genOnValueChangedEventMap = new Map<Array<FormTypes>, (itemConf: any) => (e: any) => void>()
+
+genOnValueChangedEventMap.set(['select'], genSelectBoxSelectionChanged)
+genOnValueChangedEventMap.set(['tag'], genTagBoxSelectionChanged)
+
+// 根据type查询生成事件
+const getValueChangedEventFromMap = (type: FormTypes) => {
+  for (const key of Array.from(genOnValueChangedEventMap.keys())) {
+    if (key.includes(type)) {
+      return genOnValueChangedEventMap.get(key) ?? genInputValueChanged
+    }
+  }
+  return genInputValueChanged
+}
+
 // 双向绑定，创建一个map来存储事件函数，类似于callback，防止动态创建导致异常刷新
-const onSelectionChangedEventMap = props.itemsConfs.reduce<Record<string, (e: any) => void>>(
+const onValueChangedEventMap = props.itemsConfs.reduce<Record<string, (e: any) => void>>(
   (prev, curr) => {
-    if (['select'].includes(curr.type)) {
-      return {
-        ...prev,
-        [curr.dataField]: genSelectBoxSelectionChanged(curr as FormItemConf<'select'>)
-      }
-    }
-    if (curr.type === 'tag') {
-      return {
-        ...prev,
-        [curr.dataField]: genTagBoxSelectionChanged(curr as FormItemConf<'tag'>)
-      }
-    }
-    return { ...prev }
+    return { ...prev, [curr.dataField]: getValueChangedEventFromMap(curr.type)(curr) }
   },
   {}
 )

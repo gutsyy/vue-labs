@@ -5,7 +5,7 @@ import type { Properties as DateOptions } from 'devextreme/ui/date_box'
 import type { Properties as TagBoxOptions } from 'devextreme/ui/tag_box'
 import type { ComputedRef, Ref } from 'vue'
 
-type FormTypes = 'date' | 'number' | 'select' | 'text' | 'slot' | 'tag'
+export type FormTypes = 'date' | 'number' | 'select' | 'text' | 'slot' | 'tag'
 
 interface SelectOptionsCorrect extends SelectOptions {
   valueExpr: string

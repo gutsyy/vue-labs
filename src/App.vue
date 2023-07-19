@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { DxButton } from 'devextreme-vue'
-import FormContainer from './components/form/form-container.vue'
+import FormContainer from './components/form/form-ultra.vue'
 import type { FormItemsConfs } from './components/form/types'
 import { getAsyncItems } from './components/form/types'
 import { computed, ref, isProxy, toRaw } from 'vue'
