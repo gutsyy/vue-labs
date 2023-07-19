@@ -1,4 +1,4 @@
-import { isProxy, toRaw } from 'vue'
+import { toRaw } from 'vue'
 
 // 用来tagBox的添加item和删除item
 export function calCurrItems(
@@ -10,8 +10,8 @@ export function calCurrItems(
   let _arr: any[] = arr
   // 处理addItems
   if (addItems.length) {
-    if (arr.length && typeof toRaw(arr[0]) !== typeof toRaw(addItems[0])) {
-      _arr = [...addItems.map((ele) => (isProxy(ele) ? toRaw(ele) : ele))]
+    if (_arr.length && typeof toRaw(arr[0]) !== typeof addItems[0]) {
+      _arr = [...addItems]
     } else {
       const valueArr = valueExpr ? _arr.map((ele) => ele[valueExpr]) : _arr
       addItems.forEach((ele) => {

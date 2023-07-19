@@ -69,13 +69,13 @@
 
 <script lang="ts" setup>
 import type { ValueChangedEvent } from 'devextreme/ui/text_box'
-import type { FormItemsConfs, OptionsByFormType } from './types'
+import type { FormItemsConfs, OptionsByFormType, FormItemConf } from './types'
 import DateBoxProxy from './proxy/date-box-proxy.vue'
 import NumberBoxProxy from './proxy/number-box-proxy.vue'
 import SelectBoxProxy from './proxy/select-box-proxy.vue'
 import TextBoxProxy from './proxy/text-box-proxy.vue'
 import TagBoxProxy from './proxy/tag-box-proxy.vue'
-import { onMounted, ref, watch, computed, isRef } from 'vue'
+import { onMounted, ref, watch, computed, isRef, toRaw, isProxy } from 'vue'
 import type { SelectionChangedEvent } from 'devextreme/ui/select_box'
 import type { SelectionChangedEvent as TagSelectionChangedEvent } from 'devextreme/ui/tag_box'
 import { createArrayStore } from '@/utils/data-layer'
@@ -136,7 +136,7 @@ onMounted(() => {
 // 双向绑定
 const emit = defineEmits(['update:formData'])
 
-// 双向绑定
+// 双向绑定，创建一个事件Map，防止函数动态创建导致异常刷新
 const onValueChangedEventMap = props.itemsConfs.reduce<
   Record<string, (e: ValueChangedEvent) => void>
 >((prev, curr) => {
@@ -154,45 +154,48 @@ const onValueChangedEventMap = props.itemsConfs.reduce<
   }
 }, {})
 
-// 双向绑定
+// selectBox 选择时的事件函数，此处是生成事件函数
+const genSelectBoxSelectionChanged = function (itemConf: FormItemConf<'select'>) {
+  return (e: SelectionChangedEvent) => {
+    emit('update:formData', { ...props.formData, [itemConf.dataField]: e.selectedItem })
+    if (itemConf.onValueChanged && e.selectedItem) {
+      setTimeout(() => itemConf.onValueChanged!(e.selectedItem))
+    }
+  }
+}
+
+// tagBox 选择时的事件函数，此处是生成事件函数
+const genTagBoxSelectionChanged = function (itemConf: FormItemConf<'tag'>) {
+  return (e: TagSelectionChangedEvent) => {
+    // 由于dev只传递addedItems和removedItems，而不会返回当前选中的所有items，因此通过calCurrItems来进行计算
+    const allSelectedItem = calCurrItems(
+      props.formData[itemConf.dataField],
+      // dev中返回的选择对象是proxy，此处进行toRaw操作，解除proxy
+      e.addedItems.map((item) => (isProxy(item) ? toRaw(item) : item)),
+      e.removedItems.map((item) => (isProxy(item) ? toRaw(item) : item)),
+      itemConf.options && itemConf.options.valueExpr ? (itemConf.options.valueExpr as string) : ''
+    )
+    // 双向绑定
+    emit('update:formData', { ...props.formData, [itemConf.dataField]: allSelectedItem })
+    if (itemConf.onValueChanged && allSelectedItem) {
+      setTimeout(() => itemConf.onValueChanged!(toRaw(allSelectedItem)))
+    }
+  }
+}
+
+// 双向绑定，创建一个map来存储事件函数，类似于callback，防止动态创建导致异常刷新
 const onSelectionChangedEventMap = props.itemsConfs.reduce<Record<string, (e: any) => void>>(
   (prev, curr) => {
     if (['select'].includes(curr.type)) {
       return {
         ...prev,
-        [curr.dataField]: (e: SelectionChangedEvent) => {
-          emit('update:formData', { ...props.formData, [curr.dataField]: e.selectedItem })
-          // 使用settimeout防止修改formData.value时，被忽略的问题，具体原因暂未知
-          setTimeout(() => {
-            if (curr.onValueChanged && e.selectedItem) {
-              curr.onValueChanged(e.selectedItem)
-            }
-          })
-        }
+        [curr.dataField]: genSelectBoxSelectionChanged(curr as FormItemConf<'select'>)
       }
     }
     if (curr.type === 'tag') {
       return {
         ...prev,
-        [curr.dataField]: (e: TagSelectionChangedEvent) => {
-          const selectedItem = calCurrItems(
-            props.formData[curr.dataField],
-            e.addedItems,
-            e.removedItems,
-            `${e.component.option('valueExpr')}` === 'this'
-              ? ''
-              : (e.component.option('valueExpr') as string)
-          )
-          emit('update:formData', {
-            ...props.formData,
-            [curr.dataField]: selectedItem
-          })
-          setTimeout(() => {
-            if (curr.onValueChanged && selectedItem) {
-              curr.onValueChanged(selectedItem)
-            }
-          })
-        }
+        [curr.dataField]: genTagBoxSelectionChanged(curr as FormItemConf<'tag'>)
       }
     }
     return { ...prev }

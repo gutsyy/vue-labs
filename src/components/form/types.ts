@@ -35,7 +35,7 @@ export function getFormItemByDataField<F extends FormItemsConfs<T>, T extends Fo
   return formItems.filter((items) => items.dataField === dataField)
 }
 
-type FormItemConf<T, D = string> = {
+export type FormItemConf<T extends FormTypes, D = string> = {
   label: string
   colSpan?: 1 | 2 | 3 | 4 | 6 | 12
   dataField: D
