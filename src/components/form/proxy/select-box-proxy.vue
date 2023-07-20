@@ -1,15 +1,19 @@
 <template>
-  <DxSelectBox v-bind="noUndefinedProps" :value="computedValue"></DxSelectBox>
+  <DxSelectBox
+    v-bind="noUndefinedProps"
+    :value="computedValue"
+    :on-selection-changed="onSelectionChanged"
+  ></DxSelectBox>
 </template>
 
 <script setup lang="ts">
 import { removeUndefinedProps } from '@/utils/removeUndefinedProps'
 import { DxSelectBox } from 'devextreme-vue/select-box'
-import type { Properties } from 'devextreme/ui/select_box'
+import type { Properties, SelectionChangedEvent } from 'devextreme/ui/select_box'
 import { computed } from 'vue'
 
 interface Props extends Properties {
-  onSelectionChanged: (e: any) => void
+  onBoxValueChanged?: (value: any) => void
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -45,4 +49,13 @@ const computedValue = computed(() => {
 })
 
 const noUndefinedProps = removeUndefinedProps(props)
+
+const onSelectionChanged = (e: SelectionChangedEvent) => {
+  if (props.onBoxValueChanged) {
+    props.onBoxValueChanged(e.selectedItem)
+  }
+  if (props.onSelectionChanged) {
+    props.onSelectionChanged(e)
+  }
+}
 </script>

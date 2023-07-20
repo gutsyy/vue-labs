@@ -1,15 +1,43 @@
+<template>
+  <main>
+    <div>
+      <form class="flex flex-col gap-2 m-4">
+        <TextBoxProxy v-bind="form.getFormOptions('name')"></TextBoxProxy>
+        <TagBoxProxy v-bind="form.getFormOptions('role')"></TagBoxProxy>
+        <SelectBoxProxy v-bind="form.getFormOptions('gender')"></SelectBoxProxy>
+        <SelectBoxProxy v-bind="form.getFormOptions('interest')"></SelectBoxProxy>
+        <SelectBoxProxy v-bind="form.getFormOptions('department')"></SelectBoxProxy>
+        <TextBoxProxy v-bind="form.getFormOptions('ddl')"></TextBoxProxy>
+        <DateBoxProxy v-bind="form.getFormOptions('date')" :max="form.value.ddl"></DateBoxProxy>
+      </form>
+      <div class="mt-4 flex justify-center">
+        <DxButton @click="onSetFormData">测试按钮</DxButton>
+      </div>
+      <div class="mt-4 flex flex-col items-center">
+        <div class="p-1 font-mono" v-for="(data, index) in formDataPrintArr" v-bind:key="index">
+          {{ data }}
+        </div>
+      </div>
+    </div>
+  </main>
+</template>
+
 <script setup lang="ts">
 import { DxButton } from 'devextreme-vue'
-import FormContainer from './components/form/form-ultra.vue'
-import type { FormItemsConfs } from './components/form/types'
-import { getAsyncItems } from './components/form/types'
-import { computed, ref, isProxy, toRaw } from 'vue'
-import { appendFile } from 'fs'
+import { computed, isProxy, toRaw } from 'vue'
+import { useForm } from './components/form/hooks/useForm'
+import { TextBoxProxy, TagBoxProxy, SelectBoxProxy, DateBoxProxy } from './components/form/proxy'
 
 const returnPromise = (value: any) =>
   new Promise((resolve) => {
     setTimeout(() => resolve(value), 300)
   })
+
+const getRolesData = () =>
+  returnPromise([
+    { name: 'admin', id: 0 },
+    { name: 'user', id: 1 }
+  ])
 
 const getData = () => {
   return new Promise((resolve) => {
@@ -17,7 +45,7 @@ const getData = () => {
   })
 }
 
-const getInterestData = (data: Partial<typeof formData.value>) => {
+const getInterestData = (data: any) => {
   const { gender } = data
   if (gender === 'man') {
     return returnPromise(['esport', 'basketball'])
@@ -25,12 +53,6 @@ const getInterestData = (data: Partial<typeof formData.value>) => {
 
   return returnPromise([])
 }
-
-const getRolesData = () =>
-  returnPromise([
-    { name: 'admin', id: 0 },
-    { name: 'user', id: 1 }
-  ])
 
 const getDepartmentData = () => {
   return new Promise((resolve) => {
@@ -45,104 +67,65 @@ const getDepartmentData = () => {
   })
 }
 
-const formData = ref({
-  firstName: 'Gong',
-  lastName: 'Yuan',
-  gender: 'man',
-  interest: '',
-  department: 0,
-  leftDay: '2023-07-16',
-  midDay: '',
-  rightDay: '2023-07-20',
-  age: 26,
-  role: [0]
-})
-
-const formItemsConfs: FormItemsConfs<
-  ['text', 'text', 'select', 'select', 'select', 'text', 'text', 'date', 'number', 'tag'],
-  keyof typeof formData.value
-> = [
-  {
-    label: '姓名',
-    type: 'text',
-    dataField: 'firstName',
-    options: {
-      disabled: true
+const getTreeData = () =>
+  returnPromise([
+    {
+      id: -1,
+      name: '中国',
+      children: [
+        {
+          id: 6,
+          name: '湖南省',
+          children: [
+            { id: 1, name: '长沙市' },
+            { id: 2, name: '湘潭市' }
+          ]
+        },
+        {
+          id: 3,
+          name: '广东省',
+          children: [
+            { id: 4, name: '广州市' },
+            { id: 5, name: '深圳市' }
+          ]
+        }
+      ]
     }
+  ])
+
+const form = useForm(
+  {
+    name: 'gy',
+    gender: 'man',
+    role: [0],
+    interest: '',
+    department: 0,
+    ddl: '2023-07-23',
+    date: ''
   },
   {
-    label: '',
-    type: 'text',
-    dataField: 'lastName'
-  },
-  {
-    label: '',
-    type: 'select',
-    dataField: 'gender',
-    items: getAsyncItems(getData)
-  },
-  {
-    label: '',
-    type: 'select',
-    dataField: 'interest',
-    items: getAsyncItems(getInterestData, ['gender'])
-  },
-  {
-    label: '',
-    type: 'select',
-    dataField: 'department',
-    items: getAsyncItems(getDepartmentData),
-    onValueChanged: (item) => {
-      formData.value.firstName = item.deptName
+    role: {
+      dataSource: getRolesData,
+      valueExpr: 'id',
+      displayExpr: 'name'
     },
-    options: {
+    gender: {
+      dataSource: getData
+    },
+    interest: {
+      dataSource: getInterestData,
+      dependencies: ['gender']
+    },
+    department: {
+      dataSource: getDepartmentData,
       valueExpr: 'id',
       displayExpr: 'deptName'
     }
-  },
-  {
-    label: '',
-    type: 'text',
-    dataField: 'leftDay'
-  },
-  {
-    label: '',
-    type: 'text',
-    dataField: 'rightDay'
-  },
-  {
-    label: '',
-    type: 'date',
-    colSpan: 1,
-    dataField: 'midDay',
-    options: computed(() => ({
-      min: formData.value.leftDay,
-      max: formData.value.rightDay
-    }))
-  },
-  {
-    label: '',
-    type: 'number',
-    colSpan: 1,
-    dataField: 'age'
-  },
-  {
-    label: '',
-    type: 'tag',
-    dataField: 'role',
-    // items: ['user', 'admin']
-    items: getAsyncItems(getRolesData),
-    options: {
-      displayExpr: 'name',
-      valueExpr: 'id'
-    }
   }
-]
+)
 
 const onSetFormData = () => {
-  formData.value.department = 1
-  formData.value.age = 27
-  formData.value.role = [1]
+  form.value.name = 'woman'
 }
 
 const printObj = (value: any) => {
@@ -163,7 +146,7 @@ const printArr = (value: any[]) => {
 }
 
 const formDataPrintArr = computed(() => {
-  return Object.entries(formData.value).map((data) => {
+  return Object.entries(form.value).map((data) => {
     const raw = isProxy(data[1]) ? toRaw(data[1]) : data[1]
     if (Array.isArray(raw)) {
       return `${data[0]}: ${printArr(raw)}`
@@ -172,19 +155,3 @@ const formDataPrintArr = computed(() => {
   })
 })
 </script>
-
-<template>
-  <main>
-    <div>
-      <FormContainer v-model:form-data="formData" :items-confs="formItemsConfs" />
-      <div class="mt-4 flex justify-center">
-        <DxButton @click="onSetFormData">测试按钮</DxButton>
-      </div>
-      <div class="mt-4 flex flex-col items-center">
-        <div class="p-1 font-mono" v-for="(data, index) in formDataPrintArr" v-bind:key="index">
-          {{ data }}
-        </div>
-      </div>
-    </div>
-  </main>
-</template>

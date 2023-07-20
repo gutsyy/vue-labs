@@ -1,14 +1,14 @@
 <template>
-  <DxDateBox v-bind="noUndefinedProps" />
+  <DxDateBox v-bind="noUndefinedProps" :on-value-changed="onValueChanged" />
 </template>
 
 <script setup lang="ts">
 import { removeUndefinedProps } from '@/utils/removeUndefinedProps'
 import { DxDateBox } from 'devextreme-vue/date-box'
-import type { Properties } from 'devextreme/ui/date_box'
+import type { Properties, ValueChangedEvent } from 'devextreme/ui/date_box'
 
 interface Props extends Properties {
-  onValueChanged: (e: any) => void
+  onBoxValueChanged?: (value: any) => void
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -35,4 +35,13 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const noUndefinedProps = removeUndefinedProps(props)
+
+const onValueChanged = (e: ValueChangedEvent) => {
+  if (props.onValueChanged) {
+    props.onValueChanged(e)
+  }
+  if (props.onBoxValueChanged) {
+    props.onBoxValueChanged(e.value)
+  }
+}
 </script>
