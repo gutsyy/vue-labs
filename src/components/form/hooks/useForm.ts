@@ -64,28 +64,36 @@ export function useForm<T extends Record<string, any>, D extends keyof T, DK ext
     }
   }
 
+  // store onBoxValueChanged function, prevent form item refresh by function recreated
+  const onBoxValueChangedStore: Record<string, any> = {}
   const onBoxValueChanged = (dataField: keyof T) => {
-    return function (value: any) {
+    onBoxValueChangedStore[dataField as string] = function (value: any) {
       formDataRef.value[dataField as keyof UnwrapRef<T>] = value
     }
+    return onBoxValueChangedStore[dataField as string]
+  }
+
+  type CommonOptions = {
+    value: any
+    onBoxValueChanged: (value: any) => void
+  }
+
+  type ArrayItemOptions = CommonOptions & {
+    value: any[]
+    dataSource: any
+    valueExpr: any
+    displayExpr: any
   }
 
   const getFormOptions = function <K extends keyof T>(
     dataField: K
-  ): K extends DK
-    ? {
-        value: any[]
-        onBoxValueChanged: (value: any) => void
-        dataSource: any
-        valueExpr: any
-        displayExpr: any
-      }
-    : { value: any; onBoxValueChanged: (value: any) => void } {
+  ): K extends DK ? ArrayItemOptions : CommonOptions {
     if (dataSources && Object.keys(dataSources).includes(dataField as string)) {
       return {
         value: formDataRef.value[dataField as keyof UnwrapRef<T>],
         dataSource: dataSourceRef.value[dataField as string] ?? undefined,
-        onBoxValueChanged: onBoxValueChanged(dataField),
+        onBoxValueChanged:
+          onBoxValueChangedStore[dataField as string] ?? onBoxValueChanged(dataField),
         valueExpr: (dataSources[dataField] as any).valueExpr ?? undefined,
         displayExpr: (dataSources[dataField] as any).displayExpr ?? undefined
       } as any
@@ -93,7 +101,7 @@ export function useForm<T extends Record<string, any>, D extends keyof T, DK ext
 
     return {
       value: formDataRef.value[dataField as keyof UnwrapRef<T>],
-      onBoxValueChanged: onBoxValueChanged(dataField)
+      onBoxValueChanged: onBoxValueChangedStore[dataField as string] ?? onBoxValueChanged(dataField)
     } as any
   }
 
