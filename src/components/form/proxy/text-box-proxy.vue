@@ -4,21 +4,22 @@
     :width="props.labelWidth"
     :get-label-default-width="props.getLabelDefaultWidth"
   >
-    <DxTextBox v-bind="noUndefinedProps" :on-value-changed="onValueChanged"></DxTextBox>
+    <DxTextBox
+      v-bind="noUndefinedProps"
+      :on-value-changed="onValueChanged"
+      :validation-error="box.validationInfo.validationError"
+      :validation-status="box.validationInfo.validationStatus"
+    ></DxTextBox>
   </ItemContainer>
 </template>
 <script setup lang="ts">
 import { DxTextBox } from 'devextreme-vue/text-box'
 import type { Properties, ValueChangedEvent } from 'devextreme/ui/text_box'
-import { removeUndefinedProps } from '@/utils/removeUndefinedProps'
 import { ItemContainer } from '../basic'
+import { useBox, type BoxProperties } from './box'
+import { removeUndefinedProps } from '@/utils/removeUndefinedProps'
 
-interface Props extends Properties {
-  onBoxValueChanged?: (value: any) => void
-  labelText?: string
-  labelWidth?: number
-  getLabelDefaultWidth?: (w: number) => void
-}
+type Props = Properties & BoxProperties
 
 const props = withDefaults(defineProps<Props>(), {
   focusStateEnabled: undefined,
@@ -36,6 +37,8 @@ const props = withDefaults(defineProps<Props>(), {
 
 const noUndefinedProps = removeUndefinedProps(props)
 
+const box = useBox(props)
+
 const onValueChanged = (e: ValueChangedEvent) => {
   if (props.onValueChanged) {
     props.onValueChanged(e)
@@ -43,5 +46,6 @@ const onValueChanged = (e: ValueChangedEvent) => {
   if (props.onBoxValueChanged) {
     props.onBoxValueChanged(e.value)
   }
+  box.validatorExecutor(e.value)
 }
 </script>

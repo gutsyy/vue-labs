@@ -56,8 +56,19 @@
           :value="formData[itemConf.dataField]"
           :data-source="itemsRepo[itemConf.dataField]"
           :on-selection-changed="onValueChangedEventMap[itemConf.dataField]"
-          v-bind="(itemConf.options as OptionsByFormType['tag'])"
+          v-bind="(itemConf.options as any)"
         ></TagBoxProxy>
+      </div>
+      <div
+        v-else-if="itemConf.type === 'tree'"
+        :class="`col-span-${itemConf.colSpan ?? 2}`"
+        v-bind:key="`tree-select-box-${index}`"
+      >
+        <TreeBoxProxy
+          :data-source="itemsRepo[itemConf.dataField]"
+          :on-item-selection-changed="onValueChangedEventMap[itemConf.dataField]"
+          v-bind="(itemConf.options as OptionsByFormType['tree'])"
+        ></TreeBoxProxy>
       </div>
     </template>
     <div :class="`flex justify-end col-span-${props.colSpan} pt-2`">
@@ -75,12 +86,14 @@ import NumberBoxProxy from './proxy/number-box-proxy.vue'
 import SelectBoxProxy from './proxy/select-box-proxy.vue'
 import TextBoxProxy from './proxy/text-box-proxy.vue'
 import TagBoxProxy from './proxy/tag-box-proxy.vue'
+import TreeBoxProxy from './proxy/tree-box-proxy.vue'
 import { onMounted, ref, watch, computed, isRef, toRaw, isProxy } from 'vue'
 import type { SelectionChangedEvent } from 'devextreme/ui/select_box'
 import type { SelectionChangedEvent as TagSelectionChangedEvent } from 'devextreme/ui/tag_box'
 import { createArrayStore } from '@/utils/data-layer'
 import { DxButton } from 'devextreme-vue'
 import { calCurrItems } from './utils'
+import type { ItemSelectionChangedEvent } from 'devextreme/ui/tree_view'
 
 const props = withDefaults(
   defineProps<{
@@ -164,6 +177,13 @@ const genTagBoxSelectionChanged = function (itemConf: FormItemConf<'tag'>) {
   }
 }
 
+// treeBox 选择时的事件函数，此处是生成事件函数
+const genTreeBoxItemSelectionChanged = function (itemConf: FormItemConf<'tree'>) {
+  return (e: ItemSelectionChangedEvent) => {
+    console.log(e.itemData)
+  }
+}
+
 // 普通input的值改变事件
 const genInputValueChanged = function (itemConf: (typeof props.itemsConfs)[0]) {
   return (e: ValueChangedEvent) => {
@@ -182,6 +202,7 @@ const genOnValueChangedEventMap = new Map<Array<FormTypes>, (itemConf: any) => (
 
 genOnValueChangedEventMap.set(['select'], genSelectBoxSelectionChanged)
 genOnValueChangedEventMap.set(['tag'], genTagBoxSelectionChanged)
+genOnValueChangedEventMap.set(['tree'], genTreeBoxItemSelectionChanged)
 
 // 根据type查询生成事件
 const getValueChangedEventFromMap = (type: FormTypes) => {

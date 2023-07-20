@@ -4,7 +4,12 @@
     :width="props.labelWidth"
     :get-label-default-width="props.getLabelDefaultWidth"
   >
-    <DxDateBox v-bind="noUndefinedProps" :on-value-changed="onValueChanged" />
+    <DxDateBox
+      v-bind="noUndefinedProps"
+      :on-value-changed="onValueChanged"
+      :validation-error="box.validationInfo.validationError"
+      :validation-status="box.validationInfo.validationStatus"
+    />
   </ItemContainer>
 </template>
 
@@ -13,13 +18,9 @@ import { removeUndefinedProps } from '@/utils/removeUndefinedProps'
 import { DxDateBox } from 'devextreme-vue/date-box'
 import type { Properties, ValueChangedEvent } from 'devextreme/ui/date_box'
 import { ItemContainer } from '../basic'
+import { useBox, type BoxProperties } from './box'
 
-interface Props extends Properties {
-  onBoxValueChanged?: (value: any) => void
-  labelText?: string
-  labelWidth?: number
-  getLabelDefaultWidth?: (w: number) => void
-}
+type Props = Properties & BoxProperties
 
 const props = withDefaults(defineProps<Props>(), {
   adaptivityEnabled: undefined,
@@ -46,6 +47,8 @@ const props = withDefaults(defineProps<Props>(), {
 
 const noUndefinedProps = removeUndefinedProps(props)
 
+const box = useBox(props)
+
 const onValueChanged = (e: ValueChangedEvent) => {
   if (props.onValueChanged) {
     props.onValueChanged(e)
@@ -53,5 +56,6 @@ const onValueChanged = (e: ValueChangedEvent) => {
   if (props.onBoxValueChanged) {
     props.onBoxValueChanged(e.value)
   }
+  box.validatorExecutor(e.value)
 }
 </script>

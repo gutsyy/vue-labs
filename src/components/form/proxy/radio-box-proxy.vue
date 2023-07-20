@@ -4,7 +4,12 @@
     :width="props.labelWidth"
     :get-label-default-width="props.getLabelDefaultWidth"
   >
-    <DxRadioGroup v-bind="noUndefinedProps" :on-value-changed="onValueChanged"></DxRadioGroup>
+    <DxRadioGroup
+      v-bind="noUndefinedProps"
+      :on-value-changed="onValueChanged"
+      :validation-error="validationError"
+      :validation-status="box.validationInfo.validationStatus"
+    ></DxRadioGroup>
   </ItemContainer>
 </template>
 
@@ -13,12 +18,12 @@ import { removeUndefinedProps } from '@/utils/removeUndefinedProps'
 import { DxRadioGroup } from 'devextreme-vue/radio-group'
 import type { Properties, ValueChangedEvent } from 'devextreme/ui/radio_group'
 import { ItemContainer } from '../basic'
+import { useBox, type BoxProperties } from './box'
 
-interface Props extends Properties {
-  onBoxValueChanged?: (e: any) => void
-  labelText?: string
-  labelWidth?: number
-  getLabelDefaultWidth?: (w: number) => void
+type Props = Properties & BoxProperties
+
+const validationError = {
+  message: ''
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -33,14 +38,16 @@ const props = withDefaults(defineProps<Props>(), {
   layout: 'horizontal'
 })
 
+const box = useBox(props)
+
 const onValueChanged = (e: ValueChangedEvent) => {
-  console.log(e.value)
   if (props.onValueChanged) {
     props.onValueChanged(e)
   }
   if (props.onBoxValueChanged) {
     props.onBoxValueChanged(e.value)
   }
+  box.validatorExecutor(e.value)
 }
 
 const noUndefinedProps = removeUndefinedProps(props)

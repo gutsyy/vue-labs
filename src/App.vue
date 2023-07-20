@@ -15,16 +15,17 @@
             v-bind="form.getFormOptions('department')"
           ></SelectBoxProxy>
           <TextBoxProxy label-text="截止日" v-bind="form.getFormOptions('ddl')"></TextBoxProxy>
+          <RadioBoxProxy label-text="选择" v-bind="form.getFormOptions('radio')"></RadioBoxProxy>
           <DateBoxProxy
+            class="col-span-2"
             label-text="完成日期"
             v-bind="form.getFormOptions('date')"
             :max="form.value.ddl"
           ></DateBoxProxy>
-          <RadioBoxProxy label-text="选择" v-bind="form.getFormOptions('radio')"></RadioBoxProxy>
         </FormContainer>
       </div>
       <div class="mt-4 flex justify-center">
-        <DxButton @click="onSetFormData">测试按钮</DxButton>
+        <DxButton @click="form.onSubmit((d) => console.log(d))">测试按钮</DxButton>
       </div>
       <div class="mt-4 flex flex-col items-center">
         <div class="p-1 font-mono" v-for="(data, index) in formDataPrintArr" v-bind:key="index">
@@ -121,37 +122,49 @@ const getTreeData = () =>
 
 const form = useForm(
   {
-    name: 'gy',
-    gender: 'man',
-    role: [0],
+    name: '',
+    gender: '',
+    role: [],
     interest: '',
-    department: 0,
+    department: '',
     ddl: '2023-07-23',
     date: '',
-    radio: 0
+    radio: ''
   },
   {
-    role: {
-      dataSource: getRolesData,
-      valueExpr: 'id',
-      displayExpr: 'name'
+    dataSources: {
+      role: {
+        dataSource: getRolesData,
+        valueExpr: 'id',
+        displayExpr: 'name'
+      },
+      gender: {
+        dataSource: getData
+      },
+      interest: {
+        dataSource: getInterestData,
+        dependencies: ['gender']
+      },
+      department: {
+        dataSource: getDepartmentData,
+        valueExpr: 'id',
+        displayExpr: 'deptName'
+      },
+      radio: {
+        dataSource: getRadioData,
+        displayExpr: 'name',
+        valueExpr: 'id'
+      }
     },
-    gender: {
-      dataSource: getData
-    },
-    interest: {
-      dataSource: getInterestData,
-      dependencies: ['gender']
-    },
-    department: {
-      dataSource: getDepartmentData,
-      valueExpr: 'id',
-      displayExpr: 'deptName'
-    },
-    radio: {
-      dataSource: getRadioData,
-      displayExpr: 'name',
-      valueExpr: 'id'
+    validators: {
+      name: 'isRequired',
+      role: 'isRequired',
+      gender: 'isRequired',
+      interest: 'isRequired',
+      department: 'isRequired',
+      ddl: 'isRequired',
+      date: 'isRequired',
+      radio: 'isRequired'
     }
   }
 )

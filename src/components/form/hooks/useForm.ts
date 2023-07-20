@@ -16,18 +16,28 @@ type DataSources<T, D, DK extends keyof T> = {
   [k in DK]?: DataSource<T, D>
 }
 
+type ValidatorFn<T> = (value: T) => string | null
+
 export function useForm<T extends Record<string, any>, D extends keyof T, DK extends keyof T>(
   formData: T,
   // 能不能通过denpendencies的输入进一步约束D?
-  dataSources?: DataSources<T, D, DK>
+  options?: {
+    dataSources?: DataSources<T, D, DK>
+    validators?: {
+      [k in keyof T]?: 'isRequired' | ValidatorFn<T[k]>
+    }
+  }
 ) {
   const formDataRef = ref<T>(formData)
 
+  // fetch data
   type DataSourceRef = {
     [K in string]?: any[] | ArrayStore<any, any> | undefined
   }
 
   const dataSourceRef = ref<DataSourceRef>({})
+
+  const dataSources = options && options.dataSources ? options.dataSources : undefined
 
   if (dataSources) {
     for (const [dataField, _dataSourceDefine] of Object.entries(dataSources)) {
@@ -87,12 +97,38 @@ export function useForm<T extends Record<string, any>, D extends keyof T, DK ext
     gotLabelWidthNumber++
   }
 
+  // validators
+  const validationMessages = ref<Record<string, string | null>>({})
+
+  // initialization ref
+  Object.keys(formData).forEach((key) => (validationMessages.value[key] = null))
+
+  const isRequiredValidator = function (value: any) {
+    if (Array.isArray(value)) {
+      return value.length ? null : '此项不能为空'
+    }
+    return value || value === 0 ? null : '此项不能为空'
+  }
+
+  const getValidatorByDataField = (
+    dataField: string
+  ): ((value: any) => string | null) | undefined => {
+    if (options && options.validators) {
+      if (options.validators[dataField] === 'isRequired') {
+        return isRequiredValidator
+      }
+      return options.validators[dataField] as ((value: any) => string | null) | undefined
+    }
+  }
+
   // return options
   type CommonOptions = {
     value: any
     onBoxValueChanged: (value: any) => void
     labelWidth: UnwrapRef<number>
     getLabelDefaultWidth: (w: number) => void
+    validationMessage: string | null
+    validator: any
   }
 
   type ArrayItemOptions = CommonOptions & {
@@ -105,25 +141,47 @@ export function useForm<T extends Record<string, any>, D extends keyof T, DK ext
   const getFormOptions = function <K extends keyof T>(
     dataField: K
   ): K extends DK ? ArrayItemOptions : CommonOptions {
-    let options: any = {
+    let formOptions: CommonOptions | ArrayItemOptions = {
       value: formDataRef.value[dataField as keyof UnwrapRef<T>],
       onBoxValueChanged:
         onBoxValueChangedStore[dataField as string] ?? onBoxValueChanged(dataField),
       labelWidth: labelWidth.value,
-      getLabelDefaultWidth: getLabelDefaultWidth
+      getLabelDefaultWidth: getLabelDefaultWidth,
+      validationMessage: validationMessages.value[dataField as string],
+      validator: getValidatorByDataField(dataField as string)
     }
 
     if (dataSources && Object.keys(dataSources).includes(dataField as string)) {
-      options = {
-        ...options,
+      formOptions = {
+        ...formOptions,
         dataSource: dataSourceRef.value[dataField as string] ?? undefined,
         valueExpr: (dataSources[dataField] as any).valueExpr ?? undefined,
         displayExpr: (dataSources[dataField] as any).displayExpr ?? undefined
       }
     }
 
-    return options as any
+    return formOptions as any
   }
 
-  return { value: formDataRef.value, dataSourceRef, getFormOptions } as const
+  const onSubmit = function (callback: (data: typeof formDataRef.value) => void) {
+    // validate
+    if (options && options.validators) {
+      Object.keys(formData).forEach((key) => {
+        if (getValidatorByDataField(key)) {
+          validationMessages.value[key as string] = getValidatorByDataField(key)!(
+            formDataRef.value[key]
+          )
+        }
+      })
+    }
+    for (const key of Object.keys(validationMessages)) {
+      if (validationMessages.value[key] === 'string') {
+        return
+      }
+    }
+
+    callback(formDataRef.value)
+  }
+
+  return { value: formDataRef.value, dataSourceRef, getFormOptions, onSubmit } as const
 }

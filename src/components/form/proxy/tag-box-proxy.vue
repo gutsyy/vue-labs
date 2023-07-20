@@ -8,30 +8,34 @@
       v-bind="noUndefinedProps"
       :value="computedValue"
       :on-selection-changed="onSelectionChanged"
+      :validation-error="box.validationInfo.validationError"
+      :validation-status="box.validationInfo.validationStatus"
     ></DxTagBox>
   </ItemContainer>
 </template>
 <script setup lang="ts">
 import { removeUndefinedProps } from '@/utils/removeUndefinedProps'
 import { DxTagBox } from 'devextreme-vue/tag-box'
-import type { Properties, SelectionChangedEvent } from 'devextreme/ui/tag_box'
+import type { SelectionChangedEvent } from 'devextreme/ui/tag_box'
 import { isProxy, toRaw } from 'vue'
 import { computed } from 'vue'
 import { ItemContainer } from '../basic'
+import { useBox, type BoxProperties } from './box'
 
-interface Props extends /* @vue-ignore */ Properties {
+type Props = BoxProperties & {
+  placeholder?: string
   onSelectionChanged?: (e: any) => void
   value: any[]
   valueExpr?: string
-  onBoxValueChanged?: (value: any) => void
-  labelText?: string
   dataSource?: any
   displayExpr?: string
-  labelWidth?: number
-  getLabelDefaultWidth?: (w: number) => void
 }
 
-const props = withDefaults(defineProps<Props>(), {})
+// interface IgnoreProps extends /* @vue-ignore */ Props {}
+
+const props = withDefaults(defineProps<Props>(), {
+  placeholder: '请选择...'
+})
 
 const noUndefinedProps = removeUndefinedProps(props)
 
@@ -42,6 +46,8 @@ const computedValue = computed(() => {
   }
   return props.value
 })
+
+const box = useBox(props)
 
 const onSelectionChanged = (e: SelectionChangedEvent) => {
   if (props.onSelectionChanged) {
@@ -92,6 +98,8 @@ const onSelectionChanged = (e: SelectionChangedEvent) => {
     }
 
     if (isChanged) {
+      // validate
+      box.validatorExecutor(allSelectedItems)
       props.onBoxValueChanged(allSelectedItems)
     }
   }

@@ -8,6 +8,8 @@
       v-bind="noUndefinedProps"
       :value="computedValue"
       :on-selection-changed="onSelectionChanged"
+      :validation-error="box.validationInfo.validationError"
+      :validation-status="box.validationInfo.validationStatus"
     ></DxSelectBox>
   </ItemContainer>
 </template>
@@ -18,13 +20,9 @@ import { DxSelectBox } from 'devextreme-vue/select-box'
 import type { Properties, SelectionChangedEvent } from 'devextreme/ui/select_box'
 import { computed } from 'vue'
 import { ItemContainer } from '../basic'
+import { useBox, type BoxProperties } from './box'
 
-interface Props extends Properties {
-  onBoxValueChanged?: (value: any) => void
-  labelText?: string
-  labelWidth?: number
-  getLabelDefaultWidth?: (w: number) => void
-}
+type Props = Properties & BoxProperties
 
 const props = withDefaults(defineProps<Props>(), {
   acceptCustomValue: undefined,
@@ -48,7 +46,8 @@ const props = withDefaults(defineProps<Props>(), {
   readOnly: undefined,
   disabled: undefined,
   visible: undefined,
-  rtlEnabled: undefined
+  rtlEnabled: undefined,
+  placeholder: '请选择...'
 })
 
 const computedValue = computed(() => {
@@ -57,6 +56,8 @@ const computedValue = computed(() => {
   }
   return props.value
 })
+
+const box = useBox(props)
 
 const noUndefinedProps = removeUndefinedProps(props)
 
@@ -67,5 +68,6 @@ const onSelectionChanged = (e: SelectionChangedEvent) => {
   if (props.onSelectionChanged) {
     props.onSelectionChanged(e)
   }
+  box.validatorExecutor(e.selectedItem)
 }
 </script>
