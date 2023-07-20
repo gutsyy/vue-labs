@@ -1,9 +1,15 @@
 <template>
-  <DxTagBox
-    v-bind="noUndefinedProps"
-    :value="computedValue"
-    :on-selection-changed="onSelectionChanged"
-  ></DxTagBox>
+  <ItemContainer
+    :label="props.labelText"
+    :width="props.labelWidth"
+    :get-label-default-width="props.getLabelDefaultWidth"
+  >
+    <DxTagBox
+      v-bind="noUndefinedProps"
+      :value="computedValue"
+      :on-selection-changed="onSelectionChanged"
+    ></DxTagBox>
+  </ItemContainer>
 </template>
 <script setup lang="ts">
 import { removeUndefinedProps } from '@/utils/removeUndefinedProps'
@@ -11,12 +17,18 @@ import { DxTagBox } from 'devextreme-vue/tag-box'
 import type { Properties, SelectionChangedEvent } from 'devextreme/ui/tag_box'
 import { isProxy, toRaw } from 'vue'
 import { computed } from 'vue'
+import { ItemContainer } from '../basic'
 
 interface Props extends /* @vue-ignore */ Properties {
   onSelectionChanged?: (e: any) => void
   value: any[]
   valueExpr?: string
   onBoxValueChanged?: (value: any) => void
+  labelText?: string
+  dataSource?: any
+  displayExpr?: string
+  labelWidth?: number
+  getLabelDefaultWidth?: (w: number) => void
 }
 
 const props = withDefaults(defineProps<Props>(), {})

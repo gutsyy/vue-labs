@@ -1,14 +1,24 @@
 <template>
-  <DxDateBox v-bind="noUndefinedProps" :on-value-changed="onValueChanged" />
+  <ItemContainer
+    :label="props.labelText"
+    :width="props.labelWidth"
+    :get-label-default-width="props.getLabelDefaultWidth"
+  >
+    <DxDateBox v-bind="noUndefinedProps" :on-value-changed="onValueChanged" />
+  </ItemContainer>
 </template>
 
 <script setup lang="ts">
 import { removeUndefinedProps } from '@/utils/removeUndefinedProps'
 import { DxDateBox } from 'devextreme-vue/date-box'
 import type { Properties, ValueChangedEvent } from 'devextreme/ui/date_box'
+import { ItemContainer } from '../basic'
 
 interface Props extends Properties {
   onBoxValueChanged?: (value: any) => void
+  labelText?: string
+  labelWidth?: number
+  getLabelDefaultWidth?: (w: number) => void
 }
 
 const props = withDefaults(defineProps<Props>(), {

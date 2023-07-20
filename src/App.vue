@@ -1,15 +1,28 @@
 <template>
   <main>
     <div>
-      <form class="flex flex-col gap-2 m-4">
-        <TextBoxProxy v-bind="form.getFormOptions('name')"></TextBoxProxy>
-        <TagBoxProxy v-bind="form.getFormOptions('role')"></TagBoxProxy>
-        <SelectBoxProxy v-bind="form.getFormOptions('gender')"></SelectBoxProxy>
-        <SelectBoxProxy v-bind="form.getFormOptions('interest')"></SelectBoxProxy>
-        <SelectBoxProxy v-bind="form.getFormOptions('department')"></SelectBoxProxy>
-        <TextBoxProxy v-bind="form.getFormOptions('ddl')"></TextBoxProxy>
-        <DateBoxProxy v-bind="form.getFormOptions('date')" :max="form.value.ddl"></DateBoxProxy>
-      </form>
+      <div class="m-4 mb-8 p-4 bg-gray-100 rounded-2xl">
+        <FormContainer cols="2">
+          <TextBoxProxy label-text="姓名" v-bind="form.getFormOptions('name')"></TextBoxProxy>
+          <TagBoxProxy label-text="角色" v-bind="form.getFormOptions('role')"></TagBoxProxy>
+          <SelectBoxProxy label-text="性别" v-bind="form.getFormOptions('gender')"></SelectBoxProxy>
+          <SelectBoxProxy
+            label-text="兴趣爱好"
+            v-bind="form.getFormOptions('interest')"
+          ></SelectBoxProxy>
+          <SelectBoxProxy
+            label-text="部门"
+            v-bind="form.getFormOptions('department')"
+          ></SelectBoxProxy>
+          <TextBoxProxy label-text="截止日" v-bind="form.getFormOptions('ddl')"></TextBoxProxy>
+          <DateBoxProxy
+            label-text="完成日期"
+            v-bind="form.getFormOptions('date')"
+            :max="form.value.ddl"
+          ></DateBoxProxy>
+          <RadioBoxProxy label-text="选择" v-bind="form.getFormOptions('radio')"></RadioBoxProxy>
+        </FormContainer>
+      </div>
       <div class="mt-4 flex justify-center">
         <DxButton @click="onSetFormData">测试按钮</DxButton>
       </div>
@@ -26,7 +39,14 @@
 import { DxButton } from 'devextreme-vue'
 import { computed, isProxy, toRaw } from 'vue'
 import { useForm } from './components/form/hooks/useForm'
-import { TextBoxProxy, TagBoxProxy, SelectBoxProxy, DateBoxProxy } from './components/form/proxy'
+import {
+  TextBoxProxy,
+  TagBoxProxy,
+  SelectBoxProxy,
+  DateBoxProxy,
+  RadioBoxProxy
+} from './components/form/proxy'
+import FormContainer from './components/form/form-container.vue'
 
 const returnPromise = (value: any) =>
   new Promise((resolve) => {
@@ -67,6 +87,12 @@ const getDepartmentData = () => {
   })
 }
 
+const getRadioData = () =>
+  returnPromise([
+    { name: 'A', id: 0 },
+    { name: 'B', id: 1 }
+  ])
+
 const getTreeData = () =>
   returnPromise([
     {
@@ -101,7 +127,8 @@ const form = useForm(
     interest: '',
     department: 0,
     ddl: '2023-07-23',
-    date: ''
+    date: '',
+    radio: 0
   },
   {
     role: {
@@ -120,6 +147,11 @@ const form = useForm(
       dataSource: getDepartmentData,
       valueExpr: 'id',
       displayExpr: 'deptName'
+    },
+    radio: {
+      dataSource: getRadioData,
+      displayExpr: 'name',
+      valueExpr: 'id'
     }
   }
 )

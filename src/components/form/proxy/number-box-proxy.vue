@@ -1,14 +1,24 @@
 <template>
-  <DxNumberBox v-bind="noUndefinedProps" :on-value-changed="onValueChanged" />
+  <ItemContainer
+    :label="props.labelText"
+    :width="props.labelWidth"
+    :get-label-default-width="props.getLabelDefaultWidth"
+  >
+    <DxNumberBox v-bind="noUndefinedProps" :on-value-changed="onValueChanged" />
+  </ItemContainer>
 </template>
 
 <script setup lang="ts">
 import { removeUndefinedProps } from '@/utils/removeUndefinedProps'
 import { DxNumberBox } from 'devextreme-vue/number-box'
 import type { Properties, ValueChangedEvent } from 'devextreme/ui/number_box'
+import { ItemContainer } from '../basic'
 
 interface Props extends Properties {
   onBoxValueChanged?: (value: any) => void
+  labelText?: string
+  labelWidth?: number
+  getLabelDefaultWidth?: (w: number) => void
 }
 
 const props = withDefaults(defineProps<Props>(), {

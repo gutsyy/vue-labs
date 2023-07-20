@@ -3,5 +3,6 @@ import NumberBoxProxy from './number-box-proxy.vue'
 import SelectBoxProxy from './select-box-proxy.vue'
 import TagBoxProxy from './tag-box-proxy.vue'
 import TextBoxProxy from './text-box-proxy.vue'
+import RadioBoxProxy from './radio-box-proxy.vue'
 
-export { DateBoxProxy, NumberBoxProxy, SelectBoxProxy, TagBoxProxy, TextBoxProxy }
+export { DateBoxProxy, NumberBoxProxy, SelectBoxProxy, TagBoxProxy, TextBoxProxy, RadioBoxProxy }

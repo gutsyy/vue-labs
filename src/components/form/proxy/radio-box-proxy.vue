@@ -4,39 +4,37 @@
     :width="props.labelWidth"
     :get-label-default-width="props.getLabelDefaultWidth"
   >
-    <DxTextBox v-bind="noUndefinedProps" :on-value-changed="onValueChanged"></DxTextBox>
+    <DxRadioGroup v-bind="noUndefinedProps" :on-value-changed="onValueChanged"></DxRadioGroup>
   </ItemContainer>
 </template>
+
 <script setup lang="ts">
-import { DxTextBox } from 'devextreme-vue/text-box'
-import type { Properties, ValueChangedEvent } from 'devextreme/ui/text_box'
 import { removeUndefinedProps } from '@/utils/removeUndefinedProps'
+import { DxRadioGroup } from 'devextreme-vue/radio-group'
+import type { Properties, ValueChangedEvent } from 'devextreme/ui/radio_group'
 import { ItemContainer } from '../basic'
 
 interface Props extends Properties {
-  onBoxValueChanged?: (value: any) => void
+  onBoxValueChanged?: (e: any) => void
   labelText?: string
   labelWidth?: number
   getLabelDefaultWidth?: (w: number) => void
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  activeStateEnabled: undefined,
   focusStateEnabled: undefined,
   hoverStateEnabled: undefined,
-  showClearButton: undefined,
-  spellcheck: undefined,
-  useMaskedValue: undefined,
   isValid: undefined,
   readOnly: undefined,
-  activeStateEnabled: undefined,
   disabled: undefined,
   visible: undefined,
-  rtlEnabled: undefined
+  rtlEnabled: undefined,
+  layout: 'horizontal'
 })
 
-const noUndefinedProps = removeUndefinedProps(props)
-
 const onValueChanged = (e: ValueChangedEvent) => {
+  console.log(e.value)
   if (props.onValueChanged) {
     props.onValueChanged(e)
   }
@@ -44,4 +42,6 @@ const onValueChanged = (e: ValueChangedEvent) => {
     props.onBoxValueChanged(e.value)
   }
 }
+
+const noUndefinedProps = removeUndefinedProps(props)
 </script>

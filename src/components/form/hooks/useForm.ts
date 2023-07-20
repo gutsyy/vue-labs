@@ -73,9 +73,26 @@ export function useForm<T extends Record<string, any>, D extends keyof T, DK ext
     return onBoxValueChangedStore[dataField as string]
   }
 
+  // label width
+  let gotLabelWidthNumber: number = 0
+  let maxLabelWidthNumber: number = 0
+
+  const labelWidth = ref<number>(0)
+
+  const getLabelDefaultWidth = function (width: number) {
+    if (gotLabelWidthNumber === Object.keys(formData).length - 1) {
+      labelWidth.value = maxLabelWidthNumber
+    }
+    if (width > maxLabelWidthNumber) maxLabelWidthNumber = width
+    gotLabelWidthNumber++
+  }
+
+  // return options
   type CommonOptions = {
     value: any
     onBoxValueChanged: (value: any) => void
+    labelWidth: UnwrapRef<number>
+    getLabelDefaultWidth: (w: number) => void
   }
 
   type ArrayItemOptions = CommonOptions & {
@@ -88,21 +105,24 @@ export function useForm<T extends Record<string, any>, D extends keyof T, DK ext
   const getFormOptions = function <K extends keyof T>(
     dataField: K
   ): K extends DK ? ArrayItemOptions : CommonOptions {
-    if (dataSources && Object.keys(dataSources).includes(dataField as string)) {
-      return {
-        value: formDataRef.value[dataField as keyof UnwrapRef<T>],
-        dataSource: dataSourceRef.value[dataField as string] ?? undefined,
-        onBoxValueChanged:
-          onBoxValueChangedStore[dataField as string] ?? onBoxValueChanged(dataField),
-        valueExpr: (dataSources[dataField] as any).valueExpr ?? undefined,
-        displayExpr: (dataSources[dataField] as any).displayExpr ?? undefined
-      } as any
+    let options: any = {
+      value: formDataRef.value[dataField as keyof UnwrapRef<T>],
+      onBoxValueChanged:
+        onBoxValueChangedStore[dataField as string] ?? onBoxValueChanged(dataField),
+      labelWidth: labelWidth.value,
+      getLabelDefaultWidth: getLabelDefaultWidth
     }
 
-    return {
-      value: formDataRef.value[dataField as keyof UnwrapRef<T>],
-      onBoxValueChanged: onBoxValueChangedStore[dataField as string] ?? onBoxValueChanged(dataField)
-    } as any
+    if (dataSources && Object.keys(dataSources).includes(dataField as string)) {
+      options = {
+        ...options,
+        dataSource: dataSourceRef.value[dataField as string] ?? undefined,
+        valueExpr: (dataSources[dataField] as any).valueExpr ?? undefined,
+        displayExpr: (dataSources[dataField] as any).displayExpr ?? undefined
+      }
+    }
+
+    return options as any
   }
 
   return { value: formDataRef.value, dataSourceRef, getFormOptions } as const
