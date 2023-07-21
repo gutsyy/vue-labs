@@ -1,15 +1,13 @@
 <template>
-  <ItemContainer
-    :label="props.labelText"
-    :width="props.labelWidth"
-    :get-label-default-width="props.getLabelDefaultWidth"
-  >
+  <ItemContainer :label="props.labelText" :width="props.labelWidth" :get-label-default-width="props.getLabelDefaultWidth">
     <DxTagBox
       v-bind="noUndefinedProps"
       :value="computedValue"
       :on-selection-changed="onSelectionChanged"
       :validation-error="box.validationInfo.validationError"
       :validation-status="box.validationInfo.validationStatus"
+      :search-enabled="props.searchEnabled"
+      :search-expr="props.displayExpr"
     ></DxTagBox>
   </ItemContainer>
 </template>
@@ -29,12 +27,26 @@ type Props = BoxProperties & {
   valueExpr?: string
   dataSource?: any
   displayExpr?: string
+  showSelectionControls?: boolean
+  searchEnabled?: boolean
+  selectAllText?: string
+  maxDisplayedTags?: number
+  noDataText?: string
+  showClearButton?: boolean
+  showDropDownButton?: boolean
 }
 
 // interface IgnoreProps extends /* @vue-ignore */ Props {}
 
 const props = withDefaults(defineProps<Props>(), {
-  placeholder: '请选择...'
+  placeholder: '请选择...',
+  showSelectionControls: true,
+  searchEnabled: false,
+  selectAllText: '全部选择',
+  maxDisplayedTags: 4,
+  noDataText: '无数据',
+  showClearButton: false,
+  showDropDownButton: true
 })
 
 const noUndefinedProps = removeUndefinedProps(props)
@@ -59,26 +71,18 @@ const onSelectionChanged = (e: SelectionChangedEvent) => {
     const rawRemovedItems = e.removedItems.map((item) => (isProxy(item) ? toRaw(item) : item))
 
     const addItemsKeys = rawAddItems.map((item) => (props.valueExpr ? item[props.valueExpr] : item))
-    const removeItemsKeys = rawRemovedItems.map((item) =>
-      props.valueExpr ? item[props.valueExpr] : item
-    )
+    const removeItemsKeys = rawRemovedItems.map((item) => (props.valueExpr ? item[props.valueExpr] : item))
 
     const rawValue = isProxy(value) ? toRaw(value) : value
     const rawRawValue = rawValue.map((item) => (isProxy(item) ? toRaw(item) : item))
 
-    const rawRawValueKeys = rawRawValue.map((item) =>
-      props.valueExpr ? item[props.valueExpr] : item
-    )
+    const rawRawValueKeys = rawRawValue.map((item) => (props.valueExpr ? item[props.valueExpr] : item))
 
     let allSelectedItems = rawRawValue
 
     let isChanged: boolean = false
 
-    if (
-      rawRawValue.length &&
-      rawAddItems.length &&
-      typeof rawRawValue[0] !== typeof rawAddItems[0]
-    ) {
+    if (rawRawValue.length && rawAddItems.length && typeof rawRawValue[0] !== typeof rawAddItems[0]) {
       allSelectedItems = [...rawAddItems]
       isChanged = true
     } else {
