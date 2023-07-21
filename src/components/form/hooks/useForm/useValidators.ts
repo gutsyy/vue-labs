@@ -9,7 +9,7 @@ type ValidatorFn<T extends any = any> = (value: T) => string | null
 
 type PresetRule = 'isRequired'
 
-export type Validator = ValidatorFn | PresetRule
+export type ValidatorRules<T extends any> = (ValidatorFn<T> | PresetRule)[]
 
 import { shallowReactive } from 'vue'
 
@@ -29,7 +29,7 @@ const isRequired: ValidatorFn = (value) => {
 }
 
 export function useValidators<T extends Record<string, any>, K extends keyof T>(
-  validators: Record<string, ValidatorFn<T[K]> | PresetRule> | undefined
+  validators: Record<string, ValidatorRules<T[K]>> | undefined
 ) {
   validators = validators ?? {}
 
@@ -39,11 +39,30 @@ export function useValidators<T extends Record<string, any>, K extends keyof T>(
     }, {})
   )
 
-  const validatorsParsePreset: Record<string, ValidatorFn> = Object.entries(validators).reduce((prev, validator) => {
-    if (validator[1] === 'isRequired') {
-      return { ...prev, [validator[0]]: isRequired }
+  const isRequiredItems: Record<string, boolean> = {}
+
+  const createValidatorRulesExecutor = function (validatorRules: ValidatorRules<T[K]>) {
+    return function (value: T[K]) {
+      let errorMessage: string | null = null
+      for (const rule of validatorRules) {
+        if (rule === 'isRequired') {
+          errorMessage = isRequired(value)
+        } else {
+          errorMessage = rule(value)
+        }
+        if (typeof errorMessage === 'string') {
+          return errorMessage
+        }
+      }
+      return errorMessage
     }
-    return { ...prev, [validator[0]]: validator[1] }
+  }
+
+  const validatorsParsePreset: Record<string, ValidatorFn> = Object.entries(validators).reduce((prev, validator) => {
+    if (validator[1].includes('isRequired')) {
+      isRequiredItems[validator[0]] = true
+    }
+    return { ...prev, [validator[0]]: createValidatorRulesExecutor(validator[1]) }
   }, {})
 
   const executeAllValidators = function (formData: Record<string, any>) {
@@ -58,5 +77,5 @@ export function useValidators<T extends Record<string, any>, K extends keyof T>(
     return true
   }
 
-  return { validationMessages, validatorsFunctions: validatorsParsePreset, executeAllValidators } as const
+  return { validationMessages, validatorsFunctions: validatorsParsePreset, executeAllValidators, isRequiredItems } as const
 }

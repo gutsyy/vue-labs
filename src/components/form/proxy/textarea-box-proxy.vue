@@ -1,5 +1,10 @@
 <template>
-  <ItemContainer :label="props.labelText" :get-label-default-width="props.getLabelDefaultWidth" :width="props.labelWidth">
+  <ItemContainer
+    :label="props.labelText"
+    :get-label-default-width="props.getLabelDefaultWidth"
+    :width="props.labelWidth"
+    :is-required="props.isRequired"
+  >
     <DxTextArea
       v-bind="noUndefinedProps"
       :on-value-changed="onValueChanged"

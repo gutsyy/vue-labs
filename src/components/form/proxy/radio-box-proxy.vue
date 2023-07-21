@@ -3,6 +3,7 @@
     :label="props.labelText"
     :width="props.labelWidth"
     :get-label-default-width="props.getLabelDefaultWidth"
+    :is-required="props.isRequired"
   >
     <DxRadioGroup
       v-bind="noUndefinedProps"

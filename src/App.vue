@@ -22,6 +22,7 @@
             label-text="省份"
             v-bind="form.getFormOptions('tree')"
           ></TreeBoxProxy>
+          <TextareaBoxProxy label-text="备注" class="col-span-2" v-bind="form.getFormOptions('remark')"></TextareaBoxProxy>
         </FormContainer>
       </div>
       <div class="mt-4 flex justify-center">
@@ -40,7 +41,15 @@
 import { DxButton } from 'devextreme-vue'
 import { computed, isProxy, toRaw } from 'vue'
 import { useForm } from './components/form/hooks/useForm'
-import { TextBoxProxy, TagBoxProxy, SelectBoxProxy, DateBoxProxy, RadioBoxProxy, TreeBoxProxy } from './components/form/proxy'
+import {
+  TextBoxProxy,
+  TagBoxProxy,
+  SelectBoxProxy,
+  DateBoxProxy,
+  RadioBoxProxy,
+  TreeBoxProxy,
+  TextareaBoxProxy
+} from './components/form/proxy'
 import FormContainer from './components/form/form-container.vue'
 
 const returnPromise = (value: any) =>
@@ -124,7 +133,8 @@ const form = useForm(
     ddl: '2023-07-23',
     date: '',
     radio: 1,
-    tree: [1]
+    tree: [1],
+    remark: ''
   },
   {
     dataSources: {
@@ -157,15 +167,16 @@ const form = useForm(
       }
     },
     validators: {
-      name: 'isRequired',
-      role: 'isRequired',
-      gender: 'isRequired',
-      interest: 'isRequired',
-      department: 'isRequired',
-      ddl: 'isRequired',
-      date: 'isRequired',
-      radio: 'isRequired',
-      tree: 'isRequired'
+      name: ['isRequired'],
+      role: ['isRequired'],
+      gender: ['isRequired'],
+      interest: ['isRequired'],
+      department: ['isRequired'],
+      ddl: ['isRequired'],
+      date: ['isRequired'],
+      radio: ['isRequired'],
+      tree: ['isRequired'],
+      remark: ['isRequired']
     }
   }
 )
@@ -177,7 +188,7 @@ const onSubmit = () => {
 }
 
 const onSetFormData = () => {
-  form.value.tree = [4, 2]
+  form.value.tree = []
 }
 
 const printObj = (value: any) => {

@@ -12,6 +12,7 @@ export type BoxProperties = {
   validationMessage?: string | null
   validator?: (value: any) => string | null
   boxActionType?: 'default' | 'box-event'
+  isRequired?: boolean
 }
 
 export function useBox(props: BoxProperties & Record<string, any>) {

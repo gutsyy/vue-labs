@@ -10,7 +10,7 @@ import { shallowReactive } from 'vue'
 import type { DataSources } from './useDataSources'
 import { useDataSources } from './useDataSources'
 import { useAutoLabelWidth } from './useAutoLabelWidth'
-import { useValidators, type Validator } from './useValidators'
+import { useValidators, type ValidatorRules } from './useValidators'
 import { useActionsType } from './useActionsType'
 
 // return options
@@ -22,6 +22,7 @@ type CommonOptions = {
   validationMessage: string | null
   validator: any
   boxActionType: 'default' | 'box-event'
+  isRequired: boolean
 }
 
 type ArrayItemOptions = CommonOptions & {
@@ -37,7 +38,7 @@ export function useForm<T extends Record<string, any>, DK extends keyof T, VK ex
   options?: {
     dataSources?: DataSources<T, DK>
     validators?: {
-      [k in VK]: Validator
+      [k in VK]: ValidatorRules<T[k]>
     }
   }
 ) {
@@ -74,7 +75,7 @@ export function useForm<T extends Record<string, any>, DK extends keyof T, VK ex
 
   const [labelWidth, getLabelDefaultWidth] = useAutoLabelWidth(Object.keys(formData).length)
 
-  const { validationMessages, validatorsFunctions, executeAllValidators } = useValidators(
+  const { validationMessages, validatorsFunctions, executeAllValidators, isRequiredItems } = useValidators(
     options ? options.validators : undefined
   )
 
@@ -86,7 +87,8 @@ export function useForm<T extends Record<string, any>, DK extends keyof T, VK ex
       getLabelDefaultWidth: getLabelDefaultWidth,
       validationMessage: validationMessages[dataField as string],
       validator: validatorsFunctions[dataField as string],
-      boxActionType: actionsTypeReactive[dataField]
+      boxActionType: actionsTypeReactive[dataField],
+      isRequired: isRequiredItems[dataField] ?? false
     }
 
     if (dataSourcesRef[dataField as string]) {

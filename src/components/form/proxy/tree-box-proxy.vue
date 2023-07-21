@@ -1,5 +1,10 @@
 <template>
-  <ItemContainer :label="props.labelText" :width="props.labelWidth" :get-label-default-width="props.getLabelDefaultWidth">
+  <ItemContainer
+    :label="props.labelText"
+    :width="props.labelWidth"
+    :get-label-default-width="props.getLabelDefaultWidth"
+    :is-required="props.isRequired"
+  >
     <DxDropDownBox
       :value="dropdownBoxValue[0]"
       :dataSource="dropdownBoxValue[1]"

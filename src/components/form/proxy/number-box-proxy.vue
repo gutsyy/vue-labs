@@ -3,6 +3,7 @@
     :label="props.labelText"
     :width="props.labelWidth"
     :got-default-label-width="props.getLabelDefaultWidth"
+    :is-required="props.isRequired"
   >
     <DxNumberBox
       v-bind="noUndefinedProps"
