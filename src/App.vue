@@ -6,14 +6,8 @@
           <TextBoxProxy label-text="姓名" v-bind="form.getFormOptions('name')"></TextBoxProxy>
           <TagBoxProxy label-text="角色" v-bind="form.getFormOptions('role')"></TagBoxProxy>
           <SelectBoxProxy label-text="性别" v-bind="form.getFormOptions('gender')"></SelectBoxProxy>
-          <SelectBoxProxy
-            label-text="兴趣爱好"
-            v-bind="form.getFormOptions('interest')"
-          ></SelectBoxProxy>
-          <SelectBoxProxy
-            label-text="部门"
-            v-bind="form.getFormOptions('department')"
-          ></SelectBoxProxy>
+          <SelectBoxProxy label-text="兴趣爱好" v-bind="form.getFormOptions('interest')"></SelectBoxProxy>
+          <SelectBoxProxy label-text="部门" v-bind="form.getFormOptions('department')"></SelectBoxProxy>
           <TextBoxProxy label-text="截止日" v-bind="form.getFormOptions('ddl')"></TextBoxProxy>
           <RadioBoxProxy label-text="选择" v-bind="form.getFormOptions('radio')"></RadioBoxProxy>
           <DateBoxProxy
@@ -40,13 +34,7 @@
 import { DxButton } from 'devextreme-vue'
 import { computed, isProxy, toRaw } from 'vue'
 import { useForm } from './components/form/hooks/useForm'
-import {
-  TextBoxProxy,
-  TagBoxProxy,
-  SelectBoxProxy,
-  DateBoxProxy,
-  RadioBoxProxy
-} from './components/form/proxy'
+import { TextBoxProxy, TagBoxProxy, SelectBoxProxy, DateBoxProxy, RadioBoxProxy } from './components/form/proxy'
 import FormContainer from './components/form/form-container.vue'
 
 const returnPromise = (value: any) =>
@@ -176,9 +164,7 @@ const onSetFormData = () => {
 const printObj = (value: any) => {
   if (value) {
     const printStr = Object.entries(value).reduce<string>((prev, data, index) => {
-      return (
-        prev + `${data[0]}: ${data[1]}${index !== Object.entries(value).length - 1 ? ', ' : ''}`
-      )
+      return prev + `${data[0]}: ${data[1]}${index !== Object.entries(value).length - 1 ? ', ' : ''}`
     }, '')
     return `{ ${printStr} }`
   }
