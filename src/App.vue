@@ -133,7 +133,7 @@ const form = useForm(
     ddl: '2023-07-23',
     date: '',
     radio: 1,
-    tree: [1],
+    tree: [],
     remark: ''
   },
   {
