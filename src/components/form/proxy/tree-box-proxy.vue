@@ -55,7 +55,8 @@ const props = withDefaults(defineProps<Props>(), {
   itemsExpr: 'children',
   showCheckBoxesMode: 'normal',
   parentIdExpr: 'parentId',
-  keyExpr: 'id'
+  keyExpr: 'id',
+  noDataText: '无数据'
 })
 
 const box = useBox(props)
@@ -72,7 +73,7 @@ watch(
     if (props.boxActionType === 'default') {
       if (treeViewComponent) {
         treeViewComponent.unselectAll()
-        treeViewComponent.collapseAll()
+        props.value.length ? treeViewComponent.collapseAll() : treeViewComponent.expandAll()
       }
       setTimeout(() => {
         initializedStatus = false
@@ -116,6 +117,12 @@ const onContentReady = (e: ContentReadyEvent) => {
   if (props.onContentReady) {
     props.onContentReady(e)
   }
+  if (!props.value.length && props.boxActionType === 'default') {
+    // need fix: why need to setTimeout to make expandAll() work ??
+    setTimeout(() => {
+      e.component.expandAll()
+    }, 500)
+  }
   initializedTreeView()
 }
 
@@ -146,9 +153,7 @@ const onSelectionChanged = function (e: SelectionChangedEvent) {
       return item
     })
 
-    if (selectedItems && selectedItems.length) {
-      props.onBoxValueChanged(selectedItems)
-    }
+    props.onBoxValueChanged(selectedItems)
   }
 }
 </script>
