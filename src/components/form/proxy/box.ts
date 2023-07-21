@@ -11,6 +11,7 @@ export type BoxProperties = {
   getLabelDefaultWidth?: (w: number) => void
   validationMessage?: string | null
   validator?: (value: any) => string | null
+  boxActionType?: 'default' | 'box-event'
 }
 
 export function useBox(props: BoxProperties & Record<string, any>) {

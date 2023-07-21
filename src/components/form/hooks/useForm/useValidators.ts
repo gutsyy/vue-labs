@@ -11,13 +11,13 @@ type PresetRule = 'isRequired'
 
 export type Validator = ValidatorFn | PresetRule
 
-import { ref } from 'vue'
+import { shallowReactive } from 'vue'
 
 const isRequiredMessage = '此项不能为空'
 
 const isRequired: ValidatorFn = (value) => {
   if (Array.isArray(value)) {
-    return value.length ? null : isRequiredMessage
+    return value.length ? null : '此项必须选择'
   }
   if (value === 0) {
     return null
@@ -33,7 +33,7 @@ export function useValidators<T extends Record<string, any>, K extends keyof T>(
 ) {
   validators = validators ?? {}
 
-  const validationMessages = ref<Record<string, null | string>>(
+  const validationMessages = shallowReactive<Record<string, null | string>>(
     Object.keys(validators).reduce((prev, key) => {
       return { ...prev, [key]: null }
     }, {})
@@ -48,9 +48,9 @@ export function useValidators<T extends Record<string, any>, K extends keyof T>(
 
   const executeAllValidators = function (formData: Record<string, any>) {
     Object.entries(validatorsParsePreset).forEach((validator) => {
-      validationMessages.value[validator[0]] = validator[1](formData[validator[0]])
+      validationMessages[validator[0]] = validator[1](formData[validator[0]])
     })
-    for (const message of Object.values(validationMessages.value)) {
+    for (const message of Object.values(validationMessages)) {
       if (typeof message === 'string') {
         return false
       }

@@ -5,9 +5,9 @@
  * gutsyy 2023-07-21 created
  */
 
-import type { UnwrapRef } from 'vue'
+import type { ShallowReactive } from 'vue'
 
-type DataSourceAsync<T> = (data: T | UnwrapRef<T>) => Promise<any>
+type DataSourceAsync<T> = (data: T | ShallowReactive<T>) => Promise<any>
 
 type DataSource<T, D = keyof T> = {
   dataSource: DataSourceAsync<T> | any[]
@@ -18,17 +18,17 @@ type DataSource<T, D = keyof T> = {
 
 export type DataSources<T extends Record<string, any>, DK extends keyof T> = Record<DK, DataSource<T>>
 
-import { ref, type Ref, watch } from 'vue'
+import { reactive, watch } from 'vue'
 import { createArrayStore } from '@/utils/data-layer'
 import type ArrayStore from 'devextreme/data/array_store'
 
 export function useDataSources<T extends Record<string, any>, DK extends keyof T>(
   dataSources: DataSources<T, DK> | undefined,
-  formData: Ref<UnwrapRef<T>>
+  formData: ShallowReactive<T>
 ) {
   dataSources = dataSources ?? ({} as DataSources<T, DK>)
 
-  const dataSourcesRef = ref<
+  const dataSourcesRef = reactive<
     Record<
       string,
       {
@@ -46,8 +46,8 @@ export function useDataSources<T extends Record<string, any>, DK extends keyof T
   for (const key in dataSources) {
     const { dataSource, dependencies, valueExpr, displayExpr } = dataSources[key]
 
-    dataSourcesRef.value[key].valueExpr = valueExpr
-    dataSourcesRef.value[key].displayExpr = displayExpr
+    dataSourcesRef[key].valueExpr = valueExpr
+    dataSourcesRef[key].displayExpr = displayExpr
 
     const getDataAsync = Array.isArray(dataSource) ? () => new Promise((resolve) => resolve(dataSource)) : dataSource
 
@@ -58,9 +58,9 @@ export function useDataSources<T extends Record<string, any>, DK extends keyof T
       return data
     }
 
-    const fetchDataSaved = (asyncFn: (t: UnwrapRef<T>) => Promise<any>) => {
-      asyncFn(formData.value).then((data: any) => {
-        dataSourcesRef.value[key].dataSource = Array.isArray(data) ? createStoreIfNecessary(data) : []
+    const fetchDataSaved = (asyncFn: (t: ShallowReactive<T>) => Promise<any>) => {
+      asyncFn(formData).then((data: any) => {
+        dataSourcesRef[key].dataSource = Array.isArray(data) ? createStoreIfNecessary(data) : []
       })
     }
 
@@ -69,7 +69,7 @@ export function useDataSources<T extends Record<string, any>, DK extends keyof T
     if (dependencies) {
       for (const dependency of dependencies) {
         watch(
-          () => formData.value[dependency as keyof UnwrapRef<T>],
+          () => formData[dependency],
           () => fetchDataSaved(getDataAsync)
         )
       }
