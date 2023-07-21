@@ -2,7 +2,7 @@
   <main>
     <div>
       <div class="m-4 mb-8 p-4 bg-gray-100 rounded-2xl">
-        <FormContainer cols="2">
+        <FormContainer cols="2" @confirm="onSubmit">
           <TextBoxProxy label-text="姓名" v-bind="form.getFormOptions('name')"></TextBoxProxy>
           <TagBoxProxy label-text="角色" v-bind="form.getFormOptions('role')"></TagBoxProxy>
           <SelectBoxProxy label-text="性别" v-bind="form.getFormOptions('gender')"></SelectBoxProxy>
@@ -16,10 +16,16 @@
             v-bind="form.getFormOptions('date')"
             :max="form.value.ddl"
           ></DateBoxProxy>
+          <TreeBoxProxy
+            class="col-span-2"
+            selection-mode="multiple"
+            label-text="省份"
+            v-bind="form.getFormOptions('tree')"
+          ></TreeBoxProxy>
         </FormContainer>
       </div>
       <div class="mt-4 flex justify-center">
-        <DxButton @click="form.onSubmit((d) => console.log(d))">测试按钮</DxButton>
+        <DxButton @click="onSetFormData">测试按钮</DxButton>
       </div>
       <div class="mt-4 flex flex-col items-center">
         <div class="p-1 font-mono" v-for="(data, index) in formDataPrintArr" v-bind:key="index">
@@ -34,7 +40,7 @@
 import { DxButton } from 'devextreme-vue'
 import { computed, isProxy, toRaw } from 'vue'
 import { useForm } from './components/form/hooks/useForm'
-import { TextBoxProxy, TagBoxProxy, SelectBoxProxy, DateBoxProxy, RadioBoxProxy } from './components/form/proxy'
+import { TextBoxProxy, TagBoxProxy, SelectBoxProxy, DateBoxProxy, RadioBoxProxy, TreeBoxProxy } from './components/form/proxy'
 import FormContainer from './components/form/form-container.vue'
 
 const returnPromise = (value: any) =>
@@ -85,7 +91,7 @@ const getRadioData = () =>
 const getTreeData = () =>
   returnPromise([
     {
-      id: -1,
+      id: 10,
       name: '中国',
       children: [
         {
@@ -112,15 +118,21 @@ const form = useForm(
   {
     name: '',
     gender: '',
-    role: [],
+    role: [0],
     interest: '',
-    department: '',
+    department: 0,
     ddl: '2023-07-23',
     date: '',
-    radio: ''
+    radio: 1,
+    tree: [1]
   },
   {
     dataSources: {
+      tree: {
+        dataSource: getTreeData,
+        valueExpr: 'id',
+        displayExpr: 'name'
+      },
       role: {
         dataSource: getRolesData,
         valueExpr: 'id',
@@ -152,13 +164,20 @@ const form = useForm(
       department: 'isRequired',
       ddl: 'isRequired',
       date: 'isRequired',
-      radio: 'isRequired'
+      radio: 'isRequired',
+      tree: 'isRequired'
     }
   }
 )
 
+const onSubmit = () => {
+  form.onSubmit((data) => {
+    console.log(data)
+  })
+}
+
 const onSetFormData = () => {
-  form.value.name = 'woman'
+  form.value.tree = [4, 2]
 }
 
 const printObj = (value: any) => {
