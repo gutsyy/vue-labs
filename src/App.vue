@@ -23,6 +23,7 @@
             v-bind="form.getFormOptions('tree')"
           ></TreeBoxProxy>
           <TextareaBoxProxy label-text="备注" class="col-span-2" v-bind="form.getFormOptions('remark')"></TextareaBoxProxy>
+          <CheckBoxProxy label-text="是否完成" v-bind="form.getFormOptions('isFinish')" />
         </FormContainer>
       </div>
       <div class="mt-4 flex justify-center">
@@ -48,7 +49,8 @@ import {
   DateBoxProxy,
   RadioBoxProxy,
   TreeBoxProxy,
-  TextareaBoxProxy
+  TextareaBoxProxy,
+  CheckBoxProxy
 } from './components/form/proxy'
 import FormContainer from './components/form/form-container.vue'
 
@@ -134,7 +136,8 @@ const form = useForm(
     date: '',
     radio: 1,
     tree: [],
-    remark: ''
+    remark: '',
+    isFinish: false
   },
   {
     dataSources: {

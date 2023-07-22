@@ -6,6 +6,7 @@ import TextBoxProxy from './text-box-proxy.vue'
 import RadioBoxProxy from './radio-box-proxy.vue'
 import TreeBoxProxy from './tree-box-proxy.vue'
 import TextareaBoxProxy from './textarea-box-proxy.vue'
+import CheckBoxProxy from './check-box-proxy.vue'
 
 export {
   DateBoxProxy,
@@ -15,5 +16,6 @@ export {
   TextBoxProxy,
   RadioBoxProxy,
   TreeBoxProxy,
-  TextareaBoxProxy
+  TextareaBoxProxy,
+  CheckBoxProxy
 }

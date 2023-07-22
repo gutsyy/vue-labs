@@ -16,10 +16,16 @@ import { shallowReactive } from 'vue'
 const isRequiredMessage = '此项不能为空'
 
 const isRequired: ValidatorFn = (value) => {
-  if (Array.isArray(value)) {
-    return value.length ? null : '此项必须选择'
+  if (Array.isArray(value) && value.length) {
+    return null
   }
   if (value === 0) {
+    return null
+  }
+  if (typeof value === 'string' && value.length) {
+    return null
+  }
+  if (typeof value === 'boolean') {
     return null
   }
   if (value) {
