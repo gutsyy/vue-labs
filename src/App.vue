@@ -23,7 +23,7 @@
             v-bind="form.getFormOptions('tree')"
           ></TreeBoxProxy>
           <TextareaBoxProxy label-text="备注" class="col-span-2" v-bind="form.getFormOptions('remark')"></TextareaBoxProxy>
-          <CheckBoxProxy label-text="是否完成" v-bind="form.getFormOptions('isFinish')" />
+          <CheckBoxProxy label-text="" text="是否完成" v-bind="form.getFormOptions('isFinish')" />
         </FormContainer>
       </div>
       <div class="mt-4 flex justify-center">
