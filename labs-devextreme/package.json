@@ -10,7 +10,7 @@
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/labs-devextreme.js"
     }
   },
   "scripts": {
@@ -21,9 +21,7 @@
     "build-only": "rimraf dist && vite build && vue-tsc",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "format": "prettier --write src/"
   },
   "peerDependencies": {
     "devextreme": "23.1",

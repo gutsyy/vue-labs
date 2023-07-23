@@ -13,13 +13,14 @@ export default defineConfig({
     }
   },
   build: {
+    commonjsOptions: {
+      // https://stackoverflow.com/questions/73125972/the-requested-module-node-modules-vite-deps-vue-js-does-not-provide-an-expor/73131693#73131693
+      esmExternals: true
+    },
     emptyOutDir: false,
     lib: {
-      entry: {
-        index: resolve(__dirname, 'src/components/index.ts')
-      },
+      entry: resolve(__dirname, 'src/index.ts'),
       formats: ['es'],
-
       name: '@gutsyy/labs-devextreme'
     },
     rollupOptions: {
