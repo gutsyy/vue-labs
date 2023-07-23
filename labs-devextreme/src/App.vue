@@ -50,9 +50,9 @@ import {
   RadioBoxProxy,
   TreeBoxProxy,
   TextareaBoxProxy,
-  CheckBoxProxy
-} from './components/form/proxy'
-import FormContainer from './components/form/form-container.vue'
+  CheckBoxProxy,
+  FormContainer
+} from './components'
 
 const returnPromise = (value: any) =>
   new Promise((resolve) => {
