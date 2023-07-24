@@ -1,11 +1,14 @@
 {
   "name": "@gutsyy/labs-devextreme",
   "version": "0.0.1",
-  "private": true,
   "type": "module",
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gutsyy/vue-labs.git"
+  },
   "module": "./dist/index.js",
   "exports": {
     ".": {
