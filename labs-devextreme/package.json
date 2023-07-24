@@ -11,7 +11,8 @@
     ".": {
       "types": "./dist/types/index.d.ts",
       "import": "./dist/labs-devextreme.js"
-    }
+    },
+    "./style.css": "./dist/style.css"
   },
   "scripts": {
     "dev": "vite",
