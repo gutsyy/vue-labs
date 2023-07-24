@@ -67,18 +67,22 @@ let treeViewComponent: dxTreeView<any> | undefined = undefined
 
 let initializedStatus = false
 
+let timer = 0
+
 watch(
   () => props.value,
   () => {
+    let value = props.value ? [...props.value] : []
     if (props.boxActionType === 'default') {
       if (treeViewComponent) {
         treeViewComponent.unselectAll()
         props.value.length ? treeViewComponent.collapseAll() : treeViewComponent.expandAll()
       }
-      setTimeout(() => {
+      clearTimeout(timer)
+      timer = setTimeout(() => {
         initializedStatus = false
-        initializedTreeView()
-      }, 80)
+        initializedTreeView(value)
+      }, 240)
     }
   }
 )
@@ -97,9 +101,10 @@ const dropdownBoxValue = computed(() => {
   return [dropdownBoxDisplayStr, [dropdownBoxDisplayStr]] as const
 })
 
-const initializedTreeView = () => {
-  if (!initializedStatus && treeViewComponent && props.value.length && props.dataSource) {
-    const keys = props.value.map((item) => {
+const initializedTreeView = (value?: any[]) => {
+  let values = value ?? props.value
+  if (!initializedStatus && treeViewComponent && values.length && props.dataSource) {
+    const keys = values.map((item) => {
       if (typeof item === 'object') {
         return item[props.keyExpr as string]
       }
