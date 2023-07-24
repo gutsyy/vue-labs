@@ -1,5 +1,5 @@
 <template>
-  <DxPopup height="auto" v-bind="noUndefinedProps">
+  <DxPopup v-bind="noUndefinedProps">
     <FormContainer v-bind="noUndefinedProps">
       <slot></slot>
     </FormContainer>
@@ -12,8 +12,16 @@ import type { Properties } from 'devextreme/ui/popup'
 import FormContainer from './form-container.vue'
 import { removeUndefinedProps } from '@/utils'
 import { FormContainerProps } from './types'
+import { onMounted } from 'vue'
 
 type Props = FormContainerProps & Properties
+
+onMounted(() => {
+  const tags = Array.from(document.getElementsByTagName('body'))
+  if (tags.length) {
+    tags[0].className = `${tags[0].className} labs-devextreme`
+  }
+})
 
 const props = withDefaults(defineProps<Props>(), {
   showCancelButton: undefined,
@@ -29,7 +37,6 @@ const props = withDefaults(defineProps<Props>(), {
   showTitle: undefined,
   closeOnOutsideClick: undefined,
   copyRootClassesToWrapper: undefined,
-  deferRendering: undefined,
   hideOnOutsideClick: undefined,
   hideOnParentScroll: undefined,
   shading: undefined,
@@ -38,10 +45,10 @@ const props = withDefaults(defineProps<Props>(), {
   disabled: undefined,
   hoverStateEnabled: undefined,
   rtlEnabled: undefined,
-  maxHeight: '80vh'
+  maxHeight: '80vh',
+  height: 'auto',
+  deferRendering: true
 })
 
 const noUndefinedProps = removeUndefinedProps(props)
-
-console.log(noUndefinedProps.value)
 </script>

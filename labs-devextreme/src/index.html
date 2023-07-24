@@ -1,0 +1,1451 @@
+
+<div class="dx-overlay-wrapper dx-popup-wrapper dx-overlay-shader" data-bind="dxControlsDescendantBindings: true"
+    style="z-index: 1503; position: fixed; width: 806px; height: 865px; left: 0px; top: 0px; transform: translate(0px, 0px); transition: all 0s ease 0s; overflow: visible;">
+    <div class="dx-overlay-content dx-popup-normal dx-popup-draggable dx-popup-flex-height dx-resizable" role="dialog"
+        tabindex="0"
+        style="max-height: 80vh; width: 80vw; height: auto; z-index: 1503; left: 0px; top: 0px; transform: translate(81px, 158px) scale(1); transition: none 0s ease 0s; opacity: 1;">
+        <div class="dx-toolbar dx-widget dx-visibility-change-handler dx-collection dx-popup-title dx-has-close-button"
+            role="toolbar">
+            <div class="dx-toolbar-items-container">
+                <div class="dx-toolbar-before">
+                    <div class="dx-item dx-toolbar-item dx-toolbar-label" style="max-width: 40px;">
+                        <div class="dx-item-content dx-toolbar-item-content">
+                            <div>新增</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dx-toolbar-center" style="margin: 0px 51px 0px 55px; float: none;"></div>
+                <div class="dx-toolbar-after">
+                    <div class="dx-item dx-toolbar-item dx-toolbar-button">
+                        <div class="dx-item-content dx-toolbar-item-content">
+                            <div class="dx-widget dx-button dx-button-mode-text dx-button-normal dx-button-has-icon dx-closebutton"
+                                role="button" aria-label="Close" tabindex="0">
+                                <div class="dx-button-content"><i class="dx-icon dx-icon-close"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dx-popup-content dx-popup-content-scrollable"
+            style="height: auto; min-height: 0px; max-height: 641px;">
+            <div title="新增" height="auto" maxheight="80vh" visible="true">
+                <form class="grid grid-cols-2 gap-x-6 gap-y-4">
+                    <div class="flex justify-between items-center">
+                        <div class="text-xs font-sans text-gray-600 mr-6" style="width: 58px;">姓名<span
+                                class="text-red-500 ml-1">*</span></div>
+                        <div class="flex-1">
+                            <div
+                                class="dx-show-invalid-badge dx-textbox dx-texteditor dx-editor-outlined dx-texteditor-empty dx-widget dx-invalid dx-state-focused">
+                                <div class="dx-texteditor-container">
+                                    <div class="dx-texteditor-input-container"><input autocomplete="off" placeholder=" "
+                                            class="dx-texteditor-input" type="text" spellcheck="false" tabindex="0"
+                                            role="textbox" aria-invalid="true"
+                                            aria-describedby="dx-228a1b21-24bb-829a-5e84-747c878091ea">
+                                        <div data-dx_placeholder="" class="dx-placeholder"></div>
+                                    </div>
+                                    <div class="dx-texteditor-buttons-container">
+                                        <div></div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="dx-overlay dx-invalid-message-bottom dx-widget dx-visibility-change-handler dx-invalid-message">
+                                    <div class="dx-overlay-wrapper dx-invalid-message dx-invalid-message-auto"
+                                        data-bind="dxControlsDescendantBindings: true"
+                                        style="position: absolute; width: 207.398px; height: 36px; left: 0px; top: 0px; transform: translate(-1px, -35px); z-index: 1504; transition: all 0s ease 0s; overflow: visible;">
+                                        <div class="dx-overlay-content dx-invalid-message-content"
+                                            style="max-width: 207.398px; width: auto; height: auto; left: 0px; top: 0px; transform: translate(0px, 36px); z-index: 1504; transition: all 0s ease 0s;"
+                                            id="dx-228a1b21-24bb-829a-5e84-747c878091ea">此项不能为空</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="text-xs font-sans text-gray-600 mr-6" style="width: 58px;">年龄<!--v-if--></div>
+                        <div class="flex-1">
+                            <div class="dx-show-invalid-badge dx-numberbox dx-texteditor dx-editor-outlined dx-widget">
+                                <input type="hidden" value="26">
+                                <div class="dx-texteditor-container">
+                                    <div class="dx-texteditor-input-container"><input autocomplete="off" placeholder=" "
+                                            inputmode="decimal" class="dx-texteditor-input" type="text" min="undefined"
+                                            max="undefined" step="1" aria-valuemin="" aria-valuemax="" tabindex="0"
+                                            aria-valuenow="26" role="spinbutton">
+                                        <div data-dx_placeholder="" class="dx-placeholder dx-state-invisible"></div>
+                                    </div>
+                                    <div class="dx-texteditor-buttons-container">
+                                        <div></div>
+                                        <div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="text-xs font-sans text-gray-600 mr-6" style="width: 58px;">角色<span
+                                class="text-red-500 ml-1">*</span></div>
+                        <div class="flex-1">
+                            <div class="dx-show-invalid-badge dx-tagbox dx-tagbox-only-select dx-selectbox dx-textbox dx-texteditor dx-dropdowneditor-button-visible dx-editor-outlined dx-widget dx-tagbox-default-template dx-dropdowneditor dx-dropdowneditor-field-clickable"
+                                role="group" aria-roledescription="tagbox"
+                                aria-labelledby="dx-7968b7ce-6037-18f9-2189-a3a834682c88 dx-958c555e-7aa8-49af-cc74-d67ba294bb6c">
+                                <div class="dx-dropdowneditor-input-wrapper dx-selectbox-container"><select
+                                        multiple="multiple" aria-label="Selected items" style="display: none;">
+                                        <option value="0" selected="selected"></option>
+                                        <option value="1" selected="selected"></option>
+                                    </select>
+                                    <div class="dx-texteditor-container">
+                                        <div class="dx-texteditor-input-container dx-tag-container">
+                                            <div id="dx-7968b7ce-6037-18f9-2189-a3a834682c88" class="dx-tag">
+                                                <div class="dx-tag-content"><span>admin</span>
+                                                    <div class="dx-tag-remove-button"></div>
+                                                </div>
+                                            </div>
+                                            <div id="dx-958c555e-7aa8-49af-cc74-d67ba294bb6c" class="dx-tag">
+                                                <div class="dx-tag-content"><span>user</span>
+                                                    <div class="dx-tag-remove-button"></div>
+                                                </div>
+                                            </div><input autocomplete="off" placeholder=" " class="dx-texteditor-input"
+                                                aria-haspopup="listbox" aria-autocomplete="list" type="text" readonly=""
+                                                spellcheck="false" tabindex="0" size="1"
+                                                aria-labelledby="dx-ad29153c-e41a-dcd6-3725-e4bfcd61ab50"
+                                                role="combobox" aria-expanded="false"
+                                                aria-controls="dx-1a1546c9-99d7-9d9b-a9d9-7c1ed7d13489"
+                                                aria-owns="dx-baf62bea-faa4-17b4-ff5f-57b65a1689a0">
+                                            <div id="dx-ad29153c-e41a-dcd6-3725-e4bfcd61ab50"
+                                                data-dx_placeholder="请选择..." class="dx-placeholder dx-state-invisible">
+                                            </div>
+                                        </div>
+                                        <div class="dx-texteditor-buttons-container">
+                                            <div></div>
+                                            <div role="button"
+                                                class="dx-widget dx-button-mode-contained dx-button-normal dx-dropdowneditor-button"
+                                                aria-label="Select">
+                                                <div class="dx-button-content">
+                                                    <div class="dx-dropdowneditor-icon"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="dx-dropdowneditor-overlay dx-overlay dx-popup dx-widget dx-visibility-change-handler dx-selectbox-popup dx-state-invisible">
+                                    <div class="dx-overlay-content dx-popup-normal dx-resizable dx-state-invisible"
+                                        role="dialog"
+                                        style="max-height: 432.5px; width: 207.398px; height: auto; z-index: 1502; left: 0px; top: 0px; transform: translate(0px, 36px); transition: none 0s ease 0s; visibility: visible; opacity: 0;"
+                                        tabindex="-1">
+                                        <div class="dx-popup-content" id="dx-baf62bea-faa4-17b4-ff5f-57b65a1689a0"
+                                            style="height: 127.5px; max-height: none; min-height: auto;">
+                                            <div id="dx-1a1546c9-99d7-9d9b-a9d9-7c1ed7d13489"
+                                                class="dx-scrollable dx-scrollview dx-visibility-change-handler dx-scrollable-vertical dx-scrollable-native dx-scrollable-native-generic dx-list-select-decorator-enabled dx-list dx-widget dx-collection"
+                                                role="group" aria-roledescription="list">
+                                                <div class="dx-scrollable-wrapper">
+                                                    <div class="dx-scrollable-container">
+                                                        <div class="dx-scrollable-content">
+                                                            <div class="dx-scrollview-top-pocket"
+                                                                style="top: 0px; transform: translate(0px, 0px);">
+                                                                <div class="dx-scrollview-pull-down dx-state-invisible">
+                                                                    <div class="dx-scrollview-pull-down-image"></div>
+                                                                    <div class="dx-scrollview-pull-down-indicator">
+                                                                        <div class="dx-loadindicator dx-widget">
+                                                                            <div class="dx-loadindicator-wrapper">
+                                                                                <div class="dx-loadindicator-content">
+                                                                                    <div class="dx-loadindicator-icon">
+                                                                                        <div
+                                                                                            class="dx-loadindicator-segment dx-loadindicator-segment1">
+                                                                                        </div>
+                                                                                        <div
+                                                                                            class="dx-loadindicator-segment dx-loadindicator-segment0">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="dx-scrollview-pull-down-text">
+                                                                        <div
+                                                                            class="dx-scrollview-pull-down-text-visible">
+                                                                            Pull down to refresh...</div>
+                                                                        <div>Release to refresh...</div>
+                                                                        <div>Refreshing...</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="dx-scrollview-content" role="listbox"
+                                                                aria-label="Items"
+                                                                style="transform: translate(0px, 0px);"
+                                                                aria-activedescendant="dx-42187149-49dd-64f0-b48e-27f4bed867b5">
+                                                                <div class="dx-list-select-all">
+                                                                    <div class="dx-widget dx-checkbox dx-checkbox-checked dx-list-select-all-checkbox"
+                                                                        aria-readonly="false" aria-invalid="false"
+                                                                        role="checkbox" aria-checked="true"
+                                                                        aria-label="Select All"><input type="hidden"
+                                                                            value="true">
+                                                                        <div class="dx-checkbox-container"><span
+                                                                                class="dx-checkbox-icon"></span></div>
+                                                                    </div>
+                                                                    <div class="dx-list-select-all-label">全部选择</div>
+                                                                </div>
+                                                                <div class="dx-item dx-list-item dx-list-item-selected"
+                                                                    role="option" aria-selected="true">
+                                                                    <div
+                                                                        class="dx-list-item-before-bag dx-list-select-checkbox-container">
+                                                                        <div class="dx-widget dx-checkbox dx-checkbox-checked dx-list-select-checkbox"
+                                                                            aria-readonly="false" aria-invalid="false"
+                                                                            role="checkbox" aria-checked="true"
+                                                                            aria-label="Check State"><input
+                                                                                type="hidden" value="true">
+                                                                            <div class="dx-checkbox-container"><span
+                                                                                    class="dx-checkbox-icon"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="dx-item-content dx-list-item-content">
+                                                                        admin</div>
+                                                                </div>
+                                                                <div class="dx-item dx-list-item dx-list-item-selected dx-state-focused"
+                                                                    role="option" aria-selected="true"
+                                                                    id="dx-42187149-49dd-64f0-b48e-27f4bed867b5">
+                                                                    <div
+                                                                        class="dx-list-item-before-bag dx-list-select-checkbox-container">
+                                                                        <div class="dx-widget dx-checkbox dx-checkbox-checked dx-list-select-checkbox"
+                                                                            aria-readonly="false" aria-invalid="false"
+                                                                            role="checkbox" aria-checked="true"
+                                                                            aria-label="Check State"><input
+                                                                                type="hidden" value="true">
+                                                                            <div class="dx-checkbox-container"><span
+                                                                                    class="dx-checkbox-icon"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="dx-item-content dx-list-item-content">
+                                                                        user</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="dx-scrollview-bottom-pocket">
+                                                                <div
+                                                                    class="dx-scrollview-scrollbottom dx-state-invisible">
+                                                                    <div class="dx-scrollview-scrollbottom-indicator">
+                                                                        <div class="dx-loadindicator dx-widget">
+                                                                            <div class="dx-loadindicator-wrapper">
+                                                                                <div class="dx-loadindicator-content">
+                                                                                    <div class="dx-loadindicator-icon">
+                                                                                        <div
+                                                                                            class="dx-loadindicator-segment dx-loadindicator-segment1">
+                                                                                        </div>
+                                                                                        <div
+                                                                                            class="dx-loadindicator-segment dx-loadindicator-segment0">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="dx-scrollview-scrollbottom-text">
+                                                                        Loading...</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="dx-scrollview-loadpanel dx-overlay dx-widget dx-state-invisible dx-visibility-change-handler dx-loadpanel">
+                                                    <div class="dx-overlay-content" style="width: 222px; height: 90px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="text-xs font-sans text-gray-600 mr-6" style="width: 58px;">性别<span
+                                class="text-red-500 ml-1">*</span></div>
+                        <div class="flex-1">
+                            <div
+                                class="dx-show-invalid-badge dx-selectbox dx-textbox dx-texteditor dx-dropdowneditor-button-visible dx-editor-outlined dx-texteditor-empty dx-widget dx-dropdowneditor dx-dropdowneditor-field-clickable dx-invalid">
+                                <div class="dx-dropdowneditor-input-wrapper dx-selectbox-container"><input type="hidden"
+                                        value="">
+                                    <div class="dx-texteditor-container">
+                                        <div class="dx-texteditor-input-container"><input autocomplete="off"
+                                                placeholder=" " class="dx-texteditor-input" aria-haspopup="listbox"
+                                                aria-autocomplete="list" type="text" readonly="" spellcheck="false"
+                                                tabindex="0" aria-labelledby="dx-8dc21292-2dca-0027-85ce-6d583aa912d1"
+                                                role="combobox" aria-expanded="false" aria-invalid="true"
+                                                aria-describedby="dx-ef2719e8-316e-bc46-2d69-5ca332ed7b97">
+                                            <div id="dx-8dc21292-2dca-0027-85ce-6d583aa912d1"
+                                                data-dx_placeholder="请选择..." class="dx-placeholder"></div>
+                                        </div>
+                                        <div class="dx-texteditor-buttons-container">
+                                            <div></div>
+                                            <div role="button"
+                                                class="dx-widget dx-button-mode-contained dx-button-normal dx-dropdowneditor-button"
+                                                aria-label="Select">
+                                                <div class="dx-button-content">
+                                                    <div class="dx-dropdowneditor-icon"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="dx-overlay dx-invalid-message-auto dx-widget dx-visibility-change-handler dx-invalid-message">
+                                    <div class="dx-overlay-wrapper dx-invalid-message dx-invalid-message-auto"
+                                        data-bind="dxControlsDescendantBindings: true"
+                                        style="position: absolute; width: 207.398px; height: 36px; left: 0px; top: 0px; transform: translate(-1px, -35px); z-index: 1505; transition: all 0s ease 0s; overflow: visible;">
+                                        <div class="dx-overlay-content dx-invalid-message-content"
+                                            style="max-width: 207.398px; width: auto; height: auto; left: 0px; top: 0px; transform: translate(0px, 36px); z-index: 1505; transition: all 0s ease 0s;"
+                                            id="dx-ef2719e8-316e-bc46-2d69-5ca332ed7b97">此项不能为空</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="text-xs font-sans text-gray-600 mr-6" style="width: 58px;">兴趣爱好<span
+                                class="text-red-500 ml-1">*</span></div>
+                        <div class="flex-1">
+                            <div
+                                class="dx-show-invalid-badge dx-selectbox dx-textbox dx-texteditor dx-dropdowneditor-button-visible dx-editor-outlined dx-texteditor-empty dx-widget dx-dropdowneditor dx-dropdowneditor-field-clickable dx-invalid">
+                                <div class="dx-dropdowneditor-input-wrapper dx-selectbox-container"><input type="hidden"
+                                        value="">
+                                    <div class="dx-texteditor-container">
+                                        <div class="dx-texteditor-input-container"><input autocomplete="off"
+                                                placeholder=" " class="dx-texteditor-input" aria-haspopup="listbox"
+                                                aria-autocomplete="list" type="text" readonly="" spellcheck="false"
+                                                tabindex="0" aria-labelledby="dx-7ee71455-a28c-f397-371b-9f3139cb9341"
+                                                role="combobox" aria-expanded="false" aria-invalid="true"
+                                                aria-describedby="dx-73826eed-6931-6dce-8991-1b7c7c297ba3">
+                                            <div id="dx-7ee71455-a28c-f397-371b-9f3139cb9341"
+                                                data-dx_placeholder="请选择..." class="dx-placeholder"></div>
+                                        </div>
+                                        <div class="dx-texteditor-buttons-container">
+                                            <div></div>
+                                            <div role="button"
+                                                class="dx-widget dx-button-mode-contained dx-button-normal dx-dropdowneditor-button"
+                                                aria-label="Select">
+                                                <div class="dx-button-content">
+                                                    <div class="dx-dropdowneditor-icon"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="dx-overlay dx-invalid-message-auto dx-widget dx-visibility-change-handler dx-invalid-message">
+                                    <div class="dx-overlay-wrapper dx-invalid-message dx-invalid-message-auto"
+                                        data-bind="dxControlsDescendantBindings: true"
+                                        style="position: absolute; width: 207.398px; height: 36px; left: 0px; top: 0px; transform: translate(-1px, -35px); z-index: 1506; transition: all 0s ease 0s; overflow: visible;">
+                                        <div class="dx-overlay-content dx-invalid-message-content"
+                                            style="max-width: 207.398px; width: auto; height: auto; left: 0px; top: 0px; transform: translate(0px, 36px); z-index: 1506; transition: all 0s ease 0s;"
+                                            id="dx-73826eed-6931-6dce-8991-1b7c7c297ba3">此项不能为空</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="text-xs font-sans text-gray-600 mr-6" style="width: 58px;">部门<span
+                                class="text-red-500 ml-1">*</span></div>
+                        <div class="flex-1">
+                            <div
+                                class="dx-show-invalid-badge dx-selectbox dx-textbox dx-texteditor dx-dropdowneditor-button-visible dx-editor-outlined dx-widget dx-dropdowneditor dx-dropdowneditor-field-clickable">
+                                <div class="dx-dropdowneditor-input-wrapper dx-selectbox-container"><input type="hidden"
+                                        value="0">
+                                    <div class="dx-texteditor-container">
+                                        <div class="dx-texteditor-input-container"><input autocomplete="off"
+                                                placeholder=" " class="dx-texteditor-input" aria-haspopup="listbox"
+                                                aria-autocomplete="list" type="text" readonly="" spellcheck="false"
+                                                tabindex="0" aria-labelledby="dx-bb19b0cb-b062-7350-37f8-25673eadb37a"
+                                                role="combobox" aria-expanded="false">
+                                            <div id="dx-bb19b0cb-b062-7350-37f8-25673eadb37a"
+                                                data-dx_placeholder="请选择..." class="dx-placeholder dx-state-invisible">
+                                            </div>
+                                        </div>
+                                        <div class="dx-texteditor-buttons-container">
+                                            <div></div>
+                                            <div role="button"
+                                                class="dx-widget dx-button-mode-contained dx-button-normal dx-dropdowneditor-button"
+                                                aria-label="Select">
+                                                <div class="dx-button-content">
+                                                    <div class="dx-dropdowneditor-icon"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="text-xs font-sans text-gray-600 mr-6" style="width: 58px;">截止日<span
+                                class="text-red-500 ml-1">*</span></div>
+                        <div class="flex-1">
+                            <div class="dx-show-invalid-badge dx-textbox dx-texteditor dx-editor-outlined dx-widget">
+                                <div class="dx-texteditor-container">
+                                    <div class="dx-texteditor-input-container"><input autocomplete="off" placeholder=" "
+                                            class="dx-texteditor-input" type="text" spellcheck="false" tabindex="0"
+                                            role="textbox">
+                                        <div data-dx_placeholder="" class="dx-placeholder dx-state-invisible"></div>
+                                    </div>
+                                    <div class="dx-texteditor-buttons-container">
+                                        <div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="text-xs font-sans text-gray-600 mr-6" style="width: 58px;">选择<span
+                                class="text-red-500 ml-1">*</span></div>
+                        <div class="flex-1">
+                            <div class="dx-show-invalid-badge dx-radiogroup dx-radiogroup-horizontal dx-widget"
+                                role="radiogroup" tabindex="0"><input type="hidden" value="1">
+                                <div class="dx-widget dx-collection">
+                                    <div class="dx-item dx-radiobutton" role="radio" aria-checked="false"
+                                        style="height: auto;">
+                                        <div class="dx-radio-value-container">
+                                            <div class="dx-radiobutton-icon">
+                                                <div class="dx-radiobutton-icon-dot"></div>
+                                            </div>
+                                        </div>
+                                        <div class="dx-item-content">A</div>
+                                    </div>
+                                    <div class="dx-item dx-item-selected dx-radiobutton-checked dx-radiobutton"
+                                        role="radio" aria-checked="true" style="height: auto;">
+                                        <div class="dx-radio-value-container">
+                                            <div class="dx-radiobutton-icon dx-radiobutton-icon-checked">
+                                                <div class="dx-radiobutton-icon-dot"></div>
+                                            </div>
+                                        </div>
+                                        <div class="dx-item-content">B</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center col-span-2">
+                        <div class="text-xs font-sans text-gray-600 mr-6" style="width: 58px;">完成日期<span
+                                class="text-red-500 ml-1">*</span></div>
+                        <div class="flex-1">
+                            <div
+                                class="dx-show-invalid-badge dx-datebox dx-textbox dx-texteditor dx-dropdowneditor-button-visible dx-editor-outlined dx-texteditor-empty dx-widget dx-visibility-change-handler dx-auto-width dx-dropdowneditor dx-datebox-date dx-datebox-calendar dx-invalid">
+                                <div class="dx-dropdowneditor-input-wrapper"><input type="hidden" value="">
+                                    <div class="dx-texteditor-container">
+                                        <div class="dx-texteditor-input-container"><input autocomplete="off"
+                                                placeholder=" " class="dx-texteditor-input" aria-haspopup="true"
+                                                aria-autocomplete="list" type="text" spellcheck="false" tabindex="0"
+                                                role="combobox" aria-expanded="false" aria-invalid="true"
+                                                aria-describedby="dx-524b533b-355c-c6a0-41d2-ec7869d72b96">
+                                            <div data-dx_placeholder="" class="dx-placeholder"></div>
+                                        </div>
+                                        <div class="dx-texteditor-buttons-container">
+                                            <div></div>
+                                            <div role="button"
+                                                class="dx-widget dx-button-mode-contained dx-button-normal dx-dropdowneditor-button"
+                                                aria-label="Select">
+                                                <div class="dx-button-content">
+                                                    <div class="dx-dropdowneditor-icon"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="dx-overlay dx-invalid-message-auto dx-widget dx-visibility-change-handler dx-invalid-message">
+                                    <div class="dx-overlay-wrapper dx-invalid-message dx-invalid-message-auto"
+                                        data-bind="dxControlsDescendantBindings: true"
+                                        style="position: absolute; width: 520.797px; height: 36px; left: 0px; top: 0px; transform: translate(-1px, -35px); z-index: 1507; transition: all 0s ease 0s; overflow: visible;">
+                                        <div class="dx-overlay-content dx-invalid-message-content"
+                                            style="max-width: 520.797px; width: auto; height: auto; left: 0px; top: 0px; transform: translate(0px, 36px); z-index: 1507; transition: all 0s ease 0s;"
+                                            id="dx-524b533b-355c-c6a0-41d2-ec7869d72b96">此项不能为空</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center col-span-2" valueexpr="id">
+                        <div class="text-xs font-sans text-gray-600 mr-6" style="width: 58px;">省份<span
+                                class="text-red-500 ml-1">*</span></div>
+                        <div class="flex-1">
+                            <div
+                                class="dx-show-invalid-badge dx-dropdownbox dx-textbox dx-texteditor dx-dropdowneditor-button-visible dx-editor-outlined dx-widget dx-dropdowneditor dx-dropdowneditor-field-clickable">
+                                <div class="dx-dropdowneditor-input-wrapper"><input type="hidden" value="广州市">
+                                    <div class="dx-texteditor-container">
+                                        <div class="dx-texteditor-input-container"><input autocomplete="off"
+                                                placeholder=" " class="dx-texteditor-input" aria-haspopup="true"
+                                                aria-autocomplete="list" type="text" readonly="" spellcheck="false"
+                                                tabindex="0" role="combobox" aria-expanded="false"
+                                                aria-controls="dx-3818da2d-4e16-4e38-c2a7-1da818f19afa">
+                                            <div data-dx_placeholder="" class="dx-placeholder dx-state-invisible"></div>
+                                        </div>
+                                        <div class="dx-texteditor-buttons-container">
+                                            <div></div>
+                                            <div role="button"
+                                                class="dx-widget dx-button-mode-contained dx-button-normal dx-dropdowneditor-button"
+                                                aria-label="Select">
+                                                <div class="dx-button-content">
+                                                    <div class="dx-dropdowneditor-icon"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="dx-dropdowneditor-overlay dx-overlay dx-popup dx-widget dx-state-invisible dx-visibility-change-handler">
+                                    <div class="dx-overlay-content dx-popup-normal dx-resizable" role="dialog"
+                                        tabindex="-1" style="max-height: 450px; width: 668.336px; height: auto;">
+                                        <div class="dx-popup-content" id="dx-3818da2d-4e16-4e38-c2a7-1da818f19afa">
+                                            <div
+                                                class="dx-template-wrapper dx-treeview-with-search dx-widget dx-collection dx-treeview">
+                                                <div
+                                                    class="dx-treeview-search dx-show-invalid-badge dx-textbox dx-texteditor dx-editor-outlined dx-searchbox dx-show-clear-button dx-texteditor-empty dx-widget">
+                                                    <div class="dx-texteditor-container">
+                                                        <div class="dx-texteditor-input-container">
+                                                            <div class="dx-icon dx-icon-search"></div><input
+                                                                autocomplete="off" placeholder=" " aria-label="Search"
+                                                                class="dx-texteditor-input" type="text"
+                                                                spellcheck="false" tabindex="0"
+                                                                aria-labelledby="dx-152edb58-e13b-4814-6030-862ae090fda9"
+                                                                role="textbox">
+                                                            <div id="dx-152edb58-e13b-4814-6030-862ae090fda9"
+                                                                data-dx_placeholder="Search" class="dx-placeholder">
+                                                            </div>
+                                                        </div>
+                                                        <div class="dx-texteditor-buttons-container"><span
+                                                                class="dx-clear-button-area"><span
+                                                                    class="dx-icon dx-icon-clear"></span></span></div>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="dx-scrollable dx-visibility-change-handler dx-scrollable-vertical dx-scrollable-native dx-scrollable-native-generic">
+                                                    <div class="dx-scrollable-wrapper">
+                                                        <div class="dx-scrollable-container">
+                                                            <div class="dx-scrollable-content" tabindex="0" role="tree">
+                                                                <ul class="dx-treeview-node-container" role="group">
+                                                                    <li class="dx-treeview-node dx-treeview-item-with-checkbox"
+                                                                        data-item-id="10" role="treeitem"
+                                                                        aria-label="中国" aria-level="1"
+                                                                        aria-expanded="true">
+                                                                        <div aria-readonly="false" aria-invalid="false"
+                                                                            role="checkbox" aria-checked="mixed"
+                                                                            class="dx-widget dx-checkbox dx-checkbox-indeterminate"
+                                                                            aria-label="Check State"><input
+                                                                                type="hidden" value="null">
+                                                                            <div class="dx-checkbox-container"><span
+                                                                                    class="dx-checkbox-icon"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="dx-item dx-treeview-item">
+                                                                            <div
+                                                                                class="dx-item-content dx-treeview-item-content">
+                                                                                <span>中国</span></div>
+                                                                        </div>
+                                                                        <div
+                                                                            class="dx-treeview-toggle-item-visibility dx-treeview-toggle-item-visibility-opened">
+                                                                        </div>
+                                                                        <ul class="dx-treeview-node-container dx-treeview-node-container-opened"
+                                                                            role="group"
+                                                                            style="transition: none 0s ease 0s; max-height: none;">
+                                                                            <li class="dx-treeview-node dx-treeview-item-with-checkbox"
+                                                                                data-item-id="6" role="treeitem"
+                                                                                aria-label="湖南省" aria-level="2"
+                                                                                aria-expanded="false"
+                                                                                aria-selected="false">
+                                                                                <div aria-readonly="false"
+                                                                                    aria-invalid="false" role="checkbox"
+                                                                                    aria-checked="false"
+                                                                                    class="dx-widget dx-checkbox"
+                                                                                    aria-label="Check State"><input
+                                                                                        type="hidden" value="false">
+                                                                                    <div class="dx-checkbox-container">
+                                                                                        <span
+                                                                                            class="dx-checkbox-icon"></span>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="dx-item dx-treeview-item">
+                                                                                    <div
+                                                                                        class="dx-item-content dx-treeview-item-content">
+                                                                                        <span>湖南省</span></div>
+                                                                                </div>
+                                                                                <div
+                                                                                    class="dx-treeview-toggle-item-visibility">
+                                                                                </div>
+                                                                            </li>
+                                                                            <li class="dx-treeview-node dx-treeview-item-with-checkbox"
+                                                                                data-item-id="3" role="treeitem"
+                                                                                aria-label="广东省" aria-level="2"
+                                                                                aria-expanded="true">
+                                                                                <div aria-readonly="false"
+                                                                                    aria-invalid="false" role="checkbox"
+                                                                                    aria-checked="mixed"
+                                                                                    class="dx-widget dx-checkbox dx-checkbox-indeterminate"
+                                                                                    aria-label="Check State"><input
+                                                                                        type="hidden" value="null">
+                                                                                    <div class="dx-checkbox-container">
+                                                                                        <span
+                                                                                            class="dx-checkbox-icon"></span>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="dx-item dx-treeview-item">
+                                                                                    <div
+                                                                                        class="dx-item-content dx-treeview-item-content">
+                                                                                        <span>广东省</span></div>
+                                                                                </div>
+                                                                                <div
+                                                                                    class="dx-treeview-toggle-item-visibility dx-treeview-toggle-item-visibility-opened">
+                                                                                </div>
+                                                                                <ul class="dx-treeview-node-container dx-treeview-node-container-opened"
+                                                                                    role="group"
+                                                                                    style="transition: none 0s ease 0s; max-height: none;">
+                                                                                    <li class="dx-treeview-node dx-treeview-item-with-checkbox dx-state-selected dx-treeview-node-is-leaf"
+                                                                                        data-item-id="4" role="treeitem"
+                                                                                        aria-label="广州市" aria-level="3"
+                                                                                        aria-selected="true">
+                                                                                        <div aria-readonly="false"
+                                                                                            aria-invalid="false"
+                                                                                            role="checkbox"
+                                                                                            aria-checked="true"
+                                                                                            class="dx-widget dx-checkbox dx-checkbox-checked"
+                                                                                            aria-label="Check State">
+                                                                                            <input type="hidden"
+                                                                                                value="true">
+                                                                                            <div
+                                                                                                class="dx-checkbox-container">
+                                                                                                <span
+                                                                                                    class="dx-checkbox-icon"></span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div
+                                                                                            class="dx-item dx-treeview-item">
+                                                                                            <div
+                                                                                                class="dx-item-content dx-treeview-item-content">
+                                                                                                <span>广州市</span></div>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                    <li class="dx-treeview-node dx-treeview-item-with-checkbox dx-treeview-node-is-leaf"
+                                                                                        data-item-id="5" role="treeitem"
+                                                                                        aria-label="深圳市" aria-level="3"
+                                                                                        aria-selected="false">
+                                                                                        <div aria-readonly="false"
+                                                                                            aria-invalid="false"
+                                                                                            role="checkbox"
+                                                                                            aria-checked="false"
+                                                                                            class="dx-widget dx-checkbox"
+                                                                                            aria-label="Check State">
+                                                                                            <input type="hidden"
+                                                                                                value="false">
+                                                                                            <div
+                                                                                                class="dx-checkbox-container">
+                                                                                                <span
+                                                                                                    class="dx-checkbox-icon"></span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div
+                                                                                            class="dx-item dx-treeview-item">
+                                                                                            <div
+                                                                                                class="dx-item-content dx-treeview-item-content">
+                                                                                                <span>深圳市</span></div>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center col-span-2">
+                        <div class="text-xs font-sans text-gray-600 mr-6" style="width: 58px;">备注<span
+                                class="text-red-500 ml-1">*</span></div>
+                        <div class="flex-1">
+                            <div
+                                class="dx-show-invalid-badge dx-textarea dx-textbox dx-texteditor dx-editor-outlined dx-texteditor-empty dx-widget dx-visibility-change-handler dx-invalid">
+                                <div class="dx-texteditor-container">
+                                    <div class="dx-texteditor-input-container"><textarea class="dx-texteditor-input"
+                                            spellcheck="true" tabindex="0" role="textbox" aria-multiline="true"
+                                            aria-invalid="true"
+                                            aria-describedby="dx-a7dd400d-96c5-68b4-abb6-b131e5e352fa"></textarea>
+                                        <div data-dx_placeholder="" class="dx-placeholder"></div>
+                                    </div>
+                                    <div class="dx-texteditor-buttons-container">
+                                        <div></div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="dx-overlay dx-invalid-message-bottom dx-widget dx-visibility-change-handler dx-invalid-message">
+                                    <div class="dx-overlay-wrapper dx-invalid-message dx-invalid-message-auto"
+                                        data-bind="dxControlsDescendantBindings: true"
+                                        style="position: absolute; width: 520.797px; height: 55px; left: 0px; top: 0px; transform: translate(-1px, -54px); z-index: 1508; transition: all 0s ease 0s; overflow: visible;">
+                                        <div class="dx-overlay-content dx-invalid-message-content"
+                                            style="max-width: 520.797px; width: auto; height: auto; left: 0px; top: 0px; transform: translate(0px, 55px); z-index: 1508; transition: all 0s ease 0s;"
+                                            id="dx-a7dd400d-96c5-68b4-abb6-b131e5e352fa">此项不能为空</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="text-xs font-sans text-gray-600 mr-6" style="width: 58px;"><!--v-if--></div>
+                        <div class="flex-1">
+                            <div aria-readonly="false" aria-invalid="false" role="checkbox" aria-checked="false"
+                                class="dx-widget dx-checkbox dx-checkbox-has-text" tabindex="0"><input type="hidden"
+                                    value="false">
+                                <div class="dx-checkbox-container"><span class="dx-checkbox-icon"></span><span
+                                        class="dx-checkbox-text">是否完成</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="mt-4">
+                    <div class="flex justify-end">
+                        <div role="button" class="dx-widget dx-button dx-button-mode-contained dx-button-default"
+                            tabindex="0" style="width: 108px;">
+                            <div class="dx-button-content">确认</div>
+                        </div>
+                        <div class="dx-widget dx-button dx-button-mode-contained dx-button-normal ml-4" role="button"
+                            tabindex="0" style="width: 108px;">
+                            <div class="dx-button-content">取消</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="dx-overlay-wrapper dx-popup-wrapper dx-dropdowneditor-overlay dx-dropdownlist-popup-wrapper dx-selectbox-popup-wrapper"
+    data-bind="dxControlsDescendantBindings: true"
+    style="z-index: 1514; position: absolute; width: 260.602px; height: 36px; left: 0px; top: 0px; transform: translate(564px, 280px); transition: all 0s ease 0s; overflow: visible;">
+    <div class="dx-overlay-content dx-popup-normal dx-resizable" role="dialog"
+        style="max-height: 432.5px; width: 260.602px; height: auto; z-index: 1514; left: 0px; top: 0px; transform: translate(0px, 36px); transition: all 0ms ease 0ms; opacity: 1; visibility: visible;"
+        tabindex="-1">
+        <div class="dx-popup-content" id="dx-3e86518a-6628-6016-1591-098d9459345b"
+            style="height: 66px; max-height: none; min-height: auto;">
+            <div id="dx-9782b13d-5369-3bd7-590b-a93cb1e39030"
+                class="dx-scrollable dx-scrollview dx-visibility-change-handler dx-scrollable-vertical dx-scrollable-native dx-scrollable-native-generic dx-list dx-widget dx-collection"
+                aria-roledescription="list" role="group">
+                <div class="dx-scrollable-wrapper">
+                    <div class="dx-scrollable-container">
+                        <div class="dx-scrollable-content">
+                            <div class="dx-scrollview-top-pocket" style="top: 0px; transform: translate(0px, 0px);">
+                                <div class="dx-scrollview-pull-down dx-state-invisible">
+                                    <div class="dx-scrollview-pull-down-image"></div>
+                                    <div class="dx-scrollview-pull-down-indicator">
+                                        <div class="dx-loadindicator dx-widget">
+                                            <div class="dx-loadindicator-wrapper">
+                                                <div class="dx-loadindicator-content">
+                                                    <div class="dx-loadindicator-icon">
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment7">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment6">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment5">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment4">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment3">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment2">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment1">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment0">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dx-scrollview-pull-down-text">
+                                        <div class="dx-scrollview-pull-down-text-visible">Pull down to refresh...</div>
+                                        <div>Release to refresh...</div>
+                                        <div>Refreshing...</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dx-scrollview-content" role="listbox" aria-label="Items"
+                                style="transform: translate(0px, 0px);">
+                                <div class="dx-item dx-list-item" role="option" aria-selected="false">
+                                    <div class="dx-item-content dx-list-item-content">man</div>
+                                </div>
+                                <div class="dx-item dx-list-item" role="option" aria-selected="false">
+                                    <div class="dx-item-content dx-list-item-content">woman</div>
+                                </div>
+                            </div>
+                            <div class="dx-scrollview-bottom-pocket">
+                                <div class="dx-scrollview-scrollbottom dx-state-invisible">
+                                    <div class="dx-scrollview-scrollbottom-indicator">
+                                        <div class="dx-loadindicator dx-widget">
+                                            <div class="dx-loadindicator-wrapper">
+                                                <div class="dx-loadindicator-content">
+                                                    <div class="dx-loadindicator-icon">
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment7">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment6">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment5">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment4">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment3">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment2">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment1">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment0">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dx-scrollview-scrollbottom-text">Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="dx-scrollview-loadpanel dx-overlay dx-widget dx-state-invisible dx-visibility-change-handler dx-loadpanel">
+                    <div class="dx-overlay-content" style="width: 222px; height: 90px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="dx-overlay-wrapper dx-popup-wrapper dx-dropdowneditor-overlay dx-dropdownlist-popup-wrapper dx-selectbox-popup-wrapper dx-tagbox-popup-wrapper"
+    data-bind="dxControlsDescendantBindings: true"
+    style="z-index: 1516; position: absolute; width: 260.594px; height: 36px; left: 0px; top: 0px; transform: translate(197px, 280px); transition: all 0s ease 0s; overflow: visible;">
+    <div class="dx-overlay-content dx-popup-normal dx-resizable" role="dialog"
+        style="max-height: 432.5px; width: 260.594px; height: auto; z-index: 1516; left: 0px; top: 0px; transform: translate(0px, 36px); transition: all 0ms ease 0ms; opacity: 1; visibility: visible;"
+        tabindex="-1">
+        <div class="dx-popup-content" id="dx-0f8b8eb8-2d04-78ac-e164-9bfa11d1a1ad"
+            style="height: 127.5px; max-height: none; min-height: auto;">
+            <div id="dx-c3ec9230-16b3-59d6-e8bd-17d9c91845aa"
+                class="dx-scrollable dx-scrollview dx-visibility-change-handler dx-scrollable-vertical dx-scrollable-native dx-scrollable-native-generic dx-list-select-decorator-enabled dx-list dx-widget dx-collection"
+                role="group" aria-roledescription="list">
+                <div class="dx-scrollable-wrapper">
+                    <div class="dx-scrollable-container">
+                        <div class="dx-scrollable-content">
+                            <div class="dx-scrollview-top-pocket" style="top: 0px; transform: translate(0px, 0px);">
+                                <div class="dx-scrollview-pull-down dx-state-invisible">
+                                    <div class="dx-scrollview-pull-down-image"></div>
+                                    <div class="dx-scrollview-pull-down-indicator">
+                                        <div class="dx-loadindicator dx-widget">
+                                            <div class="dx-loadindicator-wrapper">
+                                                <div class="dx-loadindicator-content">
+                                                    <div class="dx-loadindicator-icon">
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment7">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment6">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment5">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment4">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment3">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment2">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment1">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment0">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dx-scrollview-pull-down-text">
+                                        <div class="dx-scrollview-pull-down-text-visible">Pull down to refresh...</div>
+                                        <div>Release to refresh...</div>
+                                        <div>Refreshing...</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dx-scrollview-content" role="listbox" aria-label="Items"
+                                style="transform: translate(0px, 0px);">
+                                <div class="dx-list-select-all">
+                                    <div class="dx-widget dx-checkbox dx-list-select-all-checkbox" aria-readonly="false"
+                                        aria-invalid="false" role="checkbox" aria-checked="false"
+                                        aria-label="Select All"><input type="hidden" value="false">
+                                        <div class="dx-checkbox-container"><span class="dx-checkbox-icon"></span></div>
+                                    </div>
+                                    <div class="dx-list-select-all-label">全部选择</div>
+                                </div>
+                                <div class="dx-item dx-list-item" role="option" aria-selected="false">
+                                    <div class="dx-list-item-before-bag dx-list-select-checkbox-container">
+                                        <div class="dx-widget dx-checkbox dx-list-select-checkbox" aria-readonly="false"
+                                            aria-invalid="false" role="checkbox" aria-checked="false"
+                                            aria-label="Check State"><input type="hidden" value="false">
+                                            <div class="dx-checkbox-container"><span class="dx-checkbox-icon"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dx-item-content dx-list-item-content">admin</div>
+                                </div>
+                                <div class="dx-item dx-list-item" role="option" aria-selected="false">
+                                    <div class="dx-list-item-before-bag dx-list-select-checkbox-container">
+                                        <div class="dx-widget dx-checkbox dx-list-select-checkbox" aria-readonly="false"
+                                            aria-invalid="false" role="checkbox" aria-checked="false"
+                                            aria-label="Check State"><input type="hidden" value="false">
+                                            <div class="dx-checkbox-container"><span class="dx-checkbox-icon"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dx-item-content dx-list-item-content">user</div>
+                                </div>
+                            </div>
+                            <div class="dx-scrollview-bottom-pocket">
+                                <div class="dx-scrollview-scrollbottom dx-state-invisible">
+                                    <div class="dx-scrollview-scrollbottom-indicator">
+                                        <div class="dx-loadindicator dx-widget">
+                                            <div class="dx-loadindicator-wrapper">
+                                                <div class="dx-loadindicator-content">
+                                                    <div class="dx-loadindicator-icon">
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment7">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment6">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment5">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment4">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment3">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment2">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment1">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment0">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dx-scrollview-scrollbottom-text">Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="dx-scrollview-loadpanel dx-overlay dx-widget dx-state-invisible dx-visibility-change-handler dx-loadpanel">
+                    <div class="dx-overlay-content" style="width: 222px; height: 90px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="dx-overlay-wrapper dx-popup-wrapper dx-dropdowneditor-overlay dx-datebox-wrapper dx-datebox-wrapper-date dx-datebox-wrapper-calendar"
+    data-bind="dxControlsDescendantBindings: true"
+    style="z-index: 1518; position: absolute; width: 627.195px; height: 36px; left: 0px; top: 0px; transform: translate(197px, 436px); transition: all 0s ease 0s; overflow: visible;">
+    <div class="dx-overlay-content dx-popup-normal dx-resizable dx-popup-inherit-height" role="dialog"
+        style="width: auto; height: auto; z-index: 1518; left: 0px; top: 0px; transform: translate(0px, 36px); transition: all 0ms ease 0ms; opacity: 1; visibility: visible;">
+        <div class="dx-popup-content" id="dx-216b1d74-0b12-72ee-ce1b-ff30769a8e6d"
+            style="height: auto; max-height: none; min-height: 0px;">
+            <div class="dx-show-invalid-badge dx-widget dx-visibility-change-handler dx-calendar dx-calendar-view-month dx-swipeable"
+                aria-activedescendant="dx-b4d849f1-1972-8863-2d41-1ad65333082c" role="application">
+                <div class="dx-widget dx-calendar-navigator">
+                    <div role="button" aria-label="chevronleft"
+                        class="dx-widget dx-button dx-button-mode-outlined dx-button-normal dx-button-has-icon dx-calendar-navigator-previous-view dx-calendar-navigator-previous-month">
+                        <div class="dx-button-content"><i class="dx-icon dx-icon-chevronleft"></i></div>
+                    </div>
+                    <div class="dx-widget dx-button dx-button-mode-outlined dx-button-normal dx-button-has-text dx-calendar-caption-button"
+                        role="button" aria-label="July 2023">
+                        <div class="dx-button-content"><span class="dx-button-text">July 2023</span></div>
+                    </div>
+                    <div role="button" aria-label="chevronright"
+                        class="dx-widget dx-button dx-button-mode-outlined dx-button-normal dx-button-has-icon dx-state-disabled dx-calendar-navigator-next-view dx-calendar-navigator-next-month dx-calendar-disabled-navigator-link"
+                        aria-disabled="true">
+                        <div class="dx-button-content"><i class="dx-icon dx-icon-chevronright"></i></div>
+                    </div>
+                </div><input type="hidden" value="">
+                <div class="dx-calendar-body">
+                    <div class="dx-calendar-views-wrapper">
+                        <div class="dx-widget" style="transform: translate(0px, 0px);">
+                            <table
+                                aria-label="Calendar. To navigate between views, press Control, and then Left Arrow or Right Arrow. To zoom in on a view, press Control, and then Down Arrow. To zoom out, press Control, and then Up Arrow."
+                                role="grid">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" abbr="Sunday">Sun</th>
+                                        <th scope="col" abbr="Monday">Mon</th>
+                                        <th scope="col" abbr="Tuesday">Tue</th>
+                                        <th scope="col" abbr="Wednesday">Wed</th>
+                                        <th scope="col" abbr="Thursday">Thu</th>
+                                        <th scope="col" abbr="Friday">Fri</th>
+                                        <th scope="col" abbr="Saturday">Sat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr role="row">
+                                        <td class="dx-calendar-cell dx-calendar-other-view dx-calendar-other-month"
+                                            data-value="2023/06/25" role="gridcell" aria-label="Sunday, June 25, 2023">
+                                            <span>25</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-other-view dx-calendar-other-month"
+                                            data-value="2023/06/26" role="gridcell" aria-label="Monday, June 26, 2023">
+                                            <span>26</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-other-view dx-calendar-other-month"
+                                            data-value="2023/06/27" role="gridcell" aria-label="Tuesday, June 27, 2023">
+                                            <span>27</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-other-view dx-calendar-other-month"
+                                            data-value="2023/06/28" role="gridcell"
+                                            aria-label="Wednesday, June 28, 2023"><span>28</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-other-view dx-calendar-other-month"
+                                            data-value="2023/06/29" role="gridcell"
+                                            aria-label="Thursday, June 29, 2023"><span>29</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-other-view dx-calendar-other-month"
+                                            data-value="2023/06/30" role="gridcell" aria-label="Friday, June 30, 2023">
+                                            <span>30</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/07/01" role="gridcell"
+                                            aria-label="Saturday, July 1, 2023"><span>1</span></td>
+                                    </tr>
+                                    <tr role="row">
+                                        <td class="dx-calendar-cell" data-value="2023/07/02" role="gridcell"
+                                            aria-label="Sunday, July 2, 2023"><span>2</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/07/03" role="gridcell"
+                                            aria-label="Monday, July 3, 2023"><span>3</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/07/04" role="gridcell"
+                                            aria-label="Tuesday, July 4, 2023"><span>4</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/07/05" role="gridcell"
+                                            aria-label="Wednesday, July 5, 2023"><span>5</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/07/06" role="gridcell"
+                                            aria-label="Thursday, July 6, 2023"><span>6</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/07/07" role="gridcell"
+                                            aria-label="Friday, July 7, 2023"><span>7</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/07/08" role="gridcell"
+                                            aria-label="Saturday, July 8, 2023"><span>8</span></td>
+                                    </tr>
+                                    <tr role="row">
+                                        <td class="dx-calendar-cell" data-value="2023/07/09" role="gridcell"
+                                            aria-label="Sunday, July 9, 2023"><span>9</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/07/10" role="gridcell"
+                                            aria-label="Monday, July 10, 2023"><span>10</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/07/11" role="gridcell"
+                                            aria-label="Tuesday, July 11, 2023"><span>11</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/07/12" role="gridcell"
+                                            aria-label="Wednesday, July 12, 2023"><span>12</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/07/13" role="gridcell"
+                                            aria-label="Thursday, July 13, 2023"><span>13</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/07/14" role="gridcell"
+                                            aria-label="Friday, July 14, 2023"><span>14</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/07/15" role="gridcell"
+                                            aria-label="Saturday, July 15, 2023"><span>15</span></td>
+                                    </tr>
+                                    <tr role="row">
+                                        <td class="dx-calendar-cell" data-value="2023/07/16" role="gridcell"
+                                            aria-label="Sunday, July 16, 2023"><span>16</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/07/17" role="gridcell"
+                                            aria-label="Monday, July 17, 2023"><span>17</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/07/18" role="gridcell"
+                                            aria-label="Tuesday, July 18, 2023"><span>18</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/07/19" role="gridcell"
+                                            aria-label="Wednesday, July 19, 2023"><span>19</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/07/20" role="gridcell"
+                                            aria-label="Thursday, July 20, 2023"><span>20</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/07/21" role="gridcell"
+                                            aria-label="Friday, July 21, 2023"><span>21</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/07/22" role="gridcell"
+                                            aria-label="Saturday, July 22, 2023"><span>22</span></td>
+                                    </tr>
+                                    <tr role="row">
+                                        <td class="dx-calendar-cell dx-calendar-contoured-date" data-value="2023/07/23"
+                                            role="gridcell" aria-label="Sunday, July 23, 2023"><span>23</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-today dx-calendar-empty-cell"
+                                            data-value="2023/07/24" role="gridcell" aria-label="Monday, July 24, 2023">
+                                            <span>24</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-empty-cell" data-value="2023/07/25"
+                                            role="gridcell" aria-label="Tuesday, July 25, 2023"><span>25</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-empty-cell" data-value="2023/07/26"
+                                            role="gridcell" aria-label="Wednesday, July 26, 2023"><span>26</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-empty-cell" data-value="2023/07/27"
+                                            role="gridcell" aria-label="Thursday, July 27, 2023"><span>27</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-empty-cell" data-value="2023/07/28"
+                                            role="gridcell" aria-label="Friday, July 28, 2023"><span>28</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-empty-cell" data-value="2023/07/29"
+                                            role="gridcell" aria-label="Saturday, July 29, 2023"><span>29</span></td>
+                                    </tr>
+                                    <tr role="row">
+                                        <td class="dx-calendar-cell dx-calendar-empty-cell" data-value="2023/07/30"
+                                            role="gridcell" aria-label="Sunday, July 30, 2023"><span>30</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-empty-cell" data-value="2023/07/31"
+                                            role="gridcell" aria-label="Monday, July 31, 2023"><span>31</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-empty-cell dx-calendar-other-view dx-calendar-other-month"
+                                            data-value="2023/08/01" role="gridcell"
+                                            aria-label="Tuesday, August 1, 2023"><span>1</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-empty-cell dx-calendar-other-view dx-calendar-other-month"
+                                            data-value="2023/08/02" role="gridcell"
+                                            aria-label="Wednesday, August 2, 2023"><span>2</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-empty-cell dx-calendar-other-view dx-calendar-other-month"
+                                            data-value="2023/08/03" role="gridcell"
+                                            aria-label="Thursday, August 3, 2023"><span>3</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-empty-cell dx-calendar-other-view dx-calendar-other-month"
+                                            data-value="2023/08/04" role="gridcell" aria-label="Friday, August 4, 2023">
+                                            <span>4</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-empty-cell dx-calendar-other-view dx-calendar-other-month"
+                                            data-value="2023/08/05" role="gridcell"
+                                            aria-label="Saturday, August 5, 2023"><span>5</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="dx-widget" style="transform: translate(-100%, 0px);">
+                            <table
+                                aria-label="Calendar. To navigate between views, press Control, and then Left Arrow or Right Arrow. To zoom in on a view, press Control, and then Down Arrow. To zoom out, press Control, and then Up Arrow."
+                                role="grid">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" abbr="Sunday">Sun</th>
+                                        <th scope="col" abbr="Monday">Mon</th>
+                                        <th scope="col" abbr="Tuesday">Tue</th>
+                                        <th scope="col" abbr="Wednesday">Wed</th>
+                                        <th scope="col" abbr="Thursday">Thu</th>
+                                        <th scope="col" abbr="Friday">Fri</th>
+                                        <th scope="col" abbr="Saturday">Sat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr role="row">
+                                        <td class="dx-calendar-cell dx-calendar-other-view dx-calendar-other-month"
+                                            data-value="2023/05/28" role="gridcell" aria-label="Sunday, May 28, 2023">
+                                            <span>28</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-other-view dx-calendar-other-month"
+                                            data-value="2023/05/29" role="gridcell" aria-label="Monday, May 29, 2023">
+                                            <span>29</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-other-view dx-calendar-other-month"
+                                            data-value="2023/05/30" role="gridcell" aria-label="Tuesday, May 30, 2023">
+                                            <span>30</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-other-view dx-calendar-other-month"
+                                            data-value="2023/05/31" role="gridcell"
+                                            aria-label="Wednesday, May 31, 2023"><span>31</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/01" role="gridcell"
+                                            aria-label="Thursday, June 1, 2023"><span>1</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/02" role="gridcell"
+                                            aria-label="Friday, June 2, 2023"><span>2</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/03" role="gridcell"
+                                            aria-label="Saturday, June 3, 2023"><span>3</span></td>
+                                    </tr>
+                                    <tr role="row">
+                                        <td class="dx-calendar-cell" data-value="2023/06/04" role="gridcell"
+                                            aria-label="Sunday, June 4, 2023"><span>4</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/05" role="gridcell"
+                                            aria-label="Monday, June 5, 2023"><span>5</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/06" role="gridcell"
+                                            aria-label="Tuesday, June 6, 2023"><span>6</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/07" role="gridcell"
+                                            aria-label="Wednesday, June 7, 2023"><span>7</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/08" role="gridcell"
+                                            aria-label="Thursday, June 8, 2023"><span>8</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/09" role="gridcell"
+                                            aria-label="Friday, June 9, 2023"><span>9</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/10" role="gridcell"
+                                            aria-label="Saturday, June 10, 2023"><span>10</span></td>
+                                    </tr>
+                                    <tr role="row">
+                                        <td class="dx-calendar-cell" data-value="2023/06/11" role="gridcell"
+                                            aria-label="Sunday, June 11, 2023"><span>11</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/12" role="gridcell"
+                                            aria-label="Monday, June 12, 2023"><span>12</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/13" role="gridcell"
+                                            aria-label="Tuesday, June 13, 2023"><span>13</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/14" role="gridcell"
+                                            aria-label="Wednesday, June 14, 2023"><span>14</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/15" role="gridcell"
+                                            aria-label="Thursday, June 15, 2023"><span>15</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/16" role="gridcell"
+                                            aria-label="Friday, June 16, 2023"><span>16</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/17" role="gridcell"
+                                            aria-label="Saturday, June 17, 2023"><span>17</span></td>
+                                    </tr>
+                                    <tr role="row">
+                                        <td class="dx-calendar-cell" data-value="2023/06/18" role="gridcell"
+                                            aria-label="Sunday, June 18, 2023"><span>18</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/19" role="gridcell"
+                                            aria-label="Monday, June 19, 2023"><span>19</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/20" role="gridcell"
+                                            aria-label="Tuesday, June 20, 2023"><span>20</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/21" role="gridcell"
+                                            aria-label="Wednesday, June 21, 2023"><span>21</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/22" role="gridcell"
+                                            aria-label="Thursday, June 22, 2023"><span>22</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/23" role="gridcell"
+                                            aria-label="Friday, June 23, 2023"><span>23</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/24" role="gridcell"
+                                            aria-label="Saturday, June 24, 2023"><span>24</span></td>
+                                    </tr>
+                                    <tr role="row">
+                                        <td class="dx-calendar-cell" data-value="2023/06/25" role="gridcell"
+                                            aria-label="Sunday, June 25, 2023"><span>25</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/26" role="gridcell"
+                                            aria-label="Monday, June 26, 2023"><span>26</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/27" role="gridcell"
+                                            aria-label="Tuesday, June 27, 2023"><span>27</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/28" role="gridcell"
+                                            aria-label="Wednesday, June 28, 2023"><span>28</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/29" role="gridcell"
+                                            aria-label="Thursday, June 29, 2023"><span>29</span></td>
+                                        <td class="dx-calendar-cell" data-value="2023/06/30" role="gridcell"
+                                            aria-label="Friday, June 30, 2023"><span>30</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-other-view dx-calendar-other-month"
+                                            data-value="2023/07/01" role="gridcell" aria-label="Saturday, July 1, 2023">
+                                            <span>1</span></td>
+                                    </tr>
+                                    <tr role="row">
+                                        <td class="dx-calendar-cell dx-calendar-other-view dx-calendar-other-month"
+                                            data-value="2023/07/02" role="gridcell" aria-label="Sunday, July 2, 2023">
+                                            <span>2</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-other-view dx-calendar-other-month"
+                                            data-value="2023/07/03" role="gridcell" aria-label="Monday, July 3, 2023">
+                                            <span>3</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-other-view dx-calendar-other-month"
+                                            data-value="2023/07/04" role="gridcell" aria-label="Tuesday, July 4, 2023">
+                                            <span>4</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-other-view dx-calendar-other-month"
+                                            data-value="2023/07/05" role="gridcell"
+                                            aria-label="Wednesday, July 5, 2023"><span>5</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-other-view dx-calendar-other-month"
+                                            data-value="2023/07/06" role="gridcell" aria-label="Thursday, July 6, 2023">
+                                            <span>6</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-other-view dx-calendar-other-month"
+                                            data-value="2023/07/07" role="gridcell" aria-label="Friday, July 7, 2023">
+                                            <span>7</span></td>
+                                        <td class="dx-calendar-cell dx-calendar-other-view dx-calendar-other-month"
+                                            data-value="2023/07/08" role="gridcell" aria-label="Saturday, July 8, 2023">
+                                            <span>8</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="dx-overlay-wrapper dx-popup-wrapper dx-dropdowneditor-overlay"
+    data-bind="dxControlsDescendantBindings: true"
+    style="z-index: 1518; position: absolute; width: 627.195px; height: 36px; left: 0px; top: 0px; transform: translate(197px, 488px); transition: all 0s ease 0s; overflow: visible;">
+    <div class="dx-overlay-content dx-popup-normal dx-resizable dx-popup-flex-height" role="dialog" tabindex="-1"
+        style="max-height: 439.2px; width: 627.195px; height: auto; z-index: 1518; left: 0px; top: 0px; transform: translate(0px, 36px); transition: all 0ms ease 0ms; opacity: 1; visibility: visible;">
+        <div class="dx-popup-content" id="dx-4b797e5a-21a5-2e95-e59d-7579138d7578"
+            style="height: auto; max-height: 304.9px; min-height: 0px;">
+            <div class="dx-template-wrapper dx-treeview-with-search dx-widget dx-collection dx-treeview">
+                <div
+                    class="dx-treeview-search dx-show-invalid-badge dx-textbox dx-texteditor dx-editor-outlined dx-searchbox dx-show-clear-button dx-texteditor-empty dx-widget dx-state-focused">
+                    <div class="dx-texteditor-container">
+                        <div class="dx-texteditor-input-container">
+                            <div class="dx-icon dx-icon-search"></div><input autocomplete="off" placeholder=" "
+                                aria-label="Search" class="dx-texteditor-input" type="text" spellcheck="false"
+                                tabindex="0" aria-labelledby="dx-3a4e931f-988a-cb53-9d43-dddc449c7168" role="textbox">
+                            <div id="dx-3a4e931f-988a-cb53-9d43-dddc449c7168" data-dx_placeholder="Search"
+                                class="dx-placeholder"></div>
+                        </div>
+                        <div class="dx-texteditor-buttons-container"><span class="dx-clear-button-area"><span
+                                    class="dx-icon dx-icon-clear"></span></span></div>
+                    </div>
+                </div>
+                <div
+                    class="dx-scrollable dx-visibility-change-handler dx-scrollable-vertical dx-scrollable-native dx-scrollable-native-generic">
+                    <div class="dx-scrollable-wrapper">
+                        <div class="dx-scrollable-container">
+                            <div class="dx-scrollable-content" tabindex="0" role="tree">
+                                <ul class="dx-treeview-node-container" role="group">
+                                    <li class="dx-treeview-node dx-treeview-item-with-checkbox" data-item-id="10"
+                                        role="treeitem" aria-label="中国" aria-level="1" aria-expanded="true">
+                                        <div aria-readonly="false" aria-invalid="false" role="checkbox"
+                                            aria-checked="mixed" class="dx-widget dx-checkbox dx-checkbox-indeterminate"
+                                            aria-label="Check State"><input type="hidden" value="null">
+                                            <div class="dx-checkbox-container"><span class="dx-checkbox-icon"></span>
+                                            </div>
+                                        </div>
+                                        <div class="dx-item dx-treeview-item">
+                                            <div class="dx-item-content dx-treeview-item-content"><span>中国</span></div>
+                                        </div>
+                                        <div
+                                            class="dx-treeview-toggle-item-visibility dx-treeview-toggle-item-visibility-opened">
+                                        </div>
+                                        <ul class="dx-treeview-node-container dx-treeview-node-container-opened"
+                                            role="group" style="transition: none 0s ease 0s; max-height: none;">
+                                            <li class="dx-treeview-node dx-treeview-item-with-checkbox" data-item-id="6"
+                                                role="treeitem" aria-label="湖南省" aria-level="2" aria-expanded="false"
+                                                aria-selected="false">
+                                                <div aria-readonly="false" aria-invalid="false" role="checkbox"
+                                                    aria-checked="false" class="dx-widget dx-checkbox"
+                                                    aria-label="Check State"><input type="hidden" value="false">
+                                                    <div class="dx-checkbox-container"><span
+                                                            class="dx-checkbox-icon"></span></div>
+                                                </div>
+                                                <div class="dx-item dx-treeview-item">
+                                                    <div class="dx-item-content dx-treeview-item-content">
+                                                        <span>湖南省</span></div>
+                                                </div>
+                                                <div class="dx-treeview-toggle-item-visibility"></div>
+                                            </li>
+                                            <li class="dx-treeview-node dx-treeview-item-with-checkbox" data-item-id="3"
+                                                role="treeitem" aria-label="广东省" aria-level="2" aria-expanded="true">
+                                                <div aria-readonly="false" aria-invalid="false" role="checkbox"
+                                                    aria-checked="mixed"
+                                                    class="dx-widget dx-checkbox dx-checkbox-indeterminate"
+                                                    aria-label="Check State"><input type="hidden" value="null">
+                                                    <div class="dx-checkbox-container"><span
+                                                            class="dx-checkbox-icon"></span></div>
+                                                </div>
+                                                <div class="dx-item dx-treeview-item">
+                                                    <div class="dx-item-content dx-treeview-item-content">
+                                                        <span>广东省</span></div>
+                                                </div>
+                                                <div
+                                                    class="dx-treeview-toggle-item-visibility dx-treeview-toggle-item-visibility-opened">
+                                                </div>
+                                                <ul class="dx-treeview-node-container dx-treeview-node-container-opened"
+                                                    role="group" style="transition: none 0s ease 0s; max-height: none;">
+                                                    <li class="dx-treeview-node dx-treeview-item-with-checkbox dx-state-selected dx-treeview-node-is-leaf"
+                                                        data-item-id="4" role="treeitem" aria-label="广州市" aria-level="3"
+                                                        aria-selected="true">
+                                                        <div aria-readonly="false" aria-invalid="false" role="checkbox"
+                                                            aria-checked="true"
+                                                            class="dx-widget dx-checkbox dx-checkbox-checked"
+                                                            aria-label="Check State"><input type="hidden" value="true">
+                                                            <div class="dx-checkbox-container"><span
+                                                                    class="dx-checkbox-icon"></span></div>
+                                                        </div>
+                                                        <div class="dx-item dx-treeview-item">
+                                                            <div class="dx-item-content dx-treeview-item-content">
+                                                                <span>广州市</span></div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="dx-treeview-node dx-treeview-item-with-checkbox dx-treeview-node-is-leaf"
+                                                        data-item-id="5" role="treeitem" aria-label="深圳市" aria-level="3"
+                                                        aria-selected="false">
+                                                        <div aria-readonly="false" aria-invalid="false" role="checkbox"
+                                                            aria-checked="false" class="dx-widget dx-checkbox"
+                                                            aria-label="Check State"><input type="hidden" value="false">
+                                                            <div class="dx-checkbox-container"><span
+                                                                    class="dx-checkbox-icon"></span></div>
+                                                        </div>
+                                                        <div class="dx-item dx-treeview-item">
+                                                            <div class="dx-item-content dx-treeview-item-content">
+                                                                <span>深圳市</span></div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="dx-overlay-wrapper dx-popup-wrapper dx-dropdowneditor-overlay dx-dropdownlist-popup-wrapper dx-selectbox-popup-wrapper"
+    data-bind="dxControlsDescendantBindings: true"
+    style="z-index: 1502; position: absolute; width: 260.594px; height: 36px; left: 0px; top: 0px; transform: translate(197px, 332px); transition: all 0s ease 0s; overflow: visible;">
+    <div class="dx-overlay-content dx-popup-normal dx-resizable" role="dialog"
+        style="max-height: 432.5px; width: 260.594px; height: auto; z-index: 1502; left: 0px; top: 0px; transform: translate(0px, 36px); transition: all 0ms ease 0ms; opacity: 1; visibility: visible;"
+        tabindex="-1">
+        <div class="dx-popup-content" id="dx-77d8789e-4225-6493-7abd-6e14d83a7218"
+            style="height: 42px; max-height: none; min-height: auto;">
+            <div id="dx-da2954fd-7dab-c530-b9e9-78ddad75397c"
+                class="dx-scrollable dx-scrollview dx-visibility-change-handler dx-scrollable-vertical dx-scrollable-native dx-scrollable-native-generic dx-list dx-widget dx-collection dx-empty-collection"
+                role="group" aria-roledescription="list">
+                <div class="dx-scrollable-wrapper">
+                    <div class="dx-scrollable-container">
+                        <div class="dx-scrollable-content">
+                            <div class="dx-scrollview-top-pocket" style="top: 0px; transform: translate(0px, 0px);">
+                                <div class="dx-scrollview-pull-down dx-state-invisible">
+                                    <div class="dx-scrollview-pull-down-image"></div>
+                                    <div class="dx-scrollview-pull-down-indicator">
+                                        <div class="dx-loadindicator dx-widget">
+                                            <div class="dx-loadindicator-wrapper">
+                                                <div class="dx-loadindicator-content">
+                                                    <div class="dx-loadindicator-icon">
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment7">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment6">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment5">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment4">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment3">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment2">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment1">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment0">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dx-scrollview-pull-down-text">
+                                        <div class="dx-scrollview-pull-down-text-visible">Pull down to refresh...</div>
+                                        <div>Release to refresh...</div>
+                                        <div>Refreshing...</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dx-scrollview-content" style="transform: translate(0px, 0px);">
+                                <div class="dx-empty-message">无数据</div>
+                            </div>
+                            <div class="dx-scrollview-bottom-pocket">
+                                <div class="dx-scrollview-scrollbottom dx-state-invisible">
+                                    <div class="dx-scrollview-scrollbottom-indicator">
+                                        <div class="dx-loadindicator dx-widget">
+                                            <div class="dx-loadindicator-wrapper">
+                                                <div class="dx-loadindicator-content">
+                                                    <div class="dx-loadindicator-icon">
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment7">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment6">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment5">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment4">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment3">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment2">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment1">
+                                                        </div>
+                                                        <div class="dx-loadindicator-segment dx-loadindicator-segment0">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dx-scrollview-scrollbottom-text">Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="dx-scrollview-loadpanel dx-overlay dx-widget dx-state-invisible dx-visibility-change-handler dx-loadpanel">
+                    <div class="dx-overlay-content" style="width: 222px; height: 90px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

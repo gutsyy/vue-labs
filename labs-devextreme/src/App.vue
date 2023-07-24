@@ -8,14 +8,11 @@
         </div>
         <FormPopupContainer :visible="popFormVis" cols="2" title="新增" @confirm="onSubmit" @hidden="onHiddenPopForm">
           <TextBoxProxy label-text="姓名" v-bind="form.getFormOptions('name')"></TextBoxProxy>
+          <NumberBoxProxy label-text="年龄" v-bind="form.getFormOptions('age')"></NumberBoxProxy>
           <TagBoxProxy label-text="角色" v-bind="form.getFormOptions('role')"></TagBoxProxy>
           <SelectBoxProxy label-text="性别" v-bind="form.getFormOptions('gender')"></SelectBoxProxy>
           <SelectBoxProxy label-text="兴趣爱好" v-bind="form.getFormOptions('interest')"></SelectBoxProxy>
-          <SelectBoxProxy
-            label-text="部门"
-            :show-clear-button="true"
-            v-bind="form.getFormOptions('department')"
-          ></SelectBoxProxy>
+          <SelectBoxProxy label-text="部门" v-bind="form.getFormOptions('department')"></SelectBoxProxy>
           <TextBoxProxy label-text="截止日" v-bind="form.getFormOptions('ddl')"></TextBoxProxy>
           <RadioBoxProxy label-text="选择" v-bind="form.getFormOptions('radio')"></RadioBoxProxy>
           <DateBoxProxy
@@ -59,7 +56,8 @@ import {
   TreeBoxProxy,
   TextareaBoxProxy,
   CheckBoxProxy,
-  FormPopupContainer
+  FormPopupContainer,
+  NumberBoxProxy
 } from './components'
 
 const popFormVis = ref(false)
@@ -160,6 +158,7 @@ const form = useForm(
   {
     name: '',
     gender: '',
+    age: 26,
     role: [],
     interest: '',
     department: 0,
