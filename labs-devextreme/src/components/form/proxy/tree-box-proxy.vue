@@ -113,6 +113,7 @@ const initializedTreeView = (value?: any[]) => {
     keys.forEach((v) => {
       treeViewComponent?.selectItem(v)
       treeViewComponent?.expandItem(v)
+      treeViewComponent?.scrollToItem(v)
     })
     initializedStatus = true
   }
