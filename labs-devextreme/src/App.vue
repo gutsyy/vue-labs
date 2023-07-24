@@ -65,12 +65,10 @@ import {
 const popFormVis = ref(false)
 
 const newPopForm = function () {
-  form.reset()
   popFormVis.value = true
 }
 
 const editPopForm = function () {
-  form.reset()
   form.set({
     department: 1,
     role: [1] as never[],
@@ -83,6 +81,7 @@ const editPopForm = function () {
 }
 
 const onHiddenPopForm = function () {
+  form.reset()
   popFormVis.value = false
 }
 
