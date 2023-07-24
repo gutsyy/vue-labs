@@ -2,7 +2,7 @@
   <ItemContainer
     :label="props.labelText"
     :width="props.labelWidth"
-    :got-default-label-width="props.getLabelDefaultWidth"
+    :get-label-default-width="props.getLabelDefaultWidth"
     :is-required="props.isRequired"
   >
     <DxNumberBox
