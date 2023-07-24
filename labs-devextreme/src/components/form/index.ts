@@ -10,6 +10,7 @@ import {
   TreeBoxProxy
 } from './proxy'
 import FormContainer from './form-container.vue'
+import FormPopupContainer from './form-popup-container.vue'
 
 export {
   FormContainer,
@@ -21,5 +22,6 @@ export {
   TagBoxProxy,
   TextBoxProxy,
   TextareaBoxProxy,
-  TreeBoxProxy
+  TreeBoxProxy,
+  FormPopupContainer
 }

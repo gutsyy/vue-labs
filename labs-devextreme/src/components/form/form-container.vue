@@ -1,5 +1,5 @@
 <template>
-  <div class="m-4">
+  <div>
     <form :class="`grid grid-cols-${props.cols} gap-x-6 gap-y-4`">
       <slot></slot>
     </form>
@@ -14,16 +14,9 @@
 
 <script lang="ts" setup>
 import { DxButton } from 'devextreme-vue'
+import type { FormContainerProps } from './types'
 
-type Props = {
-  cols?: '2' | '4' | '6' | '12'
-  showCancelButton?: boolean
-  showConfirmButton?: boolean
-  onConfirm?: () => void
-  onCancel?: () => void
-}
-
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<FormContainerProps>(), {
   cols: '2',
   showConfirmButton: true,
   showCancelButton: true,
