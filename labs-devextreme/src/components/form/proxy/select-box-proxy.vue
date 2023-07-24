@@ -53,6 +53,9 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const computedValue = computed(() => {
+  if (props.boxActionType === 'default' && (computedValue.value || computedValue.value === 0)) {
+    return null
+  }
   if (props.valueExpr && typeof props.value === 'object' && props.value !== null) {
     return props.value[props.valueExpr as string]
   }
@@ -64,8 +67,16 @@ const box = useBox(props)
 const noUndefinedProps = removeUndefinedProps(props)
 
 const onSelectionChanged = (e: SelectionChangedEvent) => {
-  if (props.onBoxValueChanged && e.selectedItem !== null) {
-    props.onBoxValueChanged(e.selectedItem)
+  if (props.onBoxValueChanged) {
+    if (e.selectedItem === null) {
+      if (props.boxActionType === 'default') {
+        props.onBoxValueChanged(props.value)
+      } else {
+        props.onBoxValueChanged(e.selectedItem)
+      }
+    } else {
+      props.onBoxValueChanged(e.selectedItem)
+    }
   }
   if (props.onSelectionChanged) {
     props.onSelectionChanged(e)

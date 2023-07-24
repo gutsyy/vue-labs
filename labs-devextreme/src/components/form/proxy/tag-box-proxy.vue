@@ -20,7 +20,7 @@
 import { removeUndefinedProps } from '@/utils/removeUndefinedProps'
 import { DxTagBox } from 'devextreme-vue/tag-box'
 import type { SelectionChangedEvent } from 'devextreme/ui/tag_box'
-import { isProxy, toRaw, watch } from 'vue'
+import { isProxy, toRaw } from 'vue'
 import { computed } from 'vue'
 import { ItemContainer } from '../basic'
 import { useBox, type BoxProperties } from './box'
@@ -57,6 +57,9 @@ const props = withDefaults(defineProps<Props>(), {
 const noUndefinedProps = removeUndefinedProps(props)
 
 const computedValue = computed(() => {
+  if (props.boxActionType === 'default' && computedValue.value?.length > 0) {
+    return []
+  }
   const rawValue = isProxy(props.value) ? toRaw(props.value) : props.value
   if (rawValue && rawValue.length && props.valueExpr && typeof rawValue[0] === 'object') {
     return props.value.map((ele) => ele[props.valueExpr as string])

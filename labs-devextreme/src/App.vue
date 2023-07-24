@@ -2,12 +2,20 @@
   <main>
     <div>
       <div class="m-4 mb-8 p-4 bg-gray-100 rounded-2xl">
-        <FormContainer cols="2" @confirm="onSubmit">
+        <div class="flex justify-center">
+          <DxButton @click="newPopForm" width="100" type="default">新增</DxButton>
+          <DxButton @click="editPopForm" class="ml-4" width="100">修改</DxButton>
+        </div>
+        <FormPopupContainer :visible="popFormVis" cols="2" title="新增" @confirm="onSubmit" @hidden="onHiddenPopForm">
           <TextBoxProxy label-text="姓名" v-bind="form.getFormOptions('name')"></TextBoxProxy>
           <TagBoxProxy label-text="角色" v-bind="form.getFormOptions('role')"></TagBoxProxy>
           <SelectBoxProxy label-text="性别" v-bind="form.getFormOptions('gender')"></SelectBoxProxy>
           <SelectBoxProxy label-text="兴趣爱好" v-bind="form.getFormOptions('interest')"></SelectBoxProxy>
-          <SelectBoxProxy label-text="部门" v-bind="form.getFormOptions('department')"></SelectBoxProxy>
+          <SelectBoxProxy
+            label-text="部门"
+            :show-clear-button="true"
+            v-bind="form.getFormOptions('department')"
+          ></SelectBoxProxy>
           <TextBoxProxy label-text="截止日" v-bind="form.getFormOptions('ddl')"></TextBoxProxy>
           <RadioBoxProxy label-text="选择" v-bind="form.getFormOptions('radio')"></RadioBoxProxy>
           <DateBoxProxy
@@ -24,7 +32,7 @@
           ></TreeBoxProxy>
           <TextareaBoxProxy label-text="备注" class="col-span-2" v-bind="form.getFormOptions('remark')"></TextareaBoxProxy>
           <CheckBoxProxy label-text="" text="是否完成" v-bind="form.getFormOptions('isFinish')" />
-        </FormContainer>
+        </FormPopupContainer>
       </div>
       <div class="mt-4 flex justify-center">
         <DxButton @click="onSetFormData">测试按钮</DxButton>
@@ -40,7 +48,7 @@
 
 <script setup lang="ts">
 import { DxButton } from 'devextreme-vue'
-import { computed, isProxy, toRaw } from 'vue'
+import { computed, isProxy, toRaw, ref } from 'vue'
 import { useForm } from './components/form/hooks/useForm'
 import {
   TextBoxProxy,
@@ -51,8 +59,32 @@ import {
   TreeBoxProxy,
   TextareaBoxProxy,
   CheckBoxProxy,
-  FormContainer
+  FormPopupContainer
 } from './components'
+
+const popFormVis = ref(false)
+
+const newPopForm = function () {
+  form.reset()
+  popFormVis.value = true
+}
+
+const editPopForm = function () {
+  form.reset()
+  form.set({
+    department: 1,
+    role: [1] as never[],
+    name: 'gy',
+    gender: 'man',
+    interest: 'esport',
+    tree: []
+  })
+  popFormVis.value = true
+}
+
+const onHiddenPopForm = function () {
+  popFormVis.value = false
+}
 
 const returnPromise = (value: any) =>
   new Promise((resolve) => {
@@ -129,13 +161,13 @@ const form = useForm(
   {
     name: '',
     gender: '',
-    role: [0],
+    role: [],
     interest: '',
     department: 0,
     ddl: '2023-07-23',
     date: '',
     radio: 1,
-    tree: [],
+    tree: [4],
     remark: '',
     isFinish: false
   },
@@ -191,7 +223,7 @@ const onSubmit = () => {
 }
 
 const onSetFormData = () => {
-  form.value.tree = []
+  form.value.department = { id: 0 }
 }
 
 const printObj = (value: any) => {
