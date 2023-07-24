@@ -20,7 +20,7 @@
 import { removeUndefinedProps } from '@/utils/removeUndefinedProps'
 import { DxTagBox } from 'devextreme-vue/tag-box'
 import type { SelectionChangedEvent } from 'devextreme/ui/tag_box'
-import { isProxy, toRaw } from 'vue'
+import { isProxy, toRaw, watch } from 'vue'
 import { computed } from 'vue'
 import { ItemContainer } from '../basic'
 import { useBox, type BoxProperties } from './box'
@@ -80,8 +80,7 @@ const onSelectionChanged = (e: SelectionChangedEvent) => {
 
     const rawValue = isProxy(value) ? toRaw(value) : value
     const rawRawValue = rawValue.map((item) => (isProxy(item) ? toRaw(item) : item))
-
-    const rawRawValueKeys = rawRawValue.map((item) => (props.valueExpr ? item[props.valueExpr] : item))
+    const rawRawValueKeys = computedValue.value
 
     let allSelectedItems = rawRawValue
 
@@ -101,7 +100,7 @@ const onSelectionChanged = (e: SelectionChangedEvent) => {
 
     if (rawRemovedItems.length) {
       isChanged = true
-      allSelectedItems = rawRawValue.filter((item, index) => {
+      allSelectedItems = allSelectedItems.filter((item, index) => {
         return !removeItemsKeys.includes(rawRawValueKeys[index])
       })
     }
