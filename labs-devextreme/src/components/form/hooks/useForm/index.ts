@@ -6,7 +6,7 @@
  */
 
 import { type UnwrapRef } from 'vue'
-import { shallowReactive, nextTick } from 'vue'
+import { shallowReactive } from 'vue'
 import type { DataSources } from './useDataSources'
 import { useDataSources } from './useDataSources'
 import { useAutoLabelWidth } from './useAutoLabelWidth'
@@ -111,46 +111,18 @@ export function useForm<T extends Record<string, any>, DK extends keyof T, VK ex
     }
   }
 
-  const clearFormData = function (data: Partial<typeof formData>) {
-    for (const key in data) {
-      if (Array.isArray(data[key])) {
-        formDataReactiveProxy[key] = []
-        continue
-      }
-      if (typeof data[key] === 'boolean') {
-        formDataReactiveProxy[key] = false
-        continue
-      }
-      if (typeof data[key] === 'string') {
-        formDataReactiveProxy[key] = ''
-        continue
-      }
-      formDataReactiveProxy[key] = undefined
-    }
-  }
-
   // reset form data / validate state
   const reset = function () {
-    // reset will change formDataReactive twice to help value initialize
-    clearFormData(defaultFormData)
-    // prevent vue ignore value change
-    setTimeout(() => {
-      for (const key in defaultFormData) {
-        formDataReactiveProxy[key] = defaultFormData[key]
-      }
-    })
+    for (const key in defaultFormData) {
+      formDataReactiveProxy[key] = defaultFormData[key]
+    }
     resetValidationMessages()
   }
 
   const set = async function (setData: Partial<typeof formData>) {
-    // set will trigger formDataReactive update twice to help value initialize
-    reset()
-    // prevent vue ignore value change
-    setTimeout(() => {
-      for (const key in setData) {
-        formDataReactiveProxy[key] = setData[key]
-      }
-    })
+    for (const key in setData) {
+      formDataReactiveProxy[key] = setData[key]
+    }
     resetValidationMessages()
   }
 
