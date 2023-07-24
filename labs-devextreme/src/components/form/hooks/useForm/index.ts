@@ -6,7 +6,7 @@
  */
 
 import { type UnwrapRef } from 'vue'
-import { shallowReactive } from 'vue'
+import { shallowReactive, nextTick } from 'vue'
 import type { DataSources } from './useDataSources'
 import { useDataSources } from './useDataSources'
 import { useAutoLabelWidth } from './useAutoLabelWidth'
@@ -42,6 +42,8 @@ export function useForm<T extends Record<string, any>, DK extends keyof T, VK ex
     }
   }
 ) {
+  const defaultFormData: Record<keyof T, any> = { ...formData }
+
   const formDataReactive = shallowReactive(formData)
 
   const actionsTypeReactive = useActionsType(formData)
@@ -51,7 +53,7 @@ export function useForm<T extends Record<string, any>, DK extends keyof T, VK ex
     [k in keyof T]: any
   } = new Proxy(formDataReactive, {
     set(obj, prop, newVal: { type: 'box-event'; value: any } | any) {
-      if (newVal.type) {
+      if (newVal && newVal.type) {
         actionsTypeReactive[prop as string] = newVal.type
         obj[prop as keyof T] = newVal.value
       } else {
@@ -75,9 +77,8 @@ export function useForm<T extends Record<string, any>, DK extends keyof T, VK ex
 
   const [labelWidth, getLabelDefaultWidth] = useAutoLabelWidth(Object.keys(formData).length)
 
-  const { validationMessages, validatorsFunctions, executeAllValidators, isRequiredItems } = useValidators(
-    options ? options.validators : undefined
-  )
+  const { validationMessages, validatorsFunctions, executeAllValidators, isRequiredItems, resetValidationMessages } =
+    useValidators(options ? options.validators : undefined)
 
   const getFormOptions = function <K extends keyof T>(dataField: K): K extends DK ? ArrayItemOptions : CommonOptions {
     let formOptions: CommonOptions | ArrayItemOptions = {
@@ -110,5 +111,48 @@ export function useForm<T extends Record<string, any>, DK extends keyof T, VK ex
     }
   }
 
-  return { value: formDataReactiveProxy, getFormOptions, onSubmit } as const
+  const clearFormData = function (data: Partial<typeof formData>) {
+    for (const key in data) {
+      if (Array.isArray(data[key])) {
+        formDataReactiveProxy[key] = []
+        continue
+      }
+      if (typeof data[key] === 'boolean') {
+        formDataReactiveProxy[key] = false
+        continue
+      }
+      if (typeof data[key] === 'string') {
+        formDataReactiveProxy[key] = ''
+        continue
+      }
+      formDataReactiveProxy[key] = undefined
+    }
+  }
+
+  // reset form data / validate state
+  const reset = function () {
+    // reset will change formDataReactive twice to help value initialize
+    clearFormData(defaultFormData)
+    // prevent vue ignore value change
+    setTimeout(() => {
+      for (const key in defaultFormData) {
+        formDataReactiveProxy[key] = defaultFormData[key]
+      }
+    })
+    resetValidationMessages()
+  }
+
+  const set = async function (setData: Partial<typeof formData>) {
+    // set will trigger formDataReactive update twice to help value initialize
+    reset()
+    // prevent vue ignore value change
+    setTimeout(() => {
+      for (const key in setData) {
+        formDataReactiveProxy[key] = setData[key]
+      }
+    })
+    resetValidationMessages()
+  }
+
+  return { value: formDataReactiveProxy, getFormOptions, onSubmit, reset, set } as const
 }
