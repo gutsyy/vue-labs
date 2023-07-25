@@ -5,7 +5,7 @@
  * gutsyy 2023-07-20 created
  */
 
-import { type UnwrapRef } from 'vue'
+import { toRaw, type UnwrapRef } from 'vue'
 import { shallowReactive } from 'vue'
 import type { DataSources } from './useDataSources'
 import { useDataSources } from './useDataSources'
@@ -131,7 +131,7 @@ export function useForm<T extends Record<string, any>, DK extends keyof T, VK ex
   const onSubmit = function (callback: (data: typeof formData & Record<string, any>) => void) {
     // validate all validators
     if (executeAllValidators(formDataReactive)) {
-      callback({ ...formDataReactive, ...store })
+      callback({ ...toRaw(formDataReactive), ...store })
     }
   }
 
