@@ -1,6 +1,6 @@
 <template>
   <DxPopup v-bind="noUndefinedProps">
-    <FormContainer v-bind="noUndefinedProps">
+    <FormContainer v-bind="noUndefinedProps" @cancel="onCancel">
       <slot></slot>
     </FormContainer>
   </DxPopup>
@@ -8,7 +8,7 @@
 
 <script lang="ts" setup>
 import { DxPopup } from 'devextreme-vue/popup'
-import type { Properties } from 'devextreme/ui/popup'
+import type { HiddenEvent, Properties } from 'devextreme/ui/popup'
 import FormContainer from './form-container.vue'
 import { removeUndefinedProps } from '@/utils'
 import { FormContainerProps } from './types'
@@ -43,4 +43,13 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const noUndefinedProps = removeUndefinedProps(props)
+
+const onCancel = function (e: HiddenEvent) {
+  if (props.onCancel) {
+    props.onCancel()
+  }
+  if (props.onHidden) {
+    props.onHidden(e)
+  }
+}
 </script>
