@@ -44,12 +44,9 @@ type Props = BoxProperties & {
 // interface IgnoreProps extends /* @vue-ignore */ Props {}
 
 const props = withDefaults(defineProps<Props>(), {
-  placeholder: '请选择...',
   showSelectionControls: true,
   searchEnabled: false,
-  selectAllText: '全部选择',
   maxDisplayedTags: 4,
-  noDataText: '无数据',
   showClearButton: false,
   showDropDownButton: true
 })

@@ -55,8 +55,7 @@ const props = withDefaults(defineProps<Props>(), {
   itemsExpr: 'children',
   showCheckBoxesMode: 'normal',
   parentIdExpr: 'parentId',
-  keyExpr: 'id',
-  noDataText: '无数据'
+  keyExpr: 'id'
 })
 
 const box = useBox(props)

@@ -47,9 +47,7 @@ const props = withDefaults(defineProps<Props>(), {
   readOnly: undefined,
   disabled: undefined,
   visible: undefined,
-  rtlEnabled: undefined,
-  placeholder: '请选择...',
-  noDataText: '无数据'
+  rtlEnabled: undefined
 })
 
 const computedValue = computed(() => {

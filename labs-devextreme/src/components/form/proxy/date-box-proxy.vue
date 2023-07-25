@@ -43,8 +43,7 @@ const props = withDefaults(defineProps<Props>(), {
   disabled: undefined,
   visible: undefined,
   rtlEnabled: undefined,
-  dateSerializationFormat: 'yyyy-MM-dd',
-  dateOutOfRangeMessage: '所选日期超过可选范围'
+  dateSerializationFormat: 'yyyy-MM-dd'
 })
 
 const noUndefinedProps = removeUndefinedProps(props)
