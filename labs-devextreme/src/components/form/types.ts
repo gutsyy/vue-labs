@@ -4,4 +4,5 @@ export type FormContainerProps = {
   showConfirmButton?: boolean
   onConfirm?: () => void
   onCancel?: () => void
+  locale?: 'zh' | 'en'
 }
