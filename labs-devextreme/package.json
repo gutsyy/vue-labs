@@ -19,11 +19,12 @@
     "./style.css": "./dist/style.css"
   },
   "scripts": {
+    "replace test": "node ./scripts/replaceClassnamePrefix.cjs",
     "dev": "vite",
     "build": "run-p type-check build-only",
     "preview": "vite preview",
     "test:unit": "vitest",
-    "build-only": "rimraf dist && vite build && vue-tsc",
+    "build-only": "rimraf dist && vite build && vue-tsc && node ./scripts/replaceClassnamePrefix.cjs",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/"

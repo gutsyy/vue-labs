@@ -12,16 +12,8 @@ import type { Properties } from 'devextreme/ui/popup'
 import FormContainer from './form-container.vue'
 import { removeUndefinedProps } from '@/utils'
 import { FormContainerProps } from './types'
-import { onMounted } from 'vue'
 
 type Props = FormContainerProps & Properties
-
-onMounted(() => {
-  const tags = Array.from(document.getElementsByTagName('body'))
-  if (tags.length) {
-    tags[0].className = `${tags[0].className} labs-devextreme`
-  }
-})
 
 const props = withDefaults(defineProps<Props>(), {
   showCancelButton: undefined,

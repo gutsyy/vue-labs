@@ -7,12 +7,15 @@ module.exports = {
   plugins: [
     require('autoprefixer'),
     require('tailwindcss'),
-    purgecss({
-      content: ['./src/index.html', './src/**/*.vue'],
-      css: ['devextreme/dist/css/dx.light.css']
-    }),
+    // help replace devextreme classname `dx-` to `labs-` in .css file
     prefixer({
-      prefix: '.labs-devextreme'
+      prefix: '',
+      transform: function (prefix, selector) {
+        if (selector.includes('dx-')) {
+          return selector.replaceAll('dx-', 'labs-')
+        }
+        return selector
+      }
     })
   ]
 }
