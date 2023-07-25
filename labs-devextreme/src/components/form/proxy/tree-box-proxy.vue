@@ -123,7 +123,7 @@ const onContentReady = (e: ContentReadyEvent) => {
   if (props.onContentReady) {
     props.onContentReady(e)
   }
-  if (!props.value.length && props.boxActionType === 'default') {
+  if (props.value && !props.value.length && props.boxActionType === 'default') {
     // need fix: why need to setTimeout to make expandAll() work ??
     setTimeout(() => {
       e.component.expandAll()

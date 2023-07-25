@@ -104,26 +104,35 @@ export function useForm<T extends Record<string, any>, DK extends keyof T, VK ex
     return formOptions as any
   }
 
-  const onSubmit = function (callback: (data: typeof formDataReactive) => void) {
-    // validate all validators
-    if (executeAllValidators(formDataReactive)) {
-      callback(formDataReactive)
-    }
-  }
+  // store data not in formData, and use in onSubmit
+  let store: Record<string, any> = {}
 
   // reset form data / validate state
   const reset = function () {
     for (const key in defaultFormData) {
       formDataReactiveProxy[key] = defaultFormData[key]
     }
+    store = {}
     resetValidationMessages()
   }
 
-  const set = async function (setData: Partial<typeof formData>) {
+  const set = function (setData: Partial<typeof formData> & Record<string, any>) {
+    // store data not in formData, like `id`
     for (const key in setData) {
-      formDataReactiveProxy[key] = setData[key]
+      if (key in formDataReactiveProxy) {
+        formDataReactiveProxy[key as keyof T] = setData[key]
+      } else {
+        store[key] = setData[key]
+      }
     }
     resetValidationMessages()
+  }
+
+  const onSubmit = function (callback: (data: typeof formData & Record<string, any>) => void) {
+    // validate all validators
+    if (executeAllValidators(formDataReactive)) {
+      callback({ ...formDataReactive, ...store })
+    }
   }
 
   return { value: formDataReactiveProxy, getFormOptions, onSubmit, reset, set } as const

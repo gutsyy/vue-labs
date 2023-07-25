@@ -73,9 +73,16 @@ const editPopForm = function () {
     name: 'gy',
     gender: 'man',
     interest: 'esport',
-    tree: []
+    tree: [],
+    id: 123
   })
   popFormVis.value = true
+}
+
+const onSubmit = () => {
+  form.onSubmit((data) => {
+    console.log(data.id)
+  })
 }
 
 const onHiddenPopForm = function () {
@@ -213,12 +220,6 @@ const form = useForm(
     }
   }
 )
-
-const onSubmit = () => {
-  form.onSubmit((data) => {
-    console.log(data)
-  })
-}
 
 const onSetFormData = () => {
   form.value.department = { id: 0 }

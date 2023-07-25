@@ -1,6 +1,6 @@
 {
   "name": "@gutsyy/labs-devextreme",
-  "version": "0.0.9",
+  "version": "0.1.1",
   "type": "module",
   "files": [
     "dist"
