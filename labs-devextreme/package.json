@@ -1,6 +1,6 @@
 {
   "name": "@gutsyy/labs-devextreme",
-  "version": "0.1.2",
+  "version": "0.1.5",
   "type": "module",
   "files": [
     "dist"
@@ -72,5 +72,8 @@
       }
     },
     "./style.css": "./dist/style.css"
+  },
+  "dependencies": {
+    "classnames": "^2.3.2"
   }
 }
