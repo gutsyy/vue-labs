@@ -3,6 +3,8 @@ export type FormContainerProps = {
   showCancelButton?: boolean
   showConfirmButton?: boolean
   onConfirm?: () => void
+  confirmButtonClassName?: string
+  cancelButtonClassName?: string
   onCancel?: () => void
   locale?: 'zh' | 'en'
 }

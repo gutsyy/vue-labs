@@ -10,7 +10,7 @@ export default {
   plugins: [],
   safelist: [
     {
-      pattern: /grid-cols-(2|6|12)/
+      pattern: /grid-cols-(2|6|4|12)/
     },
     {
       pattern: /col-span-(1|2|3|4|6|12)/
