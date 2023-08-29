@@ -40,7 +40,6 @@ export default defineConfig({
         'devextreme-vue/tree-view',
         'devextreme-vue/tag-box',
         'devextreme-vue/button',
-        'devextreme/localization',
         'devextreme/data/array_store'
       ],
       output: {

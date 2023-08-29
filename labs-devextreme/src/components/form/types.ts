@@ -7,5 +7,4 @@ export type FormContainerProps = {
   confirmButtonClassName?: string
   cancelButtonClassName?: string
   onCancel?: () => void
-  locale?: 'zh' | 'en'
 }

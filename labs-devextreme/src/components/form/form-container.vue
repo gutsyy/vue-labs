@@ -14,15 +14,7 @@
 
 <script lang="ts" setup>
 import type { FormContainerProps } from './types'
-import { onBeforeMount } from 'vue'
-import zhMessages from 'devextreme/esm/localization/messages/zh.json'
-import { loadMessages, locale } from 'devextreme/localization'
 import { DxButton } from 'devextreme-vue/button'
-
-onBeforeMount(() => {
-  locale(props.locale)
-  loadMessages(zhMessages)
-})
 
 const props = withDefaults(defineProps<FormContainerProps>(), {
   className: '',
@@ -30,7 +22,6 @@ const props = withDefaults(defineProps<FormContainerProps>(), {
   showConfirmButton: true,
   showCancelButton: true,
   onConfirm: () => null,
-  onCancel: () => null,
-  locale: 'zh'
+  onCancel: () => null
 })
 </script>
