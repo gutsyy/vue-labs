@@ -1,6 +1,6 @@
 {
   "name": "@gutsyy/labs-devextreme",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "type": "module",
   "files": [
     "dist"
@@ -24,7 +24,7 @@
     "build": "run-p type-check build-only",
     "preview": "vite preview",
     "test:unit": "vitest",
-    "build-only": "rimraf dist && vite build && vue-tsc && node ./scripts/afterBundle.cjs",
+    "build-only": "rimraf dist && vite build && vue-tsc",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/"

@@ -1,6 +1,5 @@
 import type { App } from 'vue'
 import * as components from './components'
-import './assets/dx.generic.custom-scheme.css'
 import './style.css'
 
 function install(app: App) {

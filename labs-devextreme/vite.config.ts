@@ -24,7 +24,25 @@ export default defineConfig({
       name: '@gutsyy/labs-devextreme'
     },
     rollupOptions: {
-      external: ['vue', 'devextreme', 'devextreme-vue'],
+      external: [
+        'vue',
+        'devextreme',
+        'devextreme-vue',
+        'devextreme-vue/popup',
+        'devextreme-vue/check-box',
+        'devextreme-vue/date-box',
+        'devextreme-vue/number-box',
+        'devextreme-vue/radio-group',
+        'devextreme-vue/select-box',
+        'devextreme-vue/text-box',
+        'devextreme-vue/text-area',
+        'devextreme-vue/drop-down-box',
+        'devextreme-vue/tree-view',
+        'devextreme-vue/tag-box',
+        'devextreme-vue/button',
+        'devextreme/localization',
+        'devextreme/data/array_store'
+      ],
       output: {
         exports: 'named',
         globals: {

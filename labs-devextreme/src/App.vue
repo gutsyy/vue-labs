@@ -170,7 +170,7 @@ const form = useForm(
     interest: '',
     department: 0,
     ddl: '2023-07-23',
-    date: '',
+    date: null,
     radio: 1,
     tree: [4],
     remark: '',

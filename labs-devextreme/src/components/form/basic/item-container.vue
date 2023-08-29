@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-between items-center">
-    <div v-if="hasLabel" class="text-xs font-sans text-gray-600 mr-6" ref="label" :style="calStyle">
+    <div v-if="hasLabel" class="text-xs font-sans text-gray-600 mr-4" ref="label" :style="calStyle">
       {{ props.label }}<span v-if="props.isRequired" class="text-red-500 ml-1">*</span>
     </div>
     <div class="flex-1">

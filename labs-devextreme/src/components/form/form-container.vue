@@ -5,8 +5,8 @@
     </form>
     <div class="mt-4">
       <div class="flex justify-end">
-        <div :class="confirmButtonClassName" v-if="showConfirmButton" @click="onConfirm">确认</div>
-        <div :class="cancelButtonClassName" v-if="showCancelButton" @click="onCancel">取消</div>
+        <DxButton width="80" v-if="props.showConfirmButton" @click="props.onConfirm" type="default">确认</DxButton>
+        <DxButton class="ml-4" width="80" v-if="props.showCancelButton" @click="props.onCancel">取消</DxButton>
       </div>
     </div>
   </div>
@@ -17,7 +17,7 @@ import type { FormContainerProps } from './types'
 import { onBeforeMount } from 'vue'
 import zhMessages from 'devextreme/esm/localization/messages/zh.json'
 import { loadMessages, locale } from 'devextreme/localization'
-import classnames from 'classnames'
+import { DxButton } from 'devextreme-vue/button'
 
 onBeforeMount(() => {
   locale(props.locale)
@@ -32,13 +32,4 @@ const props = withDefaults(defineProps<FormContainerProps>(), {
   onCancel: () => null,
   locale: 'zh'
 })
-
-const confirmButtonClassName = classnames(
-  'px-6 flex items-center py-[.375rem] bg-blue-500 text-white rounded-md hover:bg-blue-400 select-none',
-  props.confirmButtonClassName ?? ''
-)
-const cancelButtonClassName = classnames(
-  'px-6 flex items-center py-[.375rem] border-gray-200 border-solid text-gray-700 rounded-md ml-4 hover:bg-gray-100 select-none',
-  props.cancelButtonClassName ?? ''
-)
 </script>
