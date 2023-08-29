@@ -1,10 +1,18 @@
 <template>
-  <div class="container">
-    <div class="button" @click="onOpen">打开表单</div>
-  </div>
-  <FormPopupContainer width="40vw" :visible="formVis" title="表单" @hidden="onClose" confirm-button-class-name="confirm-button">
-    <TextBoxProxy class="col-span-2" label-text="姓名"></TextBoxProxy>
-  </FormPopupContainer>
+  <ClientOnly>
+    <div class="container">
+      <div class="button" @click="onOpen">打开表单</div>
+    </div>
+    <FormPopupContainer
+      width="40vw"
+      :visible="formVis"
+      title="表单"
+      @hidden="onClose"
+      confirm-button-class-name="confirm-button"
+    >
+      <TextBoxProxy class="col-span-2" label-text="姓名"></TextBoxProxy>
+    </FormPopupContainer>
+  </ClientOnly>
 </template>
 
 <script setup>

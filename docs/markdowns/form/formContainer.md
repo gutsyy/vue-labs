@@ -2,6 +2,7 @@
 import FormContainerLayoutExample from '../../components/formContainerLayoutExample.vue'
 import FormContainerLocaleExample from '../../components/formContainerLocaleExample.vue'
 import '@gutsyy/labs-devextreme/style.css'
+import 'devextreme/dist/css/dx.light.css'
 </script>
 
 # FormContainer 组件
@@ -13,6 +14,14 @@ import '@gutsyy/labs-devextreme/style.css'
 
 ## 属性(Props)
 
+### className
+
+* Type: string
+
+* Default: undefined
+
+* 功能：注入class，例如覆盖 Grid 行间距 `className="grid-y-[1.125rem]"`
+
 ### cols
 
 * Type: `2 | 4 | 6 | 12`
@@ -20,14 +29,6 @@ import '@gutsyy/labs-devextreme/style.css'
 * Default: `2`
 
 * 功能： 网格设置，规定纵向有几个网格
-
-### locale
-
-* Type: `'zh' | 'en'`
-
-* Default: `'zh'`
-
-* 功能：语言选择，可控制被包裹输入组件的语言
 
 ### show-confirm-button
 
@@ -103,20 +104,3 @@ import '@gutsyy/labs-devextreme/style.css'
 ```
 :::
 
-## 中文化
-
-<FormContainerLocaleExample />
-
-:::details 显示代码
-```vue
-<template>
-  <FormContainer :showCancelButton="false" :showConfirmButton="false">
-    <SelectBoxProxy class="col-span-2" :items="[]"></SelectBoxProxy>
-  </FormContainer>
-</template>
-
-<script setup>
-import { FormContainer, SelectBoxProxy } from '@gutsyy/labs-devextreme'
-</script>
-```
-:::

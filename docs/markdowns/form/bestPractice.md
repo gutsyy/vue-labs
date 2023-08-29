@@ -1,4 +1,5 @@
 <script setup>
+import 'devextreme/dist/css/dx.light.css'
 import '@gutsyy/labs-devextreme/style.css'
 import ExampleForm from '../../components/exampleForm.vue'
 </script>

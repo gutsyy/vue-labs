@@ -17,6 +17,10 @@
     "vitepress": "1.0.0-beta.6"
   },
   "dependencies": {
-    "@gutsyy/labs-devextreme": "^0.1.5"
+    "@gutsyy/labs-devextreme": "^0.2.0",
+    "dayjs": "^1.11.9",
+    "devextreme": "23.1",
+    "devextreme-vue": "23.1",
+    "vue": "^3.3.4"
   }
 }

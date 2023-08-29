@@ -50,6 +50,12 @@
 
 * 功能：代理 `DxTextBox`
 
+### textarea-box-proxy
+
+* Props: `typeof dxTextareaBox` & [ProxyProps](#属性-props)
+
+* 功能：代理 `DxTextareaBox`
+
 ### check-box-proxy
 
 * value: `string | number`
@@ -60,11 +66,15 @@
 
 ### date-box-proxy
 
-* value: `string`
+* value: `string | null`
 
 * Props: `typeof dxDateBox` & [ProxyProps](#属性-props)
 
 * 功能：代理 `DxDateBox`
+
+:::danger 注意
+\<date-box-proxy /\> 默认值要使用 `null`，使用空字符串会导致一些问题，无法正常使用
+:::
 
 ### number-box-proxy
 
@@ -98,12 +108,6 @@
 
 * 功能：代理 `DxTagBox`，用于多选
 
-### textarea-box-proxy
-
-* Props: `typeof dxTextareaBox` & [ProxyProps](#属性-props)
-
-* 功能：代理 `DxTextareaBox`
-
 ### tree-box-proxy
 
 * value: `(string | number | object)[]`
@@ -111,3 +115,7 @@
 * Props: `typeof dxTreeView` & [ProxyProps](#属性-props)
 
 * 功能：通过 `DxDropdownBox` 和 `DxTreeView` 实现树形选择，支持单多选
+
+:::tip 为什么 \<tree-box-proxy /\> & \<tag-box-proxy /\> 可以使用 `string | number` 进行初始化？
+一般来说，item 的数据格式都是 Object，但很多场景中，我们需要初始选择，但我们前端可能只有 id 字段的值，这时可以直接设置 id 的值作为初始值，组件会在获取数据源后，自动根据 id 进行默认选择
+:::

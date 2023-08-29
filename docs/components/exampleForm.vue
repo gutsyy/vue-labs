@@ -1,31 +1,33 @@
 <template>
-  <main>
-    <FormPopupContainer
-      :title="popupTitle"
-      :visible="popupVis"
-      @confirm="onSubmit"
-      @hidden="onClose"
-      confirm-button-class-name="confirm-button"
-    >
-      <TextBoxProxy label-text="姓名" v-bind="form.getFormOptions('name')"></TextBoxProxy>
-      <NumberBoxProxy label-text="年龄" v-bind="form.getFormOptions('age')"></NumberBoxProxy>
-      <SelectBoxProxy label-text="性别" v-bind="form.getFormOptions('gender')"></SelectBoxProxy>
-      <SelectBoxProxy label-text="课程" v-bind="form.getFormOptions('lesson')"></SelectBoxProxy>
-      <DateBoxProxy label-text="预计完成日期" v-bind="form.getFormOptions('estimatedCompletionDate')"></DateBoxProxy>
-      <DateBoxProxy
-        label-text="最晚完成日期"
-        v-bind="form.getFormOptions('latestCompletionDate')"
-        :min="form.value.estimatedCompletionDate"
-      ></DateBoxProxy>
-      <TreeBoxProxy class="col-span-2" label-text="班级" v-bind="form.getFormOptions('class')"></TreeBoxProxy>
-      <TagBoxProxy label-text="角色" class="col-span-2" v-bind="form.getFormOptions('role')"></TagBoxProxy>
-      <RadioBoxProxy label-text="学生类型" v-bind="form.getFormOptions('studentType')"></RadioBoxProxy>
-    </FormPopupContainer>
-    <div class="button-container">
-      <div class="new-button" @click="() => onOpen()">新增</div>
-      <div class="edit-button" @click="onEdit">修改</div>
-    </div>
-  </main>
+  <ClientOnly>
+    <main>
+      <FormPopupContainer
+        :title="popupTitle"
+        :visible="popupVis"
+        @confirm="onSubmit"
+        @hidden="onClose"
+        confirm-button-class-name="confirm-button"
+      >
+        <TextBoxProxy label-text="姓名" v-bind="form.getFormOptions('name')"></TextBoxProxy>
+        <NumberBoxProxy label-text="年龄" v-bind="form.getFormOptions('age')"></NumberBoxProxy>
+        <SelectBoxProxy label-text="性别" v-bind="form.getFormOptions('gender')"></SelectBoxProxy>
+        <SelectBoxProxy label-text="课程" v-bind="form.getFormOptions('lesson')"></SelectBoxProxy>
+        <DateBoxProxy label-text="预计完成日期" v-bind="form.getFormOptions('estimatedCompletionDate')"></DateBoxProxy>
+        <DateBoxProxy
+          label-text="最晚完成日期"
+          v-bind="form.getFormOptions('latestCompletionDate')"
+          :min="form.value.estimatedCompletionDate"
+        ></DateBoxProxy>
+        <TreeBoxProxy class="col-span-2" label-text="班级" v-bind="form.getFormOptions('class')"></TreeBoxProxy>
+        <TagBoxProxy label-text="角色" class="col-span-2" v-bind="form.getFormOptions('role')"></TagBoxProxy>
+        <RadioBoxProxy label-text="学生类型" v-bind="form.getFormOptions('studentType')"></RadioBoxProxy>
+      </FormPopupContainer>
+      <div class="button-container">
+        <div class="new-button" @click="() => onOpen()">新增</div>
+        <div class="edit-button" @click="onEdit">修改</div>
+      </div>
+    </main>
+  </ClientOnly>
 </template>
 
 <script setup>

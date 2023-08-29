@@ -1,15 +1,17 @@
 <template>
-  <div class="container">
-    <div class="inputFormData">
-      <TextBoxProxy
-        width="220px"
-        label="form data"
-        :value="JSON.stringify(form.value)"
-        @value-changed="onValueChanged"
-      ></TextBoxProxy>
+  <ClientOnly>
+    <div class="container">
+      <div class="inputFormData">
+        <TextBoxProxy
+          width="220px"
+          label="form data"
+          :value="JSON.stringify(form.value)"
+          @value-changed="onValueChanged"
+        ></TextBoxProxy>
+      </div>
+      <SelectBoxProxy label-text="技术栈" v-bind="form.getFormOptions('stack')"></SelectBoxProxy>
     </div>
-    <SelectBoxProxy label-text="技术栈" v-bind="form.getFormOptions('stack')"></SelectBoxProxy>
-  </div>
+  </ClientOnly>
 </template>
 
 <script setup>

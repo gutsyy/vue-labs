@@ -1,13 +1,15 @@
 <template>
-  <FormContainer cols="4" :showCancelButton="false" :showConfirmButton="false">
-    <TextBoxProxy></TextBoxProxy>
-    <TextBoxProxy></TextBoxProxy>
-    <TextBoxProxy></TextBoxProxy>
-    <TextBoxProxy></TextBoxProxy>
-    <TextBoxProxy class="col-span-2"></TextBoxProxy>
-    <TextBoxProxy class="col-span-2"></TextBoxProxy>
-    <TextBoxProxy class="col-span-4"></TextBoxProxy>
-  </FormContainer>
+  <ClientOnly>
+    <FormContainer cols="4" :showCancelButton="false" :showConfirmButton="false">
+      <TextBoxProxy></TextBoxProxy>
+      <TextBoxProxy></TextBoxProxy>
+      <TextBoxProxy></TextBoxProxy>
+      <TextBoxProxy></TextBoxProxy>
+      <TextBoxProxy class="col-span-2"></TextBoxProxy>
+      <TextBoxProxy class="col-span-2"></TextBoxProxy>
+      <TextBoxProxy class="col-span-4"></TextBoxProxy>
+    </FormContainer>
+  </ClientOnly>
 </template>
 
 <script setup>

@@ -1,5 +1,6 @@
 <script setup>
 import "@gutsyy/labs-devextreme/style.css"
+import 'devextreme/dist/css/dx.light.css'
 import FormPopupContainerExample from '../../components/formPopupContainerExample.vue'
 </script>
 
