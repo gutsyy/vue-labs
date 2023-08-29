@@ -13,11 +13,11 @@ export function useAutoLabelWidth(labelNumber: number) {
   const labelWidth = ref<number>(0)
 
   const getLabelDefaultWidth = function (width: number) {
+    gotLabelWidthNumber++
+    if (width > maxWidth) maxWidth = width
     if (gotLabelWidthNumber === labelNumber) {
       labelWidth.value = maxWidth
     }
-    if (width > maxWidth) maxWidth = width
-    gotLabelWidthNumber++
   }
 
   return [labelWidth, getLabelDefaultWidth] as const
