@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form :class="`grid grid-cols-${props.cols} gap-x-6 gap-y-4`">
+    <form :class="`grid grid-cols-${props.cols} gap-x-6 gap-y-4 ${props.className}`">
       <slot></slot>
     </form>
     <div class="mt-4">
@@ -25,6 +25,7 @@ onBeforeMount(() => {
 })
 
 const props = withDefaults(defineProps<FormContainerProps>(), {
+  className: '',
   cols: '2',
   showConfirmButton: true,
   showCancelButton: true,
