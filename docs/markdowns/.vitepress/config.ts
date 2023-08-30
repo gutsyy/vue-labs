@@ -4,7 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   vite: {
     ssr: {
-      noExternal: ['@gutsyy/labs-devextreme', 'devextreme']
+      noExternal: ['devextreme']
     }
   },
   title: 'vue labs',
