@@ -6,7 +6,7 @@
 
 <script setup>
 import dayjs from 'dayjs'
-import { reactive } from 'vue'
+import { reactive, onMounted } from 'vue'
 
 const memoDay = dayjs('2019-12-15')
 
@@ -31,7 +31,8 @@ const calDiff = () => {
   diffs.second = diffSec
 }
 
-calDiff()
-
-setInterval(calDiff, 1000)
+onMounted(() => {
+  calDiff()
+  setInterval(calDiff, 1000)
+})
 </script>
