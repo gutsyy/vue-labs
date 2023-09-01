@@ -75,7 +75,7 @@ watch(
     if (props.boxActionType === 'default') {
       if (treeViewComponent) {
         treeViewComponent.unselectAll()
-        props.value.length ? treeViewComponent.collapseAll() : treeViewComponent.expandAll()
+        treeViewComponent.collapseAll()
       }
       clearTimeout(timer)
       timer = setTimeout(() => {
@@ -110,9 +110,11 @@ const initializedTreeView = (value?: any[]) => {
       return item
     })
     keys.forEach((v) => {
-      treeViewComponent?.selectItem(v)
-      treeViewComponent?.expandItem(v)
-      treeViewComponent?.scrollToItem(v)
+      if (treeViewComponent?.selectItem(v)) {
+        treeViewComponent?.expandItem(v).then(() => {
+          treeViewComponent?.scrollToItem(v)
+        })
+      }
     })
     initializedStatus = true
   }
@@ -121,12 +123,6 @@ const initializedTreeView = (value?: any[]) => {
 const onContentReady = (e: ContentReadyEvent) => {
   if (props.onContentReady) {
     props.onContentReady(e)
-  }
-  if (props.value && !props.value.length && props.boxActionType === 'default') {
-    // need fix: why need to setTimeout to make expandAll() work ??
-    setTimeout(() => {
-      e.component.expandAll()
-    }, 500)
   }
   initializedTreeView()
 }

@@ -25,6 +25,7 @@
             class="col-span-2"
             selection-mode="multiple"
             label-text="省份"
+            :virtual-mode-enabled="true"
             v-bind="form.getFormOptions('tree')"
           ></TreeBoxProxy>
           <TextareaBoxProxy label-text="备注" class="col-span-2" v-bind="form.getFormOptions('remark')"></TextareaBoxProxy>
@@ -60,6 +61,8 @@ import {
   NumberBoxProxy
 } from './components'
 
+import muchTreeNodesData from './data.json'
+
 const popFormVis = ref(false)
 
 const newPopForm = function () {
@@ -73,7 +76,7 @@ const editPopForm = function () {
     name: 'gy',
     gender: 'man',
     interest: 'esport',
-    tree: [],
+    tree: [31808],
     id: 123
   })
   popFormVis.value = true
@@ -179,7 +182,7 @@ const form = useForm(
   {
     dataSources: {
       tree: {
-        dataSource: getTreeData,
+        dataSource: () => new Promise((res) => setTimeout(() => res(muchTreeNodesData), 2000)),
         valueExpr: 'id',
         displayExpr: 'name'
       },
