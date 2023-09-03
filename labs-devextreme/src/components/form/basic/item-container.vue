@@ -30,7 +30,6 @@ const label = ref<HTMLDivElement>()
 
 const calStyle = computed(() => {
   if (props.width) {
-    // plus 2 to prevent width not enough for isRequired mark
     return { width: props.width + 'px' }
   }
   return undefined
