@@ -7,29 +7,35 @@
           <DxButton @click="editPopForm" class="ml-4" width="100">修改</DxButton>
         </div>
         <FormPopupContainer :visible="popFormVis" cols="2" title="新增" @confirm="onSubmit" @hidden="onHiddenPopForm">
-          <TextBoxProxy label-text="姓名" v-bind="form.getFormOptions('name')"></TextBoxProxy>
-          <NumberBoxProxy label-text="年龄" v-bind="form.getFormOptions('age')"></NumberBoxProxy>
-          <TagBoxProxy label-text="角色" v-bind="form.getFormOptions('role')"></TagBoxProxy>
-          <SelectBoxProxy label-text="性别" v-bind="form.getFormOptions('gender')"></SelectBoxProxy>
-          <SelectBoxProxy label-text="兴趣爱好" v-bind="form.getFormOptions('interest')"></SelectBoxProxy>
-          <SelectBoxProxy label-text="部门" v-bind="form.getFormOptions('department')"></SelectBoxProxy>
-          <TextBoxProxy label-text="截止日" v-bind="form.getFormOptions('ddl')"></TextBoxProxy>
-          <RadioBoxProxy label-text="选择" v-bind="form.getFormOptions('radio')"></RadioBoxProxy>
-          <DateBoxProxy
-            class="col-span-2"
-            label-text="完成日期"
-            v-bind="form.getFormOptions('date')"
-            :max="form.value.ddl"
-          ></DateBoxProxy>
-          <TreeBoxProxy
-            class="col-span-2"
-            selection-mode="multiple"
-            label-text="省份"
-            :virtual-mode-enabled="true"
-            v-bind="form.getFormOptions('tree')"
-          ></TreeBoxProxy>
-          <TextareaBoxProxy label-text="备注" class="col-span-2" v-bind="form.getFormOptions('remark')"></TextareaBoxProxy>
-          <CheckBoxProxy label-text="" text="是否完成" v-bind="form.getFormOptions('isFinish')" />
+          <GroupFormItems title="基本信息">
+            <TextBoxProxy label-text="姓名" v-bind="form.getFormOptions('name')"></TextBoxProxy>
+            <NumberBoxProxy label-text="年龄" v-bind="form.getFormOptions('age')"></NumberBoxProxy>
+            <TagBoxProxy label-text="角色" v-bind="form.getFormOptions('role')" :show-clear-button="true"></TagBoxProxy>
+            <SelectBoxProxy label-text="性别" v-bind="form.getFormOptions('gender')"></SelectBoxProxy>
+          </GroupFormItems>
+          <GroupFormItems title="其他信息">
+            <SelectBoxProxy label-text="兴趣爱好" v-bind="form.getFormOptions('interest')"></SelectBoxProxy>
+            <SelectBoxProxy label-text="部门" v-bind="form.getFormOptions('department')"></SelectBoxProxy>
+            <TextBoxProxy label-text="截止日" v-bind="form.getFormOptions('ddl')"></TextBoxProxy>
+            <RadioBoxProxy label-text="选择" v-bind="form.getFormOptions('radio')"></RadioBoxProxy>
+            <DateBoxProxy
+              class="col-span-2"
+              label-text="完成日期"
+              v-bind="form.getFormOptions('date')"
+              :max="form.value.ddl"
+            ></DateBoxProxy>
+            <TreeBoxProxy
+              class="col-span-2"
+              selection-mode="multiple"
+              label-text="省份"
+              :virtual-mode-enabled="true"
+              v-bind="form.getFormOptions('tree', { showClearButton: true, dropDownOptions: { width: 500 } })"
+            ></TreeBoxProxy>
+          </GroupFormItems>
+          <GroupFormItems title="杂项">
+            <TextareaBoxProxy label-text="备注" class="col-span-2" v-bind="form.getFormOptions('remark')"></TextareaBoxProxy>
+            <CheckBoxProxy label-text="" text="是否完成" v-bind="form.getFormOptions('isFinish')" />
+          </GroupFormItems>
         </FormPopupContainer>
       </div>
       <div class="mt-4 flex justify-center">
@@ -58,7 +64,8 @@ import {
   TextareaBoxProxy,
   CheckBoxProxy,
   FormPopupContainer,
-  NumberBoxProxy
+  NumberBoxProxy,
+  GroupFormItems
 } from './components'
 
 import muchTreeNodesData from './data.json'

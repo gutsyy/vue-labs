@@ -24,34 +24,44 @@ import { isProxy, toRaw } from 'vue'
 import { computed } from 'vue'
 import { ItemContainer } from '../basic'
 import { useBox, type BoxProperties } from './box'
+import { DxTagBoxProperties } from './types'
 
-type Props = BoxProperties & {
-  placeholder?: string
-  onSelectionChanged?: (e: any) => void
-  value: any[]
-  valueExpr?: string
-  dataSource?: any
-  displayExpr?: string
-  showSelectionControls?: boolean
-  searchEnabled?: boolean
-  selectAllText?: string
-  maxDisplayedTags?: number
-  noDataText?: string
-  showClearButton?: boolean
-  showDropDownButton?: boolean
-}
-
-// interface IgnoreProps extends /* @vue-ignore */ Props {}
+type Props = BoxProperties & DxTagBoxProperties & { value: any[] }
 
 const props = withDefaults(defineProps<Props>(), {
   showSelectionControls: true,
-  searchEnabled: false,
   maxDisplayedTags: 4,
-  showClearButton: false,
-  showDropDownButton: true
+  showDropDownButton: true,
+  visible: undefined,
+  isValid: undefined,
+  acceptCustomValue: undefined,
+  activeStateEnabled: undefined,
+  deferRendering: undefined,
+  disabled: undefined,
+  focusStateEnabled: undefined,
+  grouped: undefined,
+  hideSelectedItems: undefined,
+  hoverStateEnabled: undefined,
+  multiline: undefined,
+  openOnFieldClick: undefined,
+  opened: undefined,
+  readOnly: undefined,
+  rtlEnabled: undefined,
+  searchEnabled: undefined,
+  showClearButton: undefined,
+  showDataBeforeSearch: undefined,
+  showMultiTagOnly: undefined,
+  spellcheck: undefined,
+  useItemTextAsTitle: undefined,
+  useMaskedValue: undefined,
+  wrapItemText: undefined
 })
 
+console.log(props)
+
 const noUndefinedProps = removeUndefinedProps(props)
+
+console.log(noUndefinedProps)
 
 const computedValue = computed(() => {
   if (props.boxActionType === 'default' && computedValue.value?.length > 0) {
@@ -75,8 +85,8 @@ const onSelectionChanged = (e: SelectionChangedEvent) => {
     const rawAddItems = e.addedItems.map((item) => (isProxy(item) ? toRaw(item) : item))
     const rawRemovedItems = e.removedItems.map((item) => (isProxy(item) ? toRaw(item) : item))
 
-    const addItemsKeys = rawAddItems.map((item) => (props.valueExpr ? item[props.valueExpr] : item))
-    const removeItemsKeys = rawRemovedItems.map((item) => (props.valueExpr ? item[props.valueExpr] : item))
+    const addItemsKeys = rawAddItems.map((item) => (props.valueExpr ? item[props.valueExpr as string] : item))
+    const removeItemsKeys = rawRemovedItems.map((item) => (props.valueExpr ? item[props.valueExpr as string] : item))
 
     const rawValue = isProxy(value) ? toRaw(value) : value
     const rawRawValue = rawValue.map((item) => (isProxy(item) ? toRaw(item) : item))

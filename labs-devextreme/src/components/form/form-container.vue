@@ -5,8 +5,12 @@
     </form>
     <div class="mt-4">
       <div class="flex justify-end">
-        <DxButton width="80" v-if="props.showConfirmButton" @click="props.onConfirm" type="default">确认</DxButton>
-        <DxButton class="ml-4" width="80" v-if="props.showCancelButton" @click="props.onCancel">取消</DxButton>
+        <DxButton width="80" v-if="props.showConfirmButton" @click="props.onConfirm" type="default">{{
+          confirmButtonName
+        }}</DxButton>
+        <DxButton class="ml-4" width="80" v-if="props.showCancelButton" @click="props.onCancel">{{
+          cancelButtonName
+        }}</DxButton>
       </div>
     </div>
   </div>
@@ -22,6 +26,8 @@ const props = withDefaults(defineProps<FormContainerProps>(), {
   showConfirmButton: true,
   showCancelButton: true,
   onConfirm: () => null,
-  onCancel: () => null
+  onCancel: () => null,
+  confirmButtonName: '确认',
+  cancelButtonName: '取消'
 })
 </script>
