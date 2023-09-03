@@ -23,6 +23,8 @@ type CommonOptions = {
   validator: any
   boxActionType: 'default' | 'box-event'
   isRequired: boolean
+  // 特殊选项，如对于tree-box-proxy，使用options来配置dropDownBox
+  options: any
 }
 
 type ArrayItemOptions = CommonOptions & {
@@ -80,7 +82,20 @@ export function useForm<T extends Record<string, any>, DK extends keyof T, VK ex
   const { validationMessages, validatorsFunctions, executeAllValidators, isRequiredItems, resetValidationMessages } =
     useValidators(options ? options.validators : undefined)
 
-  const getFormOptions = function <K extends keyof T>(dataField: K): K extends DK ? ArrayItemOptions : CommonOptions {
+  /** if formOptions.property is Object, cache it, prevent rerender */
+  const cacheStore: any = {}
+
+  const getFromCacheStore = (key: keyof T, obj: any) => {
+    if (!cacheStore[key]) {
+      cacheStore[key] = obj
+    }
+    return cacheStore[key]
+  }
+
+  const getFormOptions = function <K extends keyof T>(
+    dataField: K,
+    options?: any
+  ): K extends DK ? ArrayItemOptions : CommonOptions {
     let formOptions: CommonOptions | ArrayItemOptions = {
       value: formDataReactive[dataField],
       onBoxValueChanged: onBoxValueChangedStore[dataField as string] ?? onBoxValueChanged(dataField),
@@ -89,7 +104,8 @@ export function useForm<T extends Record<string, any>, DK extends keyof T, VK ex
       validationMessage: validationMessages[dataField as string],
       validator: validatorsFunctions[dataField as string],
       boxActionType: actionsTypeReactive[dataField],
-      isRequired: isRequiredItems[dataField] ?? false
+      isRequired: isRequiredItems[dataField] ?? false,
+      options: getFromCacheStore(dataField, options)
     }
 
     if (dataSourcesRef[dataField as string]) {

@@ -9,7 +9,7 @@
         <FormPopupContainer :visible="popFormVis" cols="2" title="新增" @confirm="onSubmit" @hidden="onHiddenPopForm">
           <TextBoxProxy label-text="姓名" v-bind="form.getFormOptions('name')"></TextBoxProxy>
           <NumberBoxProxy label-text="年龄" v-bind="form.getFormOptions('age')"></NumberBoxProxy>
-          <TagBoxProxy label-text="角色" v-bind="form.getFormOptions('role')"></TagBoxProxy>
+          <TagBoxProxy label-text="角色" v-bind="form.getFormOptions('role')" :show-clear-button="true"></TagBoxProxy>
           <SelectBoxProxy label-text="性别" v-bind="form.getFormOptions('gender')"></SelectBoxProxy>
           <SelectBoxProxy label-text="兴趣爱好" v-bind="form.getFormOptions('interest')"></SelectBoxProxy>
           <SelectBoxProxy label-text="部门" v-bind="form.getFormOptions('department')"></SelectBoxProxy>
@@ -26,7 +26,7 @@
             selection-mode="multiple"
             label-text="省份"
             :virtual-mode-enabled="true"
-            v-bind="form.getFormOptions('tree')"
+            v-bind="form.getFormOptions('tree', { showClearButton: true, dropDownOptions: { width: 500 } })"
           ></TreeBoxProxy>
           <TextareaBoxProxy label-text="备注" class="col-span-2" v-bind="form.getFormOptions('remark')"></TextareaBoxProxy>
           <CheckBoxProxy label-text="" text="是否完成" v-bind="form.getFormOptions('isFinish')" />

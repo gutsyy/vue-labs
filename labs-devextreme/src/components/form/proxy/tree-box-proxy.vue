@@ -6,7 +6,7 @@
     :is-required="props.isRequired"
   >
     <DxDropDownBox
-      v-bind="props.dropDownBoxOptions"
+      v-bind="props.options"
       :value="dropdownBoxValue[0]"
       :dataSource="dropdownBoxValue[1]"
       :validation-error="box.validationInfo.validationError"
@@ -31,13 +31,13 @@ import { removeUndefinedProps } from '@/utils/removeUndefinedProps'
 import { DxDropDownBox } from 'devextreme-vue/drop-down-box'
 import { DxTreeView } from 'devextreme-vue/tree-view'
 import type { InitializedEvent, Properties, ContentReadyEvent, SelectionChangedEvent } from 'devextreme/ui/tree_view'
-import type { Properties as DropDownBoxOptions, ValueChangedEvent } from 'devextreme/ui/drop_down_box'
+import type { ValueChangedEvent } from 'devextreme/ui/drop_down_box'
 import { useBox, type BoxProperties } from './box'
 import ItemContainer from '../basic/item-container.vue'
 import dxTreeView from 'devextreme/ui/tree_view'
 import { computed, watch } from 'vue'
 
-type Props = { value: any[]; dropDownBoxOptions?: DropDownBoxOptions } & BoxProperties & Properties
+type Props = { value: any[] } & BoxProperties & Properties
 
 const props = withDefaults(defineProps<Props>(), {
   animationEnabled: undefined,
@@ -144,7 +144,7 @@ const onTreeViewInitialized = function (e: InitializedEvent) {
   }
 }
 
-const onSelectionChanged = function (e: SelectionChangedEvent, isClearAction?: boolean) {
+const onSelectionChanged = function (e: SelectionChangedEvent) {
   if (props.onSelectionChanged) {
     props.onSelectionChanged(e)
   }
@@ -161,10 +161,13 @@ const onSelectionChanged = function (e: SelectionChangedEvent, isClearAction?: b
   }
 }
 
-// for clear button click on dropDownBox
+// for clear button click on dropDownBox，clear all selection
 const onDropDownBoxValueChanged = function (e: ValueChangedEvent) {
   if (e.value === null && props.onBoxValueChanged) {
     props.onBoxValueChanged([])
+    if (treeViewComponent) {
+      treeViewComponent.unselectAll()
+    }
   }
 }
 </script>
