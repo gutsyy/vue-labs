@@ -11,6 +11,7 @@
       :on-selection-changed="onSelectionChanged"
       :validation-error="box.validationInfo.validationError"
       :validation-status="box.validationInfo.validationStatus"
+      :no-data-text="noDataText"
     ></DxSelectBox>
   </ItemContainer>
 </template>
@@ -21,9 +22,10 @@ import { DxSelectBox } from 'devextreme-vue/select-box'
 import type { Properties, SelectionChangedEvent } from 'devextreme/ui/select_box'
 import { computed } from 'vue'
 import { ItemContainer } from '../basic'
-import { useBox, type BoxProperties } from './box'
+import { useBox, type BoxProperties } from './useBox'
+import { AsyncBoxProperties, useAsyncBox } from './useAsyncBox'
 
-type Props = Properties & BoxProperties
+type Props = Properties & BoxProperties & AsyncBoxProperties
 
 const props = withDefaults(defineProps<Props>(), {
   acceptCustomValue: undefined,
@@ -49,6 +51,8 @@ const props = withDefaults(defineProps<Props>(), {
   visible: undefined,
   rtlEnabled: undefined
 })
+
+const { noDataText } = useAsyncBox(props)
 
 const computedValue = computed(() => {
   if (props.boxActionType === 'default' && (computedValue.value || computedValue.value === 0)) {
@@ -82,3 +86,4 @@ const onSelectionChanged = (e: SelectionChangedEvent) => {
   box.validatorExecutor(e.selectedItem)
 }
 </script>
+./useBox

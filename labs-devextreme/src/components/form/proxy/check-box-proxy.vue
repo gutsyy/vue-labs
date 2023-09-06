@@ -18,7 +18,7 @@
 import { DxCheckBox } from 'devextreme-vue/check-box'
 import type { Properties, ValueChangedEvent } from 'devextreme/ui/check_box'
 import { ItemContainer } from '../basic'
-import { useBox, type BoxProperties } from './box'
+import { useBox, type BoxProperties } from './useBox'
 import { removeUndefinedProps } from '@/utils/removeUndefinedProps'
 
 type Props = Properties & BoxProperties
@@ -51,3 +51,4 @@ const onValueChanged = function (e: ValueChangedEvent) {
   }
 }
 </script>
+./useBox

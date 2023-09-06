@@ -6,7 +6,15 @@
           <DxButton @click="newPopForm" width="100" type="default">新增</DxButton>
           <DxButton @click="editPopForm" class="ml-4" width="100">修改</DxButton>
         </div>
-        <FormPopupContainer :visible="popFormVis" cols="2" title="新增" @confirm="onSubmit" @hidden="onHiddenPopForm">
+        <FormPopupContainer
+          :visible="popFormVis"
+          :defer-rendering="true"
+          :refetch-on-hidden="true"
+          cols="2"
+          title="新增"
+          @confirm="onSubmit"
+          @hidden="onHiddenPopForm"
+        >
           <GroupFormItems title="基本信息">
             <TextBoxProxy label-text="姓名" v-bind="form.getFormOptions('name')"></TextBoxProxy>
             <NumberBoxProxy label-text="年龄" v-bind="form.getFormOptions('age')"></NumberBoxProxy>
@@ -29,7 +37,13 @@
               selection-mode="multiple"
               label-text="省份"
               :virtual-mode-enabled="true"
-              v-bind="form.getFormOptions('tree', { showClearButton: true, dropDownOptions: { width: 500 } })"
+              v-bind="
+                form.getFormOptions('tree', {
+                  showClearButton: true,
+                  dropDownOptions: { width: 500 },
+                  placeholder: '请选择省份'
+                })
+              "
             ></TreeBoxProxy>
           </GroupFormItems>
           <GroupFormItems title="杂项">
@@ -52,7 +66,7 @@
 
 <script setup lang="ts">
 import { DxButton } from 'devextreme-vue'
-import { computed, isProxy, toRaw, ref } from 'vue'
+import { computed, isProxy, toRaw, ref, onBeforeMount } from 'vue'
 import { useForm } from './components/form/hooks/useForm'
 import {
   TextBoxProxy,
@@ -70,6 +84,14 @@ import {
 
 import muchTreeNodesData from './data.json'
 
+import zhMessages from 'devextreme/esm/localization/messages/zh.json'
+import { loadMessages, locale } from 'devextreme/localization'
+
+onBeforeMount(() => {
+  locale('zh')
+  loadMessages(zhMessages)
+})
+
 const popFormVis = ref(false)
 
 const newPopForm = function () {
@@ -83,7 +105,7 @@ const editPopForm = function () {
     name: 'gy',
     gender: 'man',
     interest: 'esport',
-    tree: [31808],
+    tree: ['32027'],
     id: 123
   })
   popFormVis.value = true
@@ -127,6 +149,7 @@ const getInterestData = (data: any) => {
 }
 
 const getDepartmentData = () => {
+  console.log('refetch')
   return new Promise((resolve) => {
     setTimeout(
       () =>
@@ -134,7 +157,7 @@ const getDepartmentData = () => {
           { deptName: 'A', id: 0 },
           { deptName: 'B', id: 1 }
         ]),
-      300
+      3000
     )
   })
 }
@@ -182,14 +205,14 @@ const form = useForm(
     ddl: '2023-07-23',
     date: null,
     radio: 1,
-    tree: [4],
+    tree: ['31887'],
     remark: '',
     isFinish: false
   },
   {
     dataSources: {
       tree: {
-        dataSource: () => new Promise((res) => setTimeout(() => res(muchTreeNodesData), 2000)),
+        dataSource: () => new Promise((res) => setTimeout(() => res(muchTreeNodesData), 3000)),
         valueExpr: 'id',
         displayExpr: 'name'
       },
@@ -211,7 +234,10 @@ const form = useForm(
         displayExpr: 'deptName'
       },
       radio: {
-        dataSource: getRadioData,
+        dataSource: [
+          { name: 'A', id: 0 },
+          { name: 'B', id: 1 }
+        ],
         displayExpr: 'name',
         valueExpr: 'id'
       }

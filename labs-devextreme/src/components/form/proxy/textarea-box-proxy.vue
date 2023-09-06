@@ -18,7 +18,7 @@
 import { DxTextArea } from 'devextreme-vue/text-area'
 import { ItemContainer } from '../basic'
 import type { Properties, ValueChangedEvent } from 'devextreme/ui/text_area'
-import { useBox, type BoxProperties } from './box'
+import { useBox, type BoxProperties } from './useBox'
 import { removeUndefinedProps } from '@/utils/removeUndefinedProps'
 
 type Props = Properties & BoxProperties
@@ -52,3 +52,4 @@ const onValueChanged = function (e: ValueChangedEvent) {
   }
 }
 </script>
+./useBox

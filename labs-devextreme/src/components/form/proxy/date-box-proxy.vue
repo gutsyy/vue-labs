@@ -19,7 +19,7 @@ import { removeUndefinedProps } from '@/utils/removeUndefinedProps'
 import { DxDateBox } from 'devextreme-vue/date-box'
 import type { Properties, ValueChangedEvent } from 'devextreme/ui/date_box'
 import { ItemContainer } from '../basic'
-import { useBox, type BoxProperties } from './box'
+import { useBox, type BoxProperties } from './useBox'
 
 type Props = Properties & BoxProperties
 
@@ -60,3 +60,4 @@ const onValueChanged = (e: ValueChangedEvent) => {
   box.validatorExecutor(e.value)
 }
 </script>
+./useBox

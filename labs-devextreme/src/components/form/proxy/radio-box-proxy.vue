@@ -19,9 +19,10 @@ import { removeUndefinedProps } from '@/utils/removeUndefinedProps'
 import { DxRadioGroup } from 'devextreme-vue/radio-group'
 import type { Properties, ValueChangedEvent } from 'devextreme/ui/radio_group'
 import { ItemContainer } from '../basic'
-import { useBox, type BoxProperties } from './box'
+import { useBox, type BoxProperties } from './useBox'
+import { AsyncBoxProperties, useAsyncBox } from './useAsyncBox'
 
-type Props = Properties & BoxProperties
+type Props = Properties & BoxProperties & AsyncBoxProperties
 
 const validationError = {
   message: ''
@@ -39,6 +40,8 @@ const props = withDefaults(defineProps<Props>(), {
   layout: 'horizontal'
 })
 
+useAsyncBox(props)
+
 const box = useBox(props)
 
 const onValueChanged = (e: ValueChangedEvent) => {
@@ -53,3 +56,4 @@ const onValueChanged = (e: ValueChangedEvent) => {
 
 const noUndefinedProps = removeUndefinedProps(props)
 </script>
+./useBox

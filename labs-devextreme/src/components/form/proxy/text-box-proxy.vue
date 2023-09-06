@@ -17,7 +17,7 @@
 import { DxTextBox } from 'devextreme-vue/text-box'
 import type { Properties, ValueChangedEvent } from 'devextreme/ui/text_box'
 import { ItemContainer } from '../basic'
-import { useBox, type BoxProperties } from './box'
+import { useBox, type BoxProperties } from './useBox'
 import { removeUndefinedProps } from '@/utils/removeUndefinedProps'
 
 type Props = Properties & BoxProperties
@@ -50,3 +50,4 @@ const onValueChanged = (e: ValueChangedEvent) => {
   box.validatorExecutor(e.value)
 }
 </script>
+./useBox
