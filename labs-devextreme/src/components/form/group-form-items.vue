@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-const props = withDefaults(defineProps<{ title: string; cols: string }>(), {
+const props = withDefaults(defineProps<{ title: string; cols?: string }>(), {
   cols: '2'
 })
 </script>

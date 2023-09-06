@@ -19,7 +19,7 @@ import { removeUndefinedProps } from '@/utils/removeUndefinedProps'
 import { DxNumberBox } from 'devextreme-vue/number-box'
 import type { Properties, ValueChangedEvent } from 'devextreme/ui/number_box'
 import { ItemContainer } from '../basic'
-import { useBox, type BoxProperties } from './box'
+import { useBox, type BoxProperties } from './useBox'
 
 type Props = Properties & BoxProperties
 
@@ -53,3 +53,4 @@ const onValueChanged = (e: ValueChangedEvent) => {
   box.validatorExecutor(e.value)
 }
 </script>
+./useBox

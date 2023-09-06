@@ -13,6 +13,7 @@
       :validation-status="box.validationInfo.validationStatus"
       :search-enabled="props.searchEnabled"
       :search-expr="props.displayExpr"
+      :no-data-text="noDataText"
     ></DxTagBox>
   </ItemContainer>
 </template>
@@ -23,10 +24,11 @@ import type { SelectionChangedEvent } from 'devextreme/ui/tag_box'
 import { isProxy, toRaw } from 'vue'
 import { computed } from 'vue'
 import { ItemContainer } from '../basic'
-import { useBox, type BoxProperties } from './box'
+import { useBox, type BoxProperties } from './useBox'
 import { DxTagBoxProperties } from './types'
+import { AsyncBoxProperties, useAsyncBox } from './useAsyncBox'
 
-type Props = BoxProperties & DxTagBoxProperties & { value: any[] }
+type Props = BoxProperties & DxTagBoxProperties & { value: any[] } & AsyncBoxProperties
 
 const props = withDefaults(defineProps<Props>(), {
   showSelectionControls: true,
@@ -57,11 +59,9 @@ const props = withDefaults(defineProps<Props>(), {
   wrapItemText: undefined
 })
 
-console.log(props)
+const { noDataText } = useAsyncBox(props)
 
 const noUndefinedProps = removeUndefinedProps(props)
-
-console.log(noUndefinedProps)
 
 const computedValue = computed(() => {
   if (props.boxActionType === 'default' && computedValue.value?.length > 0) {
@@ -123,3 +123,4 @@ const onSelectionChanged = (e: SelectionChangedEvent) => {
   }
 }
 </script>
+./useBox

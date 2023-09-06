@@ -43,6 +43,8 @@ export function useDataSources<T extends Record<string, any>, DK extends keyof T
     }, {})
   )
 
+  const getAsyncDatasourceMap: Record<string, () => Promise<boolean>> = {}
+
   for (const key in dataSources) {
     const { dataSource, dependencies, valueExpr, displayExpr } = dataSources[key]
 
@@ -59,12 +61,19 @@ export function useDataSources<T extends Record<string, any>, DK extends keyof T
     }
 
     const fetchDataSaved = (asyncFn: (t: ShallowReactive<T>) => Promise<any>) => {
-      asyncFn(formData).then((data: any) => {
-        dataSourcesRef[key].dataSource = Array.isArray(data) ? createStoreIfNecessary(data) : []
+      return new Promise<boolean>((resolve) => {
+        asyncFn(formData).then((data: any) => {
+          dataSourcesRef[key].dataSource = Array.isArray(data) ? createStoreIfNecessary(data) : []
+          resolve(true)
+        })
       })
     }
 
-    fetchDataSaved(getDataAsync)
+    if (Array.isArray(dataSource)) {
+      fetchDataSaved(getDataAsync)
+    } else {
+      getAsyncDatasourceMap[key] = () => fetchDataSaved(getDataAsync)
+    }
 
     if (dependencies) {
       for (const dependency of dependencies) {
@@ -76,5 +85,5 @@ export function useDataSources<T extends Record<string, any>, DK extends keyof T
     }
   }
 
-  return dataSourcesRef
+  return { dataSourcesRef, getAsyncDatasourceMap } as const
 }

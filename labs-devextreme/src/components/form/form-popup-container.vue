@@ -1,6 +1,11 @@
 <template>
   <DxPopup v-bind="noUndefinedProps">
-    <FormContainer v-bind="noUndefinedProps" @cancel="onCancel">
+    <template v-if="deferRendering" #content>
+      <FormContainer v-bind="noUndefinedProps" @cancel="onCancel">
+        <slot></slot>
+      </FormContainer>
+    </template>
+    <FormContainer v-if="!deferRendering" v-bind="noUndefinedProps" @cancel="onCancel">
       <slot></slot>
     </FormContainer>
   </DxPopup>
@@ -12,8 +17,9 @@ import type { HiddenEvent, Properties } from 'devextreme/ui/popup'
 import FormContainer from './form-container.vue'
 import { removeUndefinedProps } from '@/utils'
 import { FormContainerProps } from './types'
+import { computed, provide } from 'vue'
 
-type Props = FormContainerProps & Properties
+type Props = FormContainerProps & Properties & { refetchOnHidden?: boolean }
 
 const props = withDefaults(defineProps<Props>(), {
   showCancelButton: undefined,
@@ -39,8 +45,16 @@ const props = withDefaults(defineProps<Props>(), {
   rtlEnabled: undefined,
   maxHeight: '80vh',
   height: 'auto',
-  deferRendering: true
+  deferRendering: false,
+  refetchOnHidden: false
 })
+
+const popupFormVis = computed(() => props.visible)
+const refetchOnHidden = computed(() => props.refetchOnHidden)
+
+// Provide visible state to help form items to refresh datasource when visible
+provide('popupFormVis', popupFormVis)
+provide('refetchOnHidden', refetchOnHidden)
 
 const noUndefinedProps = removeUndefinedProps(props)
 

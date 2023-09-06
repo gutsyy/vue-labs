@@ -17,6 +17,7 @@
       <template #content>
         <DxTreeView
           v-bind="noUndefinedProps"
+          :no-data-text="noDataText"
           :on-initialized="onTreeViewInitialized"
           :on-selection-changed="onSelectionChanged"
           :on-content-ready="onContentReady"
@@ -32,12 +33,13 @@ import { DxDropDownBox } from 'devextreme-vue/drop-down-box'
 import { DxTreeView } from 'devextreme-vue/tree-view'
 import type { InitializedEvent, Properties, ContentReadyEvent, SelectionChangedEvent } from 'devextreme/ui/tree_view'
 import type { ValueChangedEvent } from 'devextreme/ui/drop_down_box'
-import { useBox, type BoxProperties } from './box'
+import { useBox, type BoxProperties } from './useBox'
 import ItemContainer from '../basic/item-container.vue'
 import dxTreeView from 'devextreme/ui/tree_view'
 import { computed, watch } from 'vue'
+import { AsyncBoxProperties, useAsyncBox } from './useAsyncBox'
 
-type Props = { value: any[] } & BoxProperties & Properties
+type Props = { value: any[] } & BoxProperties & Properties & AsyncBoxProperties
 
 const props = withDefaults(defineProps<Props>(), {
   animationEnabled: undefined,
@@ -60,6 +62,8 @@ const props = withDefaults(defineProps<Props>(), {
   parentIdExpr: 'parentId',
   keyExpr: 'id'
 })
+
+const { noDataText } = useAsyncBox(props)
 
 const box = useBox(props)
 
@@ -171,3 +175,4 @@ const onDropDownBoxValueChanged = function (e: ValueChangedEvent) {
   }
 }
 </script>
+./useBox

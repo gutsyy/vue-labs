@@ -32,6 +32,7 @@ type ArrayItemOptions = CommonOptions & {
   dataSource: any
   valueExpr: any
   displayExpr: any
+  getAsyncDataSource: () => Promise<boolean>
 }
 
 export function useForm<T extends Record<string, any>, DK extends keyof T, VK extends keyof T>(
@@ -75,7 +76,7 @@ export function useForm<T extends Record<string, any>, DK extends keyof T, VK ex
     return onBoxValueChangedStore[dataField as string]
   }
 
-  const dataSourcesRef = useDataSources(options ? options.dataSources : undefined, formDataReactive)
+  const { dataSourcesRef, getAsyncDatasourceMap } = useDataSources(options ? options.dataSources : undefined, formDataReactive)
 
   const [labelWidth, getLabelDefaultWidth] = useAutoLabelWidth(Object.keys(formData).length)
 
@@ -113,7 +114,8 @@ export function useForm<T extends Record<string, any>, DK extends keyof T, VK ex
         ...formOptions,
         dataSource: dataSourcesRef[dataField as string].dataSource,
         valueExpr: dataSourcesRef[dataField as string].valueExpr,
-        displayExpr: dataSourcesRef[dataField as string].displayExpr
+        displayExpr: dataSourcesRef[dataField as string].displayExpr,
+        getAsyncDataSource: getAsyncDatasourceMap[dataField as string]
       }
     }
 
