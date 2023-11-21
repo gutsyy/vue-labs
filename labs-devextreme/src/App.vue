@@ -145,7 +145,7 @@ const getInterestData = (data: any) => {
     return returnPromise(['esport', 'basketball'])
   }
 
-  return returnPromise([])
+  return returnPromise(['dance'])
 }
 
 const getDepartmentData = () => {

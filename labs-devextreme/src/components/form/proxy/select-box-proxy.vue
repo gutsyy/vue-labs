@@ -56,7 +56,7 @@ const { noDataText } = useAsyncBox(props)
 
 const computedValue = computed(() => {
   if (props.boxActionType === 'default' && (computedValue.value || computedValue.value === 0)) {
-    return null
+    props.onBoxValueChanged?.(props.value)
   }
   if (props.valueExpr && typeof props.value === 'object' && props.value !== null) {
     return props.value[props.valueExpr as string]
@@ -71,9 +71,7 @@ const noUndefinedProps = removeUndefinedProps(props)
 const onSelectionChanged = (e: SelectionChangedEvent) => {
   if (props.onBoxValueChanged) {
     if (e.selectedItem === null) {
-      if (props.boxActionType === 'default') {
-        props.onBoxValueChanged(props.value)
-      } else {
+      if (props.boxActionType !== 'default') {
         props.onBoxValueChanged(e.selectedItem)
       }
     } else {

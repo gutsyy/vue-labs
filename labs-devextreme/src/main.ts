@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import './assets/dx.generic.custom-scheme.css'
+import TestCom from './TestCom.vue'
+import 'devextreme/dist/css/dx.light.css'
 import './style.css'
 
-createApp(App).mount('#app')
+createApp(TestCom).mount('#app')

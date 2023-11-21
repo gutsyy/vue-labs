@@ -23,5 +23,5 @@
     }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/index.js"],
-  "exclude": ["src/App.vue", "src/main.ts"]
+  "exclude": ["src/App.vue", "src/main.ts", "src/TestCom.vue"]
 }
